@@ -108,7 +108,7 @@ export default function SearchPage() {
             <div className="relative flex-1">
               <Search
                 size={19}
-                className="absolute left-4 top-1/2 -translate-y-1/2 text-[#8A8577]"
+                className="absolute left-4 top-1/2 -translate-y-1/2  text-[#8A8577] "
               />
 
               <input
@@ -117,14 +117,14 @@ export default function SearchPage() {
                   setQuery(event.target.value)
                 }
                 placeholder="Search chicken, pasta, rice..."
-                className="w-full rounded-full border border-[#D8D3C7] bg-white py-3.5 pl-11 pr-5 text-[#2B2620] outline-none transition placeholder:text-[#9A9588] focus:border-[#1F3D2E] focus:ring-2 focus:ring-[#1F3D2E]/10"
+                className="w-full rounded-full border border-[#D8D3C7] bg-white py-3.5 pl-11 pr-5 text-black outline-none transition placeholder:text-[#9A9588] focus:border-[#1F3D2E] focus:ring-2 focus:ring-[#1F3D2E]/10"
               />
             </div>
 
             <button
               type="submit"
               disabled={loading}
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#1F3D2E] px-7 py-3.5 font-semibold text-white transition hover:bg-[#284D3A] disabled:cursor-not-allowed disabled:opacity-60"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#E8A33D] px-7 py-3.5 font-semibold text-white transition  disabled:cursor-not-allowed disabled:opacity-60 b cursor-pointer hover:bg-[#b17822]"
             >
               {loading ? (
                 <>

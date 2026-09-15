@@ -288,7 +288,8 @@ export default function IngredientsPage() {
                 href={meal.strYoutube}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-7 inline-flex w-fit items-center gap-2 rounded-full border border-[#1F3D2E]/20 bg-white px-5 py-3 text-sm font-semibold text-[#1F3D2E] shadow-sm transition-all duration-200 hover:border-[#E8A33D] hover:bg-[#E8A33D] hover:text-white hover:shadow-md dark:border-[#E8A33D]/30 dark:bg-[#1C241E] dark:text-[#F4F1E8]">
+                className="mt-7 inline-flex w-fit items-center gap-2 rounded-full border border-[#1F3D2E]/20 bg-white px-5 py-3 text-sm font-semibold text-[#1F3D2E] shadow-sm transition-all duration-200 hover:border-[#E8A33D] hover:bg-[#E8A33D] hover:text-white hover:shadow-md dark:border-[#E8A33D]/40 dark:bg-[#1C241E] dark:text-[#F4F1E8] dark:hover:bg-[#E8A33D] dark:hover:text-[#1F3D2E]"
+              >
                 <Play size={16} />
                 Watch Recipe
                 <ExternalLink size={14} />
