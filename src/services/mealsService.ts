@@ -1,0 +1,41 @@
+import type { Meal } from "../types/meal";
+
+const API_URL = "http://localhost:8080/api/v1";
+
+interface MealsResponse {
+  success: boolean;
+  data: Meal[];
+  pagination?: {
+    page: number;
+    limit: number;
+    total: number;
+    totalPages: number;
+  };
+}
+
+export const mealsService = {
+  async getAllMeals(): Promise<Meal[]> {
+    const url = `${API_URL}/meals?page=1&limit=10`;
+
+    // console.log("API URL:", API_URL);
+    // console.log("REQUESTING:", url);
+
+    const response = await fetch(url);
+
+    // console.log("STATUS:", response.status);
+
+    if (!response.ok) {
+      const errorText = await response.text();
+
+      console.error("API ERROR:", errorText);
+
+      throw new Error("Failed to fetch meals");
+    }
+
+    const result: MealsResponse = await response.json();
+
+    // console.log("API RESPONSE:", result); 
+
+    return result.data;
+  },
+};
