@@ -91,7 +91,7 @@ export default function RegisterPage() {
           <div className="text-center">
             <Link
               to="/hompage"
-              className="font-serif text-3xl font-semibold text-[#1F3D2E]"
+              className="font-serif text-3xl font-semibold text-[#1f3d2e]"
             >
               Harvest
               <span className="text-[#E8A33D]">
@@ -129,7 +129,7 @@ export default function RegisterPage() {
                   placeholder="Your name"
                   autoComplete="name"
                   required
-                  className="mt-2 w-full rounded-lg border border-[#E4DFD3] bg-[#FDFCF9] px-4 py-3 text-sm text-[#2B2620] outline-none transition focus:border-[#1F3D2E] focus:ring-2 focus:ring-[#1F3D2E]/10"
+                  className="mt-2 w-full rounded-lg border border-[#E4DFD3] bg-[#FDFCF9] px-4 py-3 text-sm text-[#2B2620] outline-none transition focus:border-[#1f3d2e] focus:ring-2 focus:ring-[#1f3d2e]/10"
                 />
               </label>
 
@@ -147,7 +147,7 @@ export default function RegisterPage() {
                   placeholder="you@example.com"
                   autoComplete="email"
                   required
-                  className="mt-2 w-full rounded-lg border border-[#E4DFD3] bg-[#FDFCF9] px-4 py-3 text-sm text-[#2B2620] outline-none transition focus:border-[#1F3D2E] focus:ring-2 focus:ring-[#1F3D2E]/10"
+                  className="mt-2 w-full rounded-lg border border-[#E4DFD3] bg-[#FDFCF9] px-4 py-3 text-sm text-[#2B2620] outline-none transition focus:border-[#1f3d2e] focus:ring-2 focus:ring-[#1f3d2e]/10"
                 />
               </label>
 
@@ -165,7 +165,7 @@ export default function RegisterPage() {
                   placeholder="Create a password"
                   autoComplete="new-password"
                   required
-                  className="mt-2 w-full rounded-lg border border-[#E4DFD3] bg-[#FDFCF9] px-4 py-3 text-sm text-[#2B2620] outline-none transition focus:border-[#1F3D2E] focus:ring-2 focus:ring-[#1F3D2E]/10"
+                  className="mt-2 w-full rounded-lg border border-[#E4DFD3] bg-[#FDFCF9] px-4 py-3 text-sm text-[#2B2620] outline-none transition focus:border-[#1f3d2e] focus:ring-2 focus:ring-[#1f3d2e]/10"
                 />
 
                 <p className="mt-1.5 text-xs text-[#8A8577]">
@@ -187,7 +187,7 @@ export default function RegisterPage() {
                   placeholder="Confirm your password"
                   autoComplete="new-password"
                   required
-                  className="mt-2 w-full rounded-lg border border-[#E4DFD3] bg-[#FDFCF9] px-4 py-3 text-sm text-[#2B2620] outline-none transition focus:border-[#1F3D2E] focus:ring-2 focus:ring-[#1F3D2E]/10"
+                  className="mt-2 w-full rounded-lg border border-[#E4DFD3] bg-[#FDFCF9] px-4 py-3 text-sm text-[#2B2620] outline-none transition focus:border-[#1f3d2e] focus:ring-2 focus:ring-[#1f3d2e]/10"
                 />
               </label>
 
@@ -204,7 +204,7 @@ export default function RegisterPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full rounded-full bg-[#1F3D2E] py-3 text-sm font-semibold text-[#F7F4EE] transition-all duration-200 hover:bg-[#284D3A] hover:shadow-md disabled:cursor-not-allowed disabled:opacity-60"
+                className="w-full rounded-full bg-[#1f3d2e] py-3 text-sm font-semibold text-[#F7F4EE] transition-all duration-200 hover:bg-[#284D3A] hover:shadow-md disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {loading
                   ? "Creating account..."
@@ -213,11 +213,11 @@ export default function RegisterPage() {
             </form>
 
             {/* Login */}
-            <p className="mt-7 text-center text-sm text-[#6B6656]">
+            <p className="mt-7 text-center text-sm text-[#000000] ">
               Already have an account?{" "}
               <Link
                 to="/login"
-                className="font-semibold text-[#1F3D2E] transition-colors hover:text-[#E8A33D]"
+                className="font-semibold text-[#070808] transition-colors  hover:text-[#E8A33D]"
               >
                 Log in
               </Link>

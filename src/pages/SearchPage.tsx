@@ -91,7 +91,7 @@ export default function SearchPage() {
             <div className="h-px w-10 bg-[#E8A33D]" />
           </div>
 
-          <h1 className="font-serif text-4xl font-semibold text-[#1F3D2E] md:text-5xl">
+          <h1 className="font-serif text-4xl font-semibold text-[#1f3d2e] md:text-5xl">
             Search Recipes
           </h1>
 
@@ -117,7 +117,7 @@ export default function SearchPage() {
                   setQuery(event.target.value)
                 }
                 placeholder="Search chicken, pasta, rice..."
-                className="w-full rounded-full border border-[#D8D3C7] bg-white py-3.5 pl-11 pr-5 text-black outline-none transition placeholder:text-[#9A9588] focus:border-[#1F3D2E] focus:ring-2 focus:ring-[#1F3D2E]/10"
+                className="w-full rounded-full border border-[#D8D3C7] bg-white py-3.5 pl-11 pr-5 text-black outline-none transition placeholder:text-[#9A9588] focus:border-[#1f3d2e] focus:ring-2 focus:ring-[#1f3d2e]/10"
               />
             </div>
 
@@ -153,7 +153,7 @@ export default function SearchPage() {
             <div className="text-center">
               <Loader2
                 size={40}
-                className="mx-auto animate-spin text-[#1F3D2E]"
+                className="mx-auto animate-spin text-[#1f3d2e]"
               />
 
               <p className="mt-4 text-sm text-[#6B6656]">
@@ -193,7 +193,7 @@ export default function SearchPage() {
                 className="mx-auto text-[#C9CBB8]"
               />
 
-              <h2 className="mt-5 font-serif text-2xl font-semibold text-[#1F3D2E]">
+              <h2 className="mt-5 font-serif text-2xl font-semibold text-[#1f3d2e]">
                 No meals found
               </h2>
 
@@ -214,7 +214,7 @@ export default function SearchPage() {
                 Search results for
               </p>
 
-              <h2 className="mt-1 font-serif text-2xl font-semibold text-[#1F3D2E]">
+              <h2 className="mt-1 font-serif text-2xl font-semibold text-[#1f3d2e]">
                 &quot;{query}&quot;
               </h2>
             </div>
@@ -249,7 +249,7 @@ export default function SearchPage() {
                       </p>
                     )}
 
-                    <h3 className="mt-2 line-clamp-2 font-serif text-xl font-semibold text-[#1F3D2E]">
+                    <h3 className="mt-2 line-clamp-2 font-serif text-xl font-semibold text-[#1f3d2e]">
                       {meal.strMeal}
                     </h3>
 
@@ -260,7 +260,7 @@ export default function SearchPage() {
                     </p>
 
                     <div className="mt-5 flex items-center justify-between border-t border-[#E4DFD3] pt-4">
-                      <span className="text-sm font-semibold text-[#1F3D2E]">
+                      <span className="text-sm font-semibold text-[#1f3d2e]">
                         View Recipe
                       </span>
 

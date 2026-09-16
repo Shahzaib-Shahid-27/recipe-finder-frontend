@@ -148,7 +148,7 @@ export default function ResetPasswordPage() {
           <div className="text-center">
             <Link
               to="/hompage"
-              className="font-serif text-3xl font-semibold text-[#1F3D2E]"
+              className="font-serif text-3xl font-semibold text-[#1f3d2e]"
             >
               Harvest
               <span className="text-[#E8A33D]">
@@ -185,7 +185,7 @@ export default function ResetPasswordPage() {
                   placeholder="you@example.com"
                   autoComplete="email"
                   required
-                  className="mt-2 w-full rounded-lg border border-[#E4DFD3] bg-[#FDFCF9] px-4 py-3 text-sm text-[#2B2620] outline-none transition focus:border-[#1F3D2E] focus:ring-2 focus:ring-[#1F3D2E]/10"
+                  className="mt-2 w-full rounded-lg border border-[#E4DFD3] bg-[#FDFCF9] px-4 py-3 text-sm text-[#2B2620] outline-none transition focus:border-[#1f3d2e] focus:ring-2 focus:ring-[#1f3d2e]/10"
                 />
               </label>
 
@@ -202,7 +202,7 @@ export default function ResetPasswordPage() {
                   placeholder="Enter current password"
                   autoComplete="current-password"
                   required
-                  className="mt-2 w-full rounded-lg border border-[#E4DFD3] bg-[#FDFCF9] px-4 py-3 text-sm text-[#2B2620] outline-none transition focus:border-[#1F3D2E] focus:ring-2 focus:ring-[#1F3D2E]/10"
+                  className="mt-2 w-full rounded-lg border border-[#E4DFD3] bg-[#FDFCF9] px-4 py-3 text-sm text-[#2B2620] outline-none transition focus:border-[#1f3d2e] focus:ring-2 focus:ring-[#1f3d2e]/10"
                 />
               </label>
 
@@ -219,7 +219,7 @@ export default function ResetPasswordPage() {
                   placeholder="Enter new password"
                   autoComplete="new-password"
                   required
-                  className="mt-2 w-full rounded-lg border border-[#E4DFD3] bg-[#FDFCF9] px-4 py-3 text-sm text-[#2B2620] outline-none transition focus:border-[#1F3D2E] focus:ring-2 focus:ring-[#1F3D2E]/10"
+                  className="mt-2 w-full rounded-lg border border-[#E4DFD3] bg-[#FDFCF9] px-4 py-3 text-sm text-[#2B2620] outline-none transition focus:border-[#1f3d2e] focus:ring-2 focus:ring-[#1f3d2e]/10"
                 />
               </label>
 
@@ -236,7 +236,7 @@ export default function ResetPasswordPage() {
                   placeholder="Confirm new password"
                   autoComplete="new-password"
                   required
-                  className="mt-2 w-full rounded-lg border border-[#E4DFD3] bg-[#FDFCF9] px-4 py-3 text-sm text-[#2B2620] outline-none transition focus:border-[#1F3D2E] focus:ring-2 focus:ring-[#1F3D2E]/10"
+                  className="mt-2 w-full rounded-lg border border-[#E4DFD3] bg-[#FDFCF9] px-4 py-3 text-sm text-[#2B2620] outline-none transition focus:border-[#1f3d2e] focus:ring-2 focus:ring-[#1f3d2e]/10"
                 />
               </label>
 
@@ -262,7 +262,7 @@ export default function ResetPasswordPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full rounded-full bg-[#1F3D2E] py-3 text-sm font-semibold text-[#F7F4EE] transition-all hover:bg-[#284D3A] disabled:cursor-not-allowed disabled:opacity-60"
+                className="w-full rounded-full bg-[#1f3d2e] py-3 text-sm font-semibold text-[#F7F4EE] transition-all hover:bg-[#284D3A] disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {loading
                   ? "Resetting..."
@@ -273,7 +273,7 @@ export default function ResetPasswordPage() {
             <div className="mt-7 text-center">
               <Link
                 to="/login"
-                className="text-sm font-semibold text-[#1F3D2E] transition-colors hover:text-[#E8A33D]"
+                className="text-sm font-semibold text-[#1f3d2e] transition-colors hover:text-[#E8A33D]"
               >
                 ← Back to login
               </Link>

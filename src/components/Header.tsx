@@ -56,7 +56,7 @@ export default function Header() {
 "inline-flex items-center justify-center gap-2 rounded-full px-4 py-2 text-sm font-semibold transition-all duration-200 cursor-pointer ";
 
   return (
-    <header className="sticky top-0 z-50 border-b border-white/10 bg-[#1F3D2E] shadow-sm dark:border-[#30382F] dark:bg-[#2E2A1E]">
+    <header className="sticky top-0 z-50 border-b border-white/10 bg-[#2E2A1E] shadow-sm dark:border-[#30382F] dark:bg-[#2E2A1E]">
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
 
         {/* Logo */}
@@ -104,13 +104,13 @@ export default function Header() {
         </nav>
 
         {/* Right Side */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 text-[#ffffff] dark:text-[#000000]">
           <Link
             to="/SearchPage"
             aria-label="Search"
-            className="hidden rounded-full p-2.5 text-white transition-all duration-200 ease-in
-            bg-white 
-             hover:bg-[black] hover:text-[#1F3D2E] sm:flex"
+            className="hidden rounded-full p-2.5 transition-all duration-200 ease-in sm:flex
+            bg-[#e8a33d] text-[#ffffff]
+            hover:bg-[#ae7229]  "
           >
             <Search size={20} />
           </Link>
@@ -122,8 +122,8 @@ export default function Header() {
                 <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                   <Link
                     to="/login"
-                    className={`${buttonClass} border border-white/20 bg-white text-[#1F3D2E] hover:bg-[black]
-                     hover:text-white`}
+                    className={`${buttonClass} border border-white/20 bg-[#e8a33d] hover:bg-[#c27c14]
+                     dark:text-[#000000] `}
                   >
                     <LogIn size={16} />
                     Login
@@ -133,8 +133,8 @@ export default function Header() {
                 <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                   <Link
                     to="/register"
-                    className={`${buttonClass} border border-white/20 bg-white text-[#1F3D2E] hover:bg-[black]
-                     hover:text-white`}>
+                    className={`${buttonClass} border border-white/20 bg-[#e8a33d]  hover:bg-[#c27c14]
+                     dark:text-[#000000]`}>
                     <UserPlus size={16} />
                     Sign Up
                   </Link>
@@ -142,10 +142,11 @@ export default function Header() {
               </>
             ) : (
               <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                whileHover={{ scale: 1.05  }}
+                whileTap={{ scale: 0.95  }}
                 onClick={logout}
-                className={`${buttonClass} bg-white text-[#1F3D2E] hover:bg-red-500 hover:text-white`}
+                className={`${buttonClass} bg-[#e8a33d] text-[#ffffff]
+                 hover:bg-red-700 hover:text-white hover:dark:bg-[#ae0101] dark:text-[#000000] `}
               >
                 <LogOut size={16} />
                 Logout
@@ -155,10 +156,11 @@ export default function Header() {
 
           {/* Theme */}
           <motion.button
-            whileHover={{ scale: 1.1, rotate: 10 }}
+            whileHover={{ scale: 1.1, rotate: 30 }}
             whileTap={{ scale: 0.9 }}
             onClick={toggleTheme}
-            className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-[#1F3D2E] shadow-sm dark:bg-[#1C241E] dark:text-[#F4F1E8]"
+            className="flex h-10 w-10 items-center justify-center rounded-full bg-[#e8a33d] text-[#fffff] shadow-sm 
+            dark:bg-[#e8a33d] dark:text-[#000000]"
             aria-label="Toggle theme"
           >
             {darkMode ? <Sun size={19} /> : <Moon size={19} />}
@@ -168,7 +170,7 @@ export default function Header() {
           <motion.button
             whileTap={{ scale: 0.9 }}
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-[#1F3D2E] md:hidden dark:bg-[#1C241E] dark:text-[#F4F1E8]"
+            className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-[#1f3d2e] md:hidden dark:bg-[#1C241E] dark:text-[#F4F1E8]"
             aria-label="Toggle menu"
           >
             {mobileOpen ? <X size={21} /> : <Menu size={21} />}
@@ -195,7 +197,7 @@ export default function Header() {
                     `rounded-xl px-4 py-3 text-sm font-semibold transition ${
                       isActive
                         ? "bg-[#E8A33D]/10 text-[#E8A33D]"
-                        : "text-[#1F3D2E] hover:bg-[#E8A33D]/10 dark:text-[#F4F1E8]"
+                        : "text-[#1f3d2e] hover:bg-[#E8A33D]/10 dark:text-[#F4F1E8]"
                     }`
                   }
                 >
@@ -208,7 +210,7 @@ export default function Header() {
                   <Link
                     to="/login"
                     onClick={closeMenu}
-                    className={`${buttonClass} border-[#E4DFD3] bg-white text-[#1F3D2E] dark:hover:text-black dark:bg-[white] transition-all duration-200 ease-in-out`}
+                    className={`${buttonClass} border-[#E4DFD3] bg-white text-[#1f3d2e] dark:hover:text-black dark:bg-[white] transition-all duration-200 ease-in-out`}
                   >
                     <LogIn size={16} />
                     Login
@@ -217,7 +219,7 @@ export default function Header() {
                   <Link
                     to="/register"
                     onClick={closeMenu}
-                    className={`${buttonClass} border-[#E4DFD3] bg-white text-[#1F3D2E] dark:hover:text-black dark:bg-[white] transition-all duration-200 ease-in-out`}
+                    className={`${buttonClass} border-[#E4DFD3] bg-white text-[#1f3d2e] dark:hover:text-black dark:bg-[white] transition-all duration-200 ease-in-out`}
                   >
                     <UserPlus size={16} />
                     Sign Up

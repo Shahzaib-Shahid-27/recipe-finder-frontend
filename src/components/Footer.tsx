@@ -23,7 +23,7 @@ export default function Footer() {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.15 }}
-      className="relative overflow-hidden border-t border-white/10 bg-[#1F3D2E] text-[#C9CBB8] transition-colors duration-300 dark:bg-[#2E2A1E]"
+      className="relative overflow-hidden border-t border-white/10 bg-[#2E2A1E] text-[#C9CBB8] transition-colors duration-300 dark:bg-[#2E2A1E]"
     >
       {/* Decorative glow */}
       <div className="pointer-events-none absolute -right-32 -top-32 h-72 w-72 rounded-full bg-[#E8A33D]/10 blur-3xl" />
@@ -54,7 +54,7 @@ export default function Footer() {
                   href="#"
                   whileHover={{ y: -4, scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
-                  className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-sm hover:border-[#E8A33D] hover:bg-[#E8A33D] hover:text-[#1F3D2E]"
+                  className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-sm hover:border-[#E8A33D] hover:bg-[#E8A33D] hover:text-[#1f3d2e]"
                 >
                   {social}
                 </motion.a>

@@ -13,7 +13,7 @@ export default function HomePage() {
       {/* Hero Section */}
       <section className="relative overflow-hidden">
         {/* Decorative background elements */}
-        <div className="pointer-events-none absolute -left-32 -top-32 h-80 w-80 rounded-full bg-[#1F3D2E]/5 blur-3xl" />
+        <div className="pointer-events-none absolute -left-32 -top-32 h-80 w-80 rounded-full bg-[#1f3d2e]/5 blur-3xl" />
 
         <div className="pointer-events-none absolute -right-32 top-20 h-80 w-80 rounded-full bg-[#E8A33D]/10 blur-3xl" />
 
@@ -26,13 +26,13 @@ export default function HomePage() {
               className="text-[#E8A33D]"
             />
 
-            <span className="text-sm font-semibold text-[#1F3D2E] dark:text-[#F4F1E8]">
+            <span className="text-sm font-semibold text-[#1f3d2e] dark:text-[#F4F1E8]">
               Discover delicious meals
             </span>
           </div>
 
           {/* Heading */}
-          <h1 className="max-w-4xl font-serif text-5xl font-semibold leading-tight tracking-tight text-[#1F3D2E] dark:text-[#F4F1E8] md:text-7xl">
+          <h1 className="max-w-4xl font-serif text-5xl font-semibold leading-tight tracking-tight text-[#1f3d2e] dark:text-[#F4F1E8] md:text-7xl">
             Find Your Next
             <span className="block text-[#E8A33D]">
               Favorite Meal
@@ -52,7 +52,7 @@ export default function HomePage() {
             {/* Explore Meals */}
              <Link
                to="/MealsPage"
-              className="group inline-flex items-center gap-2 rounded-full border border-[#1F3D2E]/20 bg-white px-7 py-3.5 text-sm font-semibold text-[#1F3D2E] dark:text-[#F4F1E8] shadow-sm transition-all duration-300 hover:border-[#E8A33D] hover:bg-[#E8A33D] hover:text-white hover:shadow-md"
+              className="group inline-flex items-center gap-2 rounded-full border border-[#1f3d2e]/20 bg-white px-7 py-3.5 text-sm font-semibold text-[#1f3d2e] dark:text-[#F4F1E8] shadow-sm transition-all duration-300 hover:border-[#E8A33D] hover:bg-[#E8A33D] hover:text-white hover:shadow-md"
             >
                 <UtensilsCrossed size={17} />
                 <h1 className="">Explore Meals</h1>
@@ -65,7 +65,7 @@ export default function HomePage() {
             {/* Browse Categories */}
             <Link
               to="/CategoryPage"
-              className="group inline-flex items-center gap-2 rounded-full border border-[#1F3D2E]/20 bg-white px-7 py-3.5 text-sm font-semibold text-[#1F3D2E] dark:text-[#F4F1E8] shadow-sm transition-all duration-300 hover:border-[#E8A33D] hover:bg-[#E8A33D] hover:text-white hover:shadow-md"
+              className="group inline-flex items-center gap-2 rounded-full border border-[#1f3d2e]/20 bg-white px-7 py-3.5 text-sm font-semibold text-[#1f3d2e] dark:text-[#F4F1E8] shadow-sm transition-all duration-300 hover:border-[#E8A33D] hover:bg-[#E8A33D] hover:text-white hover:shadow-md"
             >
               <Search size={17} />
 
@@ -84,10 +84,10 @@ export default function HomePage() {
           <div className="mt-16 grid max-w-2xl grid-cols-1 gap-4 sm:grid-cols-3">
 
             <div className="rounded-2xl border border-[#E4DFD3] bg-white px-5 py-5 shadow-sm">
-              <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-[#1F3D2E]/10">
+              <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-[#1f3d2e]/10">
                 <ChefHat
                   size={19}
-                  className="text-[#1F3D2E] dark:text-[#F4F1E8]"
+                  className="text-[#1f3d2e] dark:text-[#F4F1E8]"
                 />
               </div>
 
@@ -110,10 +110,10 @@ export default function HomePage() {
             </div>
 
             <div className="rounded-2xl border border-[#E4DFD3] bg-white px-5 py-5 shadow-sm">
-              <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-[#1F3D2E]/10">
+              <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-[#1f3d2e]/10">
                 <UtensilsCrossed
                   size={19}
-                  className="text-[#1F3D2E] dark:text-[#F4F1E8]"
+                  className="text-[#1f3d2e] dark:text-[#F4F1E8]"
                 />
               </div>
 

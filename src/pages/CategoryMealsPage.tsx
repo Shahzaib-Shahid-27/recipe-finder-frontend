@@ -78,7 +78,7 @@ export default function CategoryMealsPage() {
     return (
       <main className="min-h-screen bg-[#F7F4EE] px-6 py-20">
         <div className="mx-auto max-w-7xl text-center">
-          <div className="mx-auto h-10 w-10 animate-spin rounded-full border-4 border-[#C9CBB8] border-t-[#1F3D2E]" />
+          <div className="mx-auto h-10 w-10 animate-spin rounded-full border-4 border-[#C9CBB8] border-t-[#1f3d2e]" />
 
           <p className="mt-5 text-sm font-medium text-[#6B6656]">
             Loading {category} meals...
@@ -110,7 +110,7 @@ export default function CategoryMealsPage() {
 
           <button
             onClick={() => navigate(-1)}
-            className="mt-7 rounded-full bg-[#1F3D2E] px-6 py-3 text-sm font-semibold text-[#F7F4EE] transition-all duration-200 hover:bg-[#284D3A] hover:shadow-md"
+            className="mt-7 rounded-full bg-[#1f3d2e] px-6 py-3 text-sm font-semibold text-[#F7F4EE] transition-all duration-200 hover:bg-[#284D3A] hover:shadow-md"
           >
             ← Back to Categories
           </button>
@@ -130,7 +130,7 @@ export default function CategoryMealsPage() {
         {/* Back button */}
         <button
           onClick={() => navigate(-1)}
-          className="mb-8 inline-flex items-center gap-2 text-sm font-semibold text-[#1F3D2E] transition-colors hover:text-[#E8A33D]"
+          className="mb-8 inline-flex items-center gap-2 text-sm font-semibold text-[#1f3d2e] transition-colors hover:text-[#E8A33D]"
         >
           ← Back to Categories
         </button>
@@ -145,13 +145,13 @@ export default function CategoryMealsPage() {
             </p>
           </div>
 
-          <h1 className="font-serif text-4xl font-semibold text-[#1F3D2E] md:text-5xl">
+          <h1 className="font-serif text-4xl font-semibold text-[#1f3d2e] md:text-5xl">
             {category} Meals
           </h1>
 
           <p className="mt-3 max-w-2xl text-[#6B6656]">
             Explore delicious{" "}
-            <span className="font-medium text-[#1F3D2E]">
+            <span className="font-medium text-[#1f3d2e]">
               {category?.toLowerCase()}
             </span>{" "}
             recipes and discover your next favorite meal.
@@ -175,7 +175,7 @@ export default function CategoryMealsPage() {
 
             <button
               onClick={() => navigate(-1)}
-              className="mt-6 rounded-full bg-[#1F3D2E] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#284D3A]"
+              className="mt-6 rounded-full bg-[#1f3d2e] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#284D3A]"
             >
               Browse Categories
             </button>
@@ -185,7 +185,7 @@ export default function CategoryMealsPage() {
             {/* Results count */}
             <div className="mb-5 flex items-center justify-between">
               <p className="text-sm text-[#6B6656]">
-                <span className="font-semibold text-[#1F3D2E]">
+                <span className="font-semibold text-[#1f3d2e]">
                   {meals.length}
                 </span>{" "}
                 delicious meals
@@ -220,7 +220,7 @@ export default function CategoryMealsPage() {
 
                   {/* Details */}
                   <div className="p-5">
-                    <h2 className="font-serif text-lg font-semibold text-[#2B2620] transition-colors group-hover:text-[#1F3D2E]">
+                    <h2 className="font-serif text-lg font-semibold text-[#2B2620] transition-colors group-hover:text-[#1f3d2e]">
                       {meal.strMeal}
                     </h2>
 
@@ -229,7 +229,7 @@ export default function CategoryMealsPage() {
                         Explore recipe
                       </span>
 
-                      <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#F7F4EE] text-[#1F3D2E] transition-all duration-300 group-hover:bg-[#E8A33D] group-hover:text-white">
+                      <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#F7F4EE] text-[#1f3d2e] transition-all duration-300 group-hover:bg-[#E8A33D] group-hover:text-white">
                         →
                       </span>
                     </div>

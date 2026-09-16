@@ -76,7 +76,7 @@ export default function MealsPage() {
             <div className="h-px w-10 bg-[#E8A33D]" />
           </div>
 
-          <h1 className="font-serif text-4xl font-semibold text-[#1F3D2E] md:text-5xl">
+          <h1 className="font-serif text-4xl font-semibold text-[#1f3d2e] md:text-5xl">
             All Meals
           </h1>
 
@@ -95,7 +95,7 @@ export default function MealsPage() {
             <div className="text-center">
               <Loader2
                 size={42}
-                className="mx-auto animate-spin text-[#1F3D2E]"
+                className="mx-auto animate-spin text-[#1f3d2e]"
               />
 
               <p className="mt-4 font-medium text-[#6B6656]">
@@ -121,7 +121,7 @@ export default function MealsPage() {
 
             <button
               onClick={() => window.location.reload()}
-              className="mt-5 rounded-full bg-[#1F3D2E] px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-[#284D3A]"
+              className="mt-5 rounded-full bg-[#1f3d2e] px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-[#284D3A]"
             >
               Try Again
             </button>
@@ -141,7 +141,7 @@ export default function MealsPage() {
                   className="mx-auto text-[#C9CBB8]"
                 />
 
-                <h2 className="mt-4 font-serif text-2xl font-semibold text-[#1F3D2E]">
+                <h2 className="mt-4 font-serif text-2xl font-semibold text-[#1f3d2e]">
                   No meals found
                 </h2>
 
@@ -180,7 +180,7 @@ export default function MealsPage() {
                         </p>
                       )}
 
-                      <h2 className="mt-2 line-clamp-2 font-serif text-xl font-semibold text-[#1F3D2E]">
+                      <h2 className="mt-2 line-clamp-2 font-serif text-xl font-semibold text-[#1f3d2e]">
                         {meal.strMeal}
                       </h2>
 
@@ -191,7 +191,7 @@ export default function MealsPage() {
                       </p>
 
                       <div className="mt-5 flex items-center justify-between border-t border-[#E4DFD3] pt-4">
-                        <span className="text-sm font-semibold text-[#1F3D2E]">
+                        <span className="text-sm font-semibold text-[#1f3d2e]">
                           View Recipe
                         </span>
 
@@ -216,7 +216,7 @@ export default function MealsPage() {
                 onClick={() =>
                   setPage((current) => current - 1)
                 }
-                className="inline-flex items-center gap-2 rounded-full border border-[#D8D3C7] bg-white px-5 py-2.5 text-sm font-semibold text-[#1F3D2E] transition hover:border-[#E8A33D] hover:bg-[#F7F4EE] disabled:cursor-not-allowed disabled:opacity-40"
+                className="inline-flex items-center gap-2 rounded-full border border-[#D8D3C7] bg-white px-5 py-2.5 text-sm font-semibold text-[#1f3d2e] transition hover:border-[#E8A33D] hover:bg-[#F7F4EE] disabled:cursor-not-allowed disabled:opacity-40"
               >
                 <ChevronLeft size={17} />
                 Previous
@@ -231,7 +231,7 @@ export default function MealsPage() {
                 onClick={() =>
                   setPage((current) => current + 1)
                 }
-                className="inline-flex items-center gap-2 rounded-full border border-[#D8D3C7] bg-white px-5 py-2.5 text-sm font-semibold text-[#1F3D2E] transition hover:border-[#E8A33D] hover:bg-[#F7F4EE] disabled:cursor-not-allowed disabled:opacity-40"
+                className="inline-flex items-center gap-2 rounded-full border border-[#D8D3C7] bg-white px-5 py-2.5 text-sm font-semibold text-[#1f3d2e] transition hover:border-[#E8A33D] hover:bg-[#F7F4EE] disabled:cursor-not-allowed disabled:opacity-40"
               >
                 Next
                 <ChevronRight size={17} />

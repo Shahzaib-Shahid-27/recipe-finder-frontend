@@ -57,7 +57,7 @@ export default function MenuPage() {
           </span>
         </div>
 
-        <h1 className="font-serif text-4xl font-semibold text-[#1F3D2E] dark:text-[#F4F1E8] md:text-5xl">
+        <h1 className="font-serif text-4xl font-semibold text-[#1f3d2e] dark:text-[#F4F1E8] md:text-5xl">
           Today&apos;s Menu
         </h1>
 

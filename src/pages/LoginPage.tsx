@@ -68,15 +68,15 @@ export default function LoginPage() {
           <div className="text-center">
             <Link
               to="/hompage"
-              className="font-serif text-3xl font-semibold text-[#1F3D2E]"
+              className="font-serif text-3xl font-semibold text-[#1f3d2e]"
             >
-              Harvest
-              <span className="text-[#E8A33D]">
-                Table
+              Butcher's
+              <span className="ml-2 text-[#E8A33D]">
+                Kitchen
               </span>
             </Link>
 
-            <h1 className="mt-8 font-serif text-3xl font-semibold text-[#2B2620]">
+            <h1 className="mt-8 font-serif text-3xl font-semibold text-[#5e512a] dark:text-[#979180]">
               Welcome back
             </h1>
 
@@ -106,7 +106,7 @@ export default function LoginPage() {
                   placeholder="you@example.com"
                   autoComplete="email"
                   required
-                  className="mt-2 w-full rounded-lg border border-[#E4DFD3] bg-[#FDFCF9] px-4 py-3 text-sm text-[#2B2620] outline-none transition focus:border-[#1F3D2E] focus:ring-2 focus:ring-[#1F3D2E]/10"
+                  className="mt-2 w-full rounded-lg border border-[#E4DFD3] bg-[#FDFCF9] px-4 py-3 text-sm text-[#2B2620] outline-none transition focus:border-[#1f3d2e] focus:ring-2 focus:ring-[#1f3d2e]/10"
                 />
               </label>
 
@@ -119,7 +119,7 @@ export default function LoginPage() {
 
                   <Link
                     to="/forgot-password"
-                    className="text-xs font-medium text-[#1F3D2E] transition-colors hover:text-[#E8A33D]"
+                    className="text-xs font-medium text-[#1f3d2e] transition-colors hover:text-[#E8A33D]"
                   >
                     Forgot password?
                   </Link>
@@ -133,7 +133,7 @@ export default function LoginPage() {
                   placeholder="Your password"
                   autoComplete="current-password"
                   required
-                  className="mt-2 w-full rounded-lg border border-[#E4DFD3] bg-[#FDFCF9] px-4 py-3 text-sm text-[#2B2620] outline-none transition focus:border-[#1F3D2E] focus:ring-2 focus:ring-[#1F3D2E]/10"
+                  className="mt-2 w-full rounded-lg border border-[#E4DFD3] bg-[#FDFCF9] px-4 py-3 text-sm text-[#2B2620] outline-none transition focus:border-[#1f3d2e] focus:ring-2 focus:ring-[#1f3d2e]/10"
                 />
               </label>
 
@@ -150,7 +150,7 @@ export default function LoginPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full rounded-full bg-[#1F3D2E] py-3 text-sm font-semibold text-[#F7F4EE] transition-all duration-200 hover:bg-[#284D3A] hover:shadow-md disabled:cursor-not-allowed disabled:opacity-60"
+                className="w-full rounded-full bg-[#E8A33D] py-3 text-sm font-semibold text-[#fdfdfd] transition-all duration-100 hover:bg-[#d88d1d] dark:text-black hover:text-white hover:shadow-md disabled:cursor-not-allowed disabled:opacity-60 "
               >
                 {loading
                   ? "Logging in..."
@@ -163,7 +163,7 @@ export default function LoginPage() {
               Don't have an account?{" "}
               <Link
                 to="/register"
-                className="font-semibold text-[#1F3D2E] transition-colors hover:text-[#E8A33D]"
+                className="font-semibold text-[#1f3d2e] transition-colors hover:text-[#E8A33D]"
               >
                 Sign up
               </Link>

@@ -110,7 +110,7 @@ export default function CategoryPage() {
             </span>
           </div>
 
-          <h1 className="mt-5 font-serif text-3xl font-semibold text-[#1F3D2E]">
+          <h1 className="mt-5 font-serif text-3xl font-semibold text-[#1f3d2e]">
             Unable to load categories
           </h1>
 
@@ -120,7 +120,7 @@ export default function CategoryPage() {
 
           <button
             onClick={() => window.location.reload()}
-            className="mt-6 rounded-full bg-[#1F3D2E] px-6 py-3 text-sm font-semibold text-white transition-all duration-200 hover:bg-[#284D3A] hover:shadow-md"
+            className="mt-6 rounded-full bg-[#1f3d2e] px-6 py-3 text-sm font-semibold text-white transition-all duration-200 hover:bg-[#284D3A] hover:shadow-md"
           >
             Try Again
           </button>
@@ -147,7 +147,7 @@ export default function CategoryPage() {
             </p>
           </div>
 
-          <h1 className="font-serif text-4xl font-semibold text-[#1F3D2E] md:text-5xl">
+          <h1 className="font-serif text-4xl font-semibold text-[#1f3d2e] md:text-5xl">
             Explore Categories
           </h1>
 
@@ -182,7 +182,7 @@ export default function CategoryPage() {
 
                   {/* Category text */}
                   <div>
-                    <h2 className="font-serif text-lg font-semibold text-[#2B2620] transition-colors duration-200 group-hover:text-[#1F3D2E]">
+                    <h2 className="font-serif text-lg font-semibold text-[#2B2620] transition-colors duration-200 group-hover:text-[#1f3d2e]">
                       {category}
                     </h2>
 
@@ -195,7 +195,7 @@ export default function CategoryPage() {
                   <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#F7F4EE] transition-all duration-300 group-hover:bg-[#E8A33D]">
                     <ArrowRight
                       size={18}
-                      className="text-[#1F3D2E] transition-all duration-300 group-hover:translate-x-0.5 group-hover:text-white"
+                      className="text-[#1f3d2e] transition-all duration-300 group-hover:translate-x-0.5 group-hover:text-white"
                     />
                   </div>
                 </div>
