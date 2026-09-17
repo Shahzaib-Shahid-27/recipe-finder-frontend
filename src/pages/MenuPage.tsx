@@ -37,7 +37,7 @@ export default function MenuPage() {
   }, []);
 
   return (
-    <main className="min-h-screen bg-[#F7F4EE] transition-colors duration-500 dark:bg-[#121914]">
+    <main className="min-h-screen bg-[#F7F4EE] transition-colors duration-500 dark:bg-[#312f22]">
       {/* Header */}
       <motion.section
         className="mx-auto max-w-7xl px-6 pb-8 pt-14"
@@ -53,15 +53,15 @@ export default function MenuPage() {
             transition={{ duration: 0.6 }}
           />
           <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#E8A33D]">
-            Butcher&apos;s Kitchen
+            Butcher's Kitchen
           </span>
         </div>
 
-        <h1 className="font-serif text-4xl font-semibold text-[#1f3d2e] dark:text-[#F4F1E8] md:text-5xl">
-          Today&apos;s Menu
+        <h1 className="font-serif text-4xl font-semibold text-[#3d3d1f] dark:text-[#F4F1E8] md:text-5xl">
+          Today's Menu
         </h1>
 
-        <p className="mt-3 max-w-2xl text-[#6B6656] dark:text-[#B8B5A8]">
+        <p className="mt-3 max-w-2xl text-[#6B6656] dark:text-[#847e65]">
           Seasonal recipes, delicious flavors, and meals ready when you are.
         </p>
       </motion.section>
@@ -70,7 +70,8 @@ export default function MenuPage() {
       <section className="mx-auto max-w-7xl px-6 pb-20">
         {loading && (
           <motion.div
-            className="rounded-2xl border border-[#E4DFD3] bg-white p-8 text-center dark:border-[#30382F] dark:bg-[#1C241E]"
+            className="rounded-2xl border border-[#E4DFD3] bg-white p-8 text-center dark:border-[#69674e]
+             dark:bg-[#69674e]"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
           >
@@ -125,7 +126,7 @@ export default function MenuPage() {
                 className="group rounded-2xl border border-[#E4DFD3] bg-white p-2 shadow-sm transition-shadow duration-300 hover:border-[#E8A33D] hover:shadow-xl dark:border-[#30382F] dark:bg-[#1C241E] dark:hover:border-[#E8A33D]"
               >
                 <motion.div
-                  className="overflow-hidden rounded-xl border border-[#F0ECE3] bg-[#FDFCF9] dark:border-[#30382F] dark:bg-[#202A22]"
+                  className="overflow-hidden rounded-xl border border-[#F0ECE3] bg-[#FDFCF9] dark:border-[#37382f] dark:bg-[#2f2e28]"
                   whileHover={{ borderColor: "#E8A33D" }}
                 >
                   <MealCard meal={meal} />

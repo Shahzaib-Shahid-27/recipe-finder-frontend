@@ -147,7 +147,7 @@ export default function CategoryPage() {
             </p>
           </div>
 
-          <h1 className="font-serif text-4xl font-semibold text-[#1f3d2e] md:text-5xl">
+          <h1 className="font-serif text-4xl font-semibold text-[#e8a33d] md:text-5xl">
             Explore Categories
           </h1>
 
@@ -182,7 +182,7 @@ export default function CategoryPage() {
 
                   {/* Category text */}
                   <div>
-                    <h2 className="font-serif text-lg font-semibold text-[#2B2620] transition-colors duration-200 group-hover:text-[#1f3d2e]">
+                    <h2 className="font-serif text-lg font-semibold text-[#936e40] transition-colors duration-200 group-hover:text-[#e8a33d] dark:">
                       {category}
                     </h2>
 
@@ -192,10 +192,10 @@ export default function CategoryPage() {
                   </div>
 
                   {/* Arrow */}
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#F7F4EE] transition-all duration-300 group-hover:bg-[#E8A33D]">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#F7F4EE] transition-all duration-300 group-hover:bg-[#E8A33D] ">
                     <ArrowRight
                       size={18}
-                      className="text-[#1f3d2e] transition-all duration-300 group-hover:translate-x-0.5 group-hover:text-white"
+                      className="text-[#8d8539] transition-all duration-300 group-hover:translate-x-0.5 group-hover:text-white "
                     />
                   </div>
                 </div>

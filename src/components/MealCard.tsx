@@ -1,13 +1,12 @@
 // import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import type { Meal } from "../types/meal";
-
-
 // import IngredientsPage from "../pages/IngredientsPage"
 
 interface MealCardProps {
   meal: Meal;
 }
+
 export default function MealCard({ meal }: MealCardProps) {
 
   // const navigate = useNavigate();
@@ -34,6 +33,7 @@ export default function MealCard({ meal }: MealCardProps) {
             No photo
           </div>
         )}
+
         <div className="pointer-events-none absolute inset-0 bg-black/0 transition duration-300 group-hover:bg-black/5" />
       </div>
 
@@ -44,44 +44,47 @@ export default function MealCard({ meal }: MealCardProps) {
             {meal.strCategory}
           </span>
         )}
+
         <h3 className="font-serif text-lg font-medium leading-tight text-[#2B2620] transition-colors duration-300 group-hover:text-[#4C6650] sm:text-xl">
           {meal.strMeal}
         </h3>
+
         {meal.strInstructions && (
           <p className="mt-2 line-clamp-2 text-sm leading-6 text-[#6B6656]">
             {meal.strInstructions}
           </p>
         )}
+        
         <div className="mt-3 flex flex-wrap items-center gap-2">
           {meal.strCategory && (
             <span className="rounded-full bg-[#EFEAE0] px-3 py-1 text-[11px] font-medium text-[#4C6650]">
-              {" "}
-              {meal.strCategory}{" "}
+              {meal.strCategory}
             </span>
-          )}{" "}
+          )}
+
           {meal.strArea && (
             <span className="rounded-full bg-[#EFEAE0] px-3 py-1 text-[11px] font-medium text-[#4C6650]">
-              {" "}
-              {meal.strArea}{" "}
+              {meal.strArea}
             </span>
-          )}{" "}
-        </div>{" "}
-      </div>{" "}
-
-      {/* Ingredients Button */}{" "}
-      <div className="hidden items-center sm:flex">
-        <Link
-           to={`/ingredients/${meal.idMeal}`}
-        >
-          <button
-            type="button"
-            aria-label={`View ingredients for ${meal.strMeal}`}
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-[#E4DFD3] text-lg text-[#6B6656] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#E8A33D] hover:bg-[#E8A33D] hover:text-white hover:shadow-md"
-            >
-            →
-          </button>
-          </Link>
+          )}
+        </div>
       </div>
+
+        {/* Ingredients Button */}
+        <div className=" items-center sm:flex text-[#6B6656] dark:text-white">
+          <Link
+            to={`/ingredients/${meal.idMeal}`}
+          >
+            <button
+              type="button"
+              aria-label={`View ingredients for ${meal.strMeal}`}
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-[#E4DFD3] text-lg
+               transition-all duration-200 hover:-translate-y-0.5 bg-[#E8A33D] hover:border-[#E8A33D] hover:bg-[#E8A33D] dark:hover:text-white hover:shadow-md mr-1 dark:text-white"
+              >
+              <h1 className="text-2xl">→</h1>
+            </button>
+            </Link>
+        </div>
     </article>
   );
 }

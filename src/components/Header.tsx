@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+
 import {
   ChefHat,
   Menu,
@@ -11,16 +12,19 @@ import {
   UserPlus,
   LogOut,
 } from "lucide-react";
+
 import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "../context/AuthContext";
 
 function getInitialDarkMode() {
   const saved = localStorage.getItem("harvesttable-theme");
+
   const dark =
     saved === "dark" ||
     (!saved && window.matchMedia("(prefers-color-scheme: dark)").matches);
 
   document.documentElement.classList.toggle("dark", dark);
+
   return dark;
 }
 
@@ -34,15 +38,39 @@ const links = [
 export default function Header() {
   const [darkMode, setDarkMode] = useState(getInitialDarkMode);
   const [mobileOpen, setMobileOpen] = useState(false);
+
   const { isAuthenticated, logout } = useAuth();
 
-  const closeMenu = () => setMobileOpen(false);
+  const navigate = useNavigate();
+
+  const closeMenu = () => {
+    setMobileOpen(false);
+  };
 
   const toggleTheme = () => {
     const dark = !darkMode;
+
     setDarkMode(dark);
+
     document.documentElement.classList.toggle("dark", dark);
-    localStorage.setItem("harvesttable-theme", dark ? "dark" : "light");
+
+    localStorage.setItem(
+      "harvesttable-theme",
+      dark ? "dark" : "light"
+    );
+  };
+
+  // Logout and navigate to Login page
+  const handleLogout = async () => {
+    try {
+      await logout();
+
+      closeMenu();
+
+      navigate("/login");
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
   };
 
   const navClass = ({ isActive }: { isActive: boolean }) =>
@@ -53,7 +81,7 @@ export default function Header() {
     }`;
 
   const buttonClass =
-"inline-flex items-center justify-center gap-2 rounded-full px-4 py-2 text-sm font-semibold transition-all duration-200 cursor-pointer ";
+    "inline-flex items-center justify-center gap-2 rounded-full px-4 py-2 text-sm font-semibold transition-all duration-200 cursor-pointer";
 
   return (
     <header className="sticky top-0 z-50 border-b border-white/10 bg-[#2E2A1E] shadow-sm dark:border-[#30382F] dark:bg-[#2E2A1E]">
@@ -80,6 +108,7 @@ export default function Header() {
               <h1 className="font-serif text-xl font-bold leading-none text-white sm:text-2xl">
                 Butcher's Kitchen
               </h1>
+
               <p className="mt-1 hidden text-[10px] font-medium uppercase tracking-[0.2em] text-white/70 sm:block">
                 Recipes & Flavors
               </p>
@@ -104,49 +133,56 @@ export default function Header() {
         </nav>
 
         {/* Right Side */}
-        <div className="flex items-center gap-2 text-[#ffffff] dark:text-[#000000]">
+        <div className="flex items-center gap-2 text-white dark:text-black">
+
+          {/* Search */}
           <Link
             to="/SearchPage"
             aria-label="Search"
-            className="hidden rounded-full p-2.5 transition-all duration-200 ease-in sm:flex
-            bg-[#e8a33d] text-[#ffffff]
-            hover:bg-[#ae7229]  "
+            className="hidden rounded-full bg-[#e8a33d] p-2.5 text-white transition-all duration-200 ease-in hover:bg-[#ae7229] sm:flex"
           >
             <Search size={20} />
           </Link>
 
-          {/* Auth */}
+          {/* Desktop Auth */}
           <div className="hidden items-center gap-2 lg:flex">
             {!isAuthenticated ? (
               <>
-                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                {/* Login */}
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
                   <Link
                     to="/login"
-                    className={`${buttonClass} border border-white/20 bg-[#e8a33d] hover:bg-[#c27c14]
-                     dark:text-[#000000] `}
+                    className={`${buttonClass} border border-white/20 bg-[#e8a33d] hover:bg-[#c27c14] dark:text-black`}
                   >
                     <LogIn size={16} />
                     Login
                   </Link>
                 </motion.div>
 
-                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                {/* Sign Up */}
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
                   <Link
                     to="/register"
-                    className={`${buttonClass} border border-white/20 bg-[#e8a33d]  hover:bg-[#c27c14]
-                     dark:text-[#000000]`}>
+                    className={`${buttonClass} border border-white/20 bg-[#e8a33d] hover:bg-[#c27c14] dark:text-black`}
+                  >
                     <UserPlus size={16} />
                     Sign Up
                   </Link>
                 </motion.div>
               </>
             ) : (
+              /* Logout */
               <motion.button
-                whileHover={{ scale: 1.05  }}
-                whileTap={{ scale: 0.95  }}
-                onClick={logout}
-                className={`${buttonClass} bg-[#e8a33d] text-[#ffffff]
-                 hover:bg-red-700 hover:text-white hover:dark:bg-[#ae0101] dark:text-[#000000] `}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={handleLogout}
+                className={`${buttonClass} bg-[#e8a33d] text-white hover:bg-red-700 hover:text-white dark:text-black`}
               >
                 <LogOut size={16} />
                 Logout
@@ -154,19 +190,18 @@ export default function Header() {
             )}
           </div>
 
-          {/* Theme */}
+          {/* Theme Toggle */}
           <motion.button
             whileHover={{ scale: 1.1, rotate: 30 }}
             whileTap={{ scale: 0.9 }}
             onClick={toggleTheme}
-            className="flex h-10 w-10 items-center justify-center rounded-full bg-[#e8a33d] text-[#fffff] shadow-sm 
-            dark:bg-[#e8a33d] dark:text-[#000000]"
+            className="flex h-10 w-10 items-center justify-center rounded-full bg-[#e8a33d] text-white shadow-sm dark:bg-[#e8a33d] dark:text-black"
             aria-label="Toggle theme"
           >
             {darkMode ? <Sun size={19} /> : <Moon size={19} />}
           </motion.button>
 
-          {/* Mobile Button */}
+          {/* Mobile Menu Button */}
           <motion.button
             whileTap={{ scale: 0.9 }}
             onClick={() => setMobileOpen(!mobileOpen)}
@@ -188,6 +223,8 @@ export default function Header() {
             className="overflow-hidden border-t border-white/10 bg-[#F7F4EE] dark:border-[#30382F] dark:bg-[#121914] md:hidden"
           >
             <nav className="mx-auto flex max-w-7xl flex-col gap-1 px-4 py-4">
+
+              {/* Mobile Links */}
               {links.map((link) => (
                 <NavLink
                   key={link.to}
@@ -205,35 +242,35 @@ export default function Header() {
                 </NavLink>
               ))}
 
+              {/* Mobile Auth */}
               {!isAuthenticated ? (
-                <div className="mt-2 grid grid-cols-2 gap-2 border-t border-[#E4DFD3] pt-3 ">
+                <div className="mt-2 grid grid-cols-2 gap-2 border-t border-[#E4DFD3] pt-3">
+
+                  {/* Login */}
                   <Link
                     to="/login"
                     onClick={closeMenu}
-                    className={`${buttonClass} border-[#E4DFD3] bg-white text-[#1f3d2e] dark:hover:text-black dark:bg-[white] transition-all duration-200 ease-in-out`}
+                    className={`${buttonClass} border border-[#E4DFD3] bg-white text-[#1f3d2e] transition-all duration-200 ease-in-out dark:bg-white dark:hover:text-black`}
                   >
                     <LogIn size={16} />
                     Login
                   </Link>
 
+                  {/* Sign Up */}
                   <Link
                     to="/register"
                     onClick={closeMenu}
-                    className={`${buttonClass} border-[#E4DFD3] bg-white text-[#1f3d2e] dark:hover:text-black dark:bg-[white] transition-all duration-200 ease-in-out`}
+                    className={`${buttonClass} border border-[#E4DFD3] bg-white text-[#1f3d2e] transition-all duration-200 ease-in-out dark:bg-white dark:hover:text-black`}
                   >
                     <UserPlus size={16} />
                     Sign Up
                   </Link>
                 </div>
               ) : (
+                /* Mobile Logout */
                 <button
-                  onClick={() => {
-                    logout();
-                    closeMenu();
-                  }}
-                  className={`${buttonClass} mt-2 w-full border border-red-300 text-red-600 
-                  cursor-pointer
-                    `}
+                  onClick={handleLogout}
+                  className={`${buttonClass} mt-2 w-full border border-red-300 text-red-600`}
                 >
                   <LogOut size={16} />
                   Logout

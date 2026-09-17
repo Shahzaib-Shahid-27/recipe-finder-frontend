@@ -1,73 +1,139 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 
 import { AuthProvider } from "./context/AuthContext";
 
+// Auth Pages
 import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
-import MenuPage from "./pages/MenuPage";
-import HomePage from "./pages/HomePage";
-
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
 
+// Main Pages
+import MenuPage from "./pages/MenuPage";
+import HomePage from "./pages/HomePage";
 import CategoryPage from "./pages/CategoryPage";
 import CategoryMealsPage from "./pages/CategoryMealsPage";
 import MealsPage from "./pages/MealsPage";
 import IngredientsPage from "./pages/IngredientsPage";
-
 import SearchPage from "./pages/SearchPage";
 
+// Layout
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
-export default function App() {
+// Protected Route
+import ProtectedRoute from "./components/ProtectedRoute";
 
+
+// ==========================================
+// Main Layout
+// Header + Footer will only appear here
+// ==========================================
+
+function MainLayout() {
+  return (
+    <div className="min-h-screen flex flex-col">
+      <Header />
+
+      <main className="flex-1">
+        <Outlet />
+      </main>
+
+      <Footer />
+    </div>
+  );
+}
+
+
+// ==========================================
+// App
+// ==========================================
+
+export default function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
-        <div className="min-h-screen flex flex-col">
+        <Routes>
 
-          {/* Header */}
-          <Header />
+          {/* =================================
+              AUTHENTICATION PAGES
+              No Header / Footer
+          ================================= */}
 
-            {/* Pages */}
-            <main className="flex-1">
-              <Routes>
+          <Route path="/" element={<LoginPage />} />
 
-                {/* AUTHENTICATION */}
-                <Route path="/" element={<LoginPage />} />
-                {/* <Route path="/" element={<RegisterPage />} /> */}
-                <Route path="/register" element={<RegisterPage />} />
-                <Route path="/login" element={<LoginPage />} />
-                <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-                <Route path="/reset-password" element={<ResetPasswordPage />}/>
+          <Route path="/login" element={<LoginPage />} />
 
-                {/* HOME */}
-                <Route  path="/hompage" element={<HomePage />} />
+          <Route path="/register" element={<RegisterPage />} />
 
-                {/* MENU */}
-                <Route path="/MenuPage" element={<MenuPage />} />
+          <Route
+            path="/forgot-password"
+            element={<ForgotPasswordPage />}
+          />
 
-                {/* ALL CATEGORIES */}
-                <Route path="/CategoryPage" element={<CategoryPage />}/>
+          <Route
+            path="/reset-password"
+            element={<ResetPasswordPage />}
+          />
 
-                {/* MEALS OF A CATEGORY */}
-                <Route path="/category/:category" element={<CategoryMealsPage />}/>
 
-                {/* ALL MEALS */}
-                <Route path="/MealsPage" element={<MealsPage />}/>
+          {/* =================================
+              PROTECTED PAGES
+              Login Required
+          ================================= */}
 
-                {/*  MEAL DETAILS / INGREDIENTS */}
-                <Route path="/ingredients/:id" element={<IngredientsPage />}/>
+          <Route element={<ProtectedRoute />}>
 
-                {/* SEARCH */}
-                <Route path="/SearchPage" element={<SearchPage />}/>
-              </Routes>
-            </main>
+            <Route element={<MainLayout />}>
 
-          {/* Footer */}
-          <Footer />
-        </div>
+              {/* Home */}
+              <Route
+                path="/hompage"
+                element={<HomePage />}
+              />
+
+              {/* Menu */}
+              <Route
+                path="/MenuPage"
+                element={<MenuPage />}
+              />
+
+              {/* Categories */}
+              <Route
+                path="/CategoryPage"
+                element={<CategoryPage />}
+              />
+
+              {/* Meals of Category */}
+              <Route
+                path="/category/:category"
+                element={<CategoryMealsPage />}
+              />
+
+              {/* All Meals */}
+              <Route
+                path="/MealsPage"
+                element={<MealsPage />}
+              />
+
+              {/* Meal Ingredients / Details */}
+              <Route
+                path="/ingredients/:id"
+                element={<IngredientsPage />}
+              />
+
+              {/* Search */}
+              <Route
+                path="/SearchPage"
+                element={<SearchPage />}
+              />
+
+            </Route>
+
+          </Route>
+
+        </Routes>
       </BrowserRouter>
     </AuthProvider>
   );

@@ -32,7 +32,7 @@ export default function HomePage() {
           </div>
 
           {/* Heading */}
-          <h1 className="max-w-4xl font-serif text-5xl font-semibold leading-tight tracking-tight text-[#1f3d2e] dark:text-[#F4F1E8] md:text-7xl">
+          <h1 className="max-w-4xl font-serif text-5xl font-semibold leading-tight tracking-tight text-[#625729] dark:text-[#F4F1E8] md:text-7xl">
             Find Your Next
             <span className="block text-[#E8A33D]">
               Favorite Meal
@@ -84,40 +84,40 @@ export default function HomePage() {
           <div className="mt-16 grid max-w-2xl grid-cols-1 gap-4 sm:grid-cols-3">
 
             <div className="rounded-2xl border border-[#E4DFD3] bg-white px-5 py-5 shadow-sm">
-              <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-[#1f3d2e]/10">
+              <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-[#E8A33D]">
                 <ChefHat
                   size={19}
-                  className="text-[#1f3d2e] dark:text-[#F4F1E8]"
+                  className="text-[#F4F1E8] dark:text-[#1f3d2e]"
                 />
               </div>
 
-              <p className="mt-3 text-sm font-semibold text-[#2B2620]">
+              <p className="mt-3 text-sm font-semibold text-[#E8A33D]">
                 Delicious Recipes
               </p>
             </div>
 
             <div className="rounded-2xl border border-[#E4DFD3] bg-white px-5 py-5 shadow-sm">
-              <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-[#E8A33D]/15">
+              <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-[#E8A33D]">
                 <Search
                   size={19}
-                  className="text-[#E8A33D]"
+                  className="text-[#F4F1E8] dark:text-[#1f3d2e]"
                 />
               </div>
 
-              <p className="mt-3 text-sm font-semibold text-[#2B2620]">
+              <p className="mt-3 text-sm font-semibold text-[#E8A33D]">
                 Easy to Discover
               </p>
             </div>
 
             <div className="rounded-2xl border border-[#E4DFD3] bg-white px-5 py-5 shadow-sm">
-              <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-[#1f3d2e]/10">
+              <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-[#E8A33D]">
                 <UtensilsCrossed
                   size={19}
-                  className="text-[#1f3d2e] dark:text-[#F4F1E8]"
+                  className="text-[#F4F1E8] dark:text-[#1f3d2e]"
                 />
               </div>
 
-              <p className="mt-3 text-sm font-semibold text-[#2B2620]">
+              <p className="mt-3 text-sm font-semibold text-[#E8A33D]">
                 Cook Something New
               </p>
             </div>

@@ -17,6 +17,13 @@ const fadeUp: Variants = {
   },
 };
 
+const windowToTop = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
+};
+
 export default function Footer() {
   return (
     <motion.footer
@@ -73,6 +80,7 @@ export default function Footer() {
                 <Link
                   key={to}
                   to={to}
+                  onClick={windowToTop}
                   className="group flex w-fit items-center gap-2 transition-colors hover:text-[#E8A33D]"
                 >
                   <span className="h-px w-0 bg-[#E8A33D] transition-all duration-300 group-hover:w-4" />

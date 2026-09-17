@@ -100,7 +100,7 @@ export default function CategoryMealsPage() {
             <span className="text-2xl">!</span>
           </div>
 
-          <h1 className="mt-5 font-serif text-3xl font-semibold text-[#2B2620]">
+          <h1 className="mt-5 font-serif text-3xl font-semibold text-[#e8a33d]">
             Unable to load meals
           </h1>
 
@@ -110,7 +110,7 @@ export default function CategoryMealsPage() {
 
           <button
             onClick={() => navigate(-1)}
-            className="mt-7 rounded-full bg-[#1f3d2e] px-6 py-3 text-sm font-semibold text-[#F7F4EE] transition-all duration-200 hover:bg-[#284D3A] hover:shadow-md"
+            className="mt-7 rounded-full bg-[#e8a33d] px-6 py-3 text-sm font-semibold text-[#e8a33d] transition-all duration-200 hover:bg-[#e8a33d] hover:shadow-md"
           >
             ← Back to Categories
           </button>
@@ -130,9 +130,9 @@ export default function CategoryMealsPage() {
         {/* Back button */}
         <button
           onClick={() => navigate(-1)}
-          className="mb-8 inline-flex items-center gap-2 text-sm font-semibold text-[#1f3d2e] transition-colors hover:text-[#E8A33D]"
+          className="mb-8 inline-flex items-center gap-2 text-sm font-semibold text-[#e8a33d] hover:text-[#ae7c31] transition-colors cursor-pointer"
         >
-          ← Back to Categories
+          <span className="text-2xl">←</span> Back to Categories
         </button>
 
         {/* Heading */}
@@ -145,13 +145,13 @@ export default function CategoryMealsPage() {
             </p>
           </div>
 
-          <h1 className="font-serif text-4xl font-semibold text-[#1f3d2e] md:text-5xl">
+          <h1 className="font-serif text-4xl font-semibold text-[#e8a33d] md:text-5xl">
             {category} Meals
           </h1>
 
           <p className="mt-3 max-w-2xl text-[#6B6656]">
             Explore delicious{" "}
-            <span className="font-medium text-[#1f3d2e]">
+            <span className="font-medium text-[#e8a33d]">
               {category?.toLowerCase()}
             </span>{" "}
             recipes and discover your next favorite meal.
@@ -165,17 +165,17 @@ export default function CategoryMealsPage() {
               <span className="text-2xl">🍽️</span>
             </div>
 
-            <h2 className="mt-5 font-serif text-2xl font-semibold text-[#2B2620]">
+            <h2 className="mt-5 font-serif text-2xl font-semibold text-[#e8a33d]">
               No meals found
             </h2>
 
-            <p className="mt-2 text-sm text-[#6B6656]">
+            <p className="mt-2 text-sm text-[#817a65]">
               There are no meals available in this category.
             </p>
 
             <button
               onClick={() => navigate(-1)}
-              className="mt-6 rounded-full bg-[#1f3d2e] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#284D3A]"
+              className="mt-6 rounded-full bg-[#e8a33d] px-6 py-3 text-sm font-semibold text-white transition-all duration-150 ease-in cursor-pointer hover:bg-[#b9812e]"
             >
               Browse Categories
             </button>
@@ -185,7 +185,7 @@ export default function CategoryMealsPage() {
             {/* Results count */}
             <div className="mb-5 flex items-center justify-between">
               <p className="text-sm text-[#6B6656]">
-                <span className="font-semibold text-[#1f3d2e]">
+                <span className="font-semibold text-[#e8a33d]">
                   {meals.length}
                 </span>{" "}
                 delicious meals
@@ -220,7 +220,7 @@ export default function CategoryMealsPage() {
 
                   {/* Details */}
                   <div className="p-5">
-                    <h2 className="font-serif text-lg font-semibold text-[#2B2620] transition-colors group-hover:text-[#1f3d2e]">
+                    <h2 className="font-serif text-lg font-semibold text-[#2B2620] transition-colors group-hover:text-[#E8A33D]">
                       {meal.strMeal}
                     </h2>
 
@@ -229,7 +229,7 @@ export default function CategoryMealsPage() {
                         Explore recipe
                       </span>
 
-                      <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#F7F4EE] text-[#1f3d2e] transition-all duration-300 group-hover:bg-[#E8A33D] group-hover:text-white">
+                      <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#F7F4EE] text-[#1f3d2e] transition-all duration-300 group-hover:bg-[#E8A33D] group-hover:text-white dark:text-[#E8A33D] ">
                         →
                       </span>
                     </div>

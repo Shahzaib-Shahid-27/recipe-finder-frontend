@@ -88,7 +88,7 @@ export default function IngredientsPage() {
         <div className="text-center">
           <div className="mx-auto mb-5 h-12 w-12 animate-spin rounded-full border-4 border-[#C9CBB8] border-t-[#1f3d2e]" />
 
-          <h1 className="font-serif text-xl font-semibold text-[#1f3d2e]">
+          <h1 className="font-serif text-xl font-semibold text-[#e8a33d]">
             Loading meal...
           </h1>
 
@@ -115,7 +115,7 @@ export default function IngredientsPage() {
               </span>
             </div>
 
-            <h1 className="mt-6 font-serif text-3xl font-semibold text-[#1f3d2e]">
+            <h1 className="mt-6 font-serif text-3xl font-semibold text-[#e8a33d]">
               Meal not found
             </h1>
 
@@ -125,9 +125,9 @@ export default function IngredientsPage() {
 
             <button
               onClick={() => navigate(-1)}
-              className="mt-7 inline-flex items-center gap-2 rounded-full bg-[#1f3d2e] px-6 py-3 text-sm font-semibold text-white transition-all duration-200 hover:bg-[#284D3A] hover:shadow-md"
+              className="text-[white] mt-7 inline-flex items-center gap-2 rounded-full bg-[#e8a33d] px-6 py-3 text-sm font-semibold  transition-all duration-200 hover:bg-[#c9a027] hover:shadow-md cursor-pointer "
             >
-              <ArrowLeft size={17} />
+              <ArrowLeft size={17} className=""/>
               Go Back
             </button>
           </div>
@@ -179,13 +179,14 @@ export default function IngredientsPage() {
   // =========================
 
   return (
-    <main className="min-h-screen bg-[#F7F4EE] px-6 py-10 text-[#2B2620]">
+    <main className="min-h-screen bg-[#F7F4EE] px-6 py-10 text-[#c9a027]">
       <div className="mx-auto max-w-6xl">
 
         {/* Back */}
         <button
           onClick={() => navigate(-1)}
-          className="mb-8 inline-flex items-center gap-2 text-sm font-semibold text-[#1f3d2e] transition-colors hover:text-[#E8A33D]"
+          className="mb-8 inline-flex items-center gap-2 text-sm font-semibold text-[#c9a027] transition-colors
+           hover:text-[#E8A33D] cursor-pointer"
         >
           <ArrowLeft size={17} />
           Back to Recipes
@@ -224,7 +225,7 @@ export default function IngredientsPage() {
             )}
 
             {/* Title */}
-            <h1 className="font-serif text-4xl font-semibold leading-tight text-[#1f3d2e] md:text-5xl">
+            <h1 className="font-serif text-4xl font-semibold leading-tight text-[#E8A33D] md:text-5xl">
               {meal.strMeal}
             </h1>
 
@@ -288,7 +289,11 @@ export default function IngredientsPage() {
                 href={meal.strYoutube}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-7 inline-flex w-fit items-center gap-2 rounded-full border border-[#1f3d2e]/20 bg-white px-5 py-3 text-sm font-semibold text-[#1f3d2e] shadow-sm transition-all duration-200 hover:border-[#E8A33D] hover:bg-[#E8A33D] hover:text-white hover:shadow-md dark:border-[#E8A33D]/40 dark:bg-[#1C241E] dark:text-[#F4F1E8] dark:hover:bg-[#E8A33D] dark:hover:text-[#1f3d2e]"
+                className="mt-7 inline-flex w-fit items-center gap-2 rounded-full border border-[#1f3d2e]/20 bg-white
+                 px-5 py-3 text-sm font-semibold text-[#c68018] shadow-sm transition-all duration-200
+                  hover:border-[#E8A33D] hover:bg-[#E8A33D] hover:text-white hover:shadow-md dark:border-[#E8A33D]/40
+                  dark:bg-[#cc851b]
+                 dark:text-[#F4F1E8] dark:hover:bg-[#E8A33D] dark:hover:text-[#d08d28]"
               >
                 <Play size={16} />
                 Watch Recipe
@@ -312,7 +317,7 @@ export default function IngredientsPage() {
               </p>
             </div>
 
-            <h2 className="font-serif text-3xl font-semibold text-[#1f3d2e]">
+            <h2 className="font-serif text-3xl font-semibold text-[#E8A33D]">
               Ingredients
             </h2>
 
@@ -330,12 +335,12 @@ export default function IngredientsPage() {
                     className="group rounded-2xl border border-[#E4DFD3] bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-[#E8A33D] hover:shadow-md"
                   >
                     <div className="flex items-start gap-4">
-                      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#F7F4EE] text-sm font-bold text-[#1f3d2e] transition-colors group-hover:bg-[#E8A33D] group-hover:text-white">
+                      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#F7F4EE] text-sm font-bold text-[#c48528] transition-colors group-hover:bg-[#E8A33D] group-hover:text-white ">
                         {index + 1}
                       </div>
 
                       <div>
-                        <p className="font-semibold text-[#2B2620]">
+                        <p className="font-semibold text-[#E8A33D]">
                           {ingredient}
                         </p>
 
@@ -369,7 +374,7 @@ export default function IngredientsPage() {
               </p>
             </div>
 
-            <h2 className="font-serif text-3xl font-semibold text-[#1f3d2e]">
+            <h2 className="font-serif text-3xl font-semibold text-[#E8A33D]">
               Instructions
             </h2>
 
@@ -380,7 +385,7 @@ export default function IngredientsPage() {
 
           <div className="rounded-3xl border border-[#E4DFD3] bg-white p-7 shadow-sm md:p-9">
             {meal.strInstructions ? (
-              <p className="whitespace-pre-line leading-8 text-[#4F4A40]">
+              <p className="whitespace-pre-line leading-8 text-black dark:text-[#E8A33D]">
                 {meal.strInstructions}
               </p>
             ) : (

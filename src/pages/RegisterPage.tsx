@@ -204,7 +204,7 @@ export default function RegisterPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full rounded-full bg-[#1f3d2e] py-3 text-sm font-semibold text-[#F7F4EE] transition-all duration-200 hover:bg-[#284D3A] hover:shadow-md disabled:cursor-not-allowed disabled:opacity-60"
+                className="w-full rounded-full bg-[#e8a33d] py-3 text-sm font-semibold text-[#F7F4EE] dark:text-[#131312] transition-all duration-100 hover:bg-[#ad7522]  hover:shadow-md disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {loading
                   ? "Creating account..."
@@ -213,11 +213,11 @@ export default function RegisterPage() {
             </form>
 
             {/* Login */}
-            <p className="mt-7 text-center text-sm text-[#000000] ">
+            <p className="mt-7 text-center text-sm text-[#000000] dark:text-[#F7F4EE]">
               Already have an account?{" "}
               <Link
                 to="/login"
-                className="font-semibold text-[#070808] transition-colors  hover:text-[#E8A33D]"
+                className="font-semibold text-[#070808]  transition-colors  hover:text-[#E8A33D]"
               >
                 Log in
               </Link>
