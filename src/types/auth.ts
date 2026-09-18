@@ -46,7 +46,12 @@ export interface AuthApiResponse {
 
 export interface PasswordResetRequest {
   email: string;
+  token: string;
+  newPassword: string;
+}
+
+export interface ChangePasswordRequest {
+  email: string;
   currentPassword: string;
   newPassword: string;
-  token:string
 }

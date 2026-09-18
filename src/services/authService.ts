@@ -58,12 +58,12 @@ export const authService = {
 
   async resetPassword({
     email,
-    currentPassword,
+    token,
     newPassword,
   }: PasswordResetRequest): Promise<string> {
     const { data } = await authApi.resetPassword({
       email,
-      currentPassword,
+      token,
       newPassword,
     });
 
