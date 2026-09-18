@@ -2,6 +2,7 @@
 import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 
 import { AuthProvider } from "./context/AuthContext";
+import ScrollToTop from "./components/ScrollToTop";
 
 // Auth Pages
 import RegisterPage from "./pages/RegisterPage";
@@ -54,6 +55,12 @@ export default function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
+
+
+      {/* Scroll to top whenever route changes */}
+          <ScrollToTop />
+
+          
         <Routes>
 
           {/* =================================

@@ -35,6 +35,13 @@ const links = [
   { to: "/SearchPage", label: "Search" },
 ];
 
+const windowToTop = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
+};
+
 export default function Header() {
   const [darkMode, setDarkMode] = useState(getInitialDarkMode);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -120,6 +127,7 @@ export default function Header() {
         <nav className="hidden items-center gap-1 md:flex">
           {links.map((link, i) => (
             <motion.div
+              onClick={windowToTop}
               key={link.to}
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -204,11 +212,14 @@ export default function Header() {
           {/* Mobile Menu Button */}
           <motion.button
             whileTap={{ scale: 0.9 }}
-            onClick={() => setMobileOpen(!mobileOpen)}
+            onClick={() => {
+              setMobileOpen(!mobileOpen);
+              windowToTop();
+            }}
             className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-[#1f3d2e] md:hidden dark:bg-[#1C241E] dark:text-[#F4F1E8]"
             aria-label="Toggle menu"
           >
-            {mobileOpen ? <X size={21} /> : <Menu size={21} />}
+            {mobileOpen ? <X size={21} /> : <Menu size={21}  />}
           </motion.button>
         </div>
       </div>
@@ -217,6 +228,7 @@ export default function Header() {
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
+            // onClick={windowToTop}
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}

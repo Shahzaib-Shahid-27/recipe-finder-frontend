@@ -252,7 +252,7 @@ export default function IngredientsPage() {
                 <span className="inline-flex items-center gap-2 rounded-full border border-[#E4DFD3] bg-white px-4 py-2 text-sm text-[#6B6656]">
                   <ChefHat
                     size={15}
-                    className="text-[#1f3d2e]"
+                    className="text-[#E8A33D]"
                   />
                   {meal.strArea}
                 </span>
@@ -274,7 +274,7 @@ export default function IngredientsPage() {
                     .map((tag) => (
                       <span
                         key={tag}
-                        className="rounded-full bg-[#1f3d2e]/10 px-3 py-1.5 text-xs font-medium text-[#1f3d2e]"
+                        className="rounded-full bg-[#1f3d2e]/10 px-3 py-1.5 text-xs font-medium text-[#c2801c]"
                       >
                         {tag}
                       </span>
@@ -289,9 +289,10 @@ export default function IngredientsPage() {
                 href={meal.strYoutube}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-7 inline-flex w-fit items-center gap-2 rounded-full border border-[#1f3d2e]/20 bg-white
-                 px-5 py-3 text-sm font-semibold text-[#c68018] shadow-sm transition-all duration-200
-                  hover:border-[#E8A33D] hover:bg-[#E8A33D] hover:text-white hover:shadow-md dark:border-[#E8A33D]/40
+                className="mt-7 inline-flex w-fit items-center gap-2 rounded-full border border-[#1f3d2e]/20
+                 bg-white text-[#6c4e20]
+                 px-5 py-3 text-sm font-semibold  shadow-sm transition-all duration-200
+                  hover:border-[#E8A33D]   hover:text-[#33230c] hover:shadow-md dark:border-[#E8A33D]/40
                   dark:bg-[#cc851b]
                  dark:text-[#F4F1E8] dark:hover:bg-[#E8A33D] dark:hover:text-[#d08d28]"
               >

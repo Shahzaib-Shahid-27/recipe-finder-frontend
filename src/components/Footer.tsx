@@ -54,7 +54,7 @@ export default function Footer() {
               meals, and find something special to cook today.
             </p>
 
-            <div className="mt-6 flex gap-3">
+            {/* <div className="mt-6 flex gap-3">
               {["IG", "FB", "X"].map((social) => (
                 <motion.a
                   key={social}
@@ -66,7 +66,7 @@ export default function Footer() {
                   {social}
                 </motion.a>
               ))}
-            </div>
+            </div> */}
           </motion.div>
 
           {/* Explore */}
