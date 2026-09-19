@@ -210,7 +210,10 @@ export default function Header() {
             className="flex h-10 w-10 items-center justify-center rounded-full bg-[#e8a33d] text-white shadow-sm dark:bg-[#e8a33d] dark:text-black"
             aria-label="Toggle theme"
           >
-            {darkMode ? <Sun size={19} /> : <Moon size={19} />}
+            {darkMode ? 
+                <Sun size={19} /> 
+                  : 
+                <Moon size={19} />}
           </motion.button>
 
           {/* Mobile Menu Button */}
