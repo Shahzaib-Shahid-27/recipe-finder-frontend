@@ -1,17 +1,6 @@
 import { useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-
-import {
-  ChefHat,
-  Menu,
-  Moon,
-  Search,
-  Sun,
-  X,
-  LogIn,
-  UserPlus,
-  LogOut,
-} from "lucide-react";
+import {ChefHat,Menu,Moon,Search,Sun,X,LogIn,UserPlus,LogOut} from "lucide-react"
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "../context/AuthContext";
