@@ -16,6 +16,7 @@ export default function LoginPage() {
     email: "",
     password: "",
   });
+ 
 
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -31,34 +32,47 @@ export default function LoginPage() {
     }));
   }
 
-  async function handleSubmit(
-    e: FormEvent<HTMLFormElement>
-  ): Promise<void> {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>): Promise<void> {
+
     e.preventDefault();
 
     setError("");
     setLoading(true);
 
+
     try {
+
       await login(form);
 
       navigate("/hompage");
+
     } catch (err: unknown) {
+
       if (axios.isAxiosError<{ message?: string }>(err)) {
+
         setError(
           err.response?.data?.message ||
             "Invalid email or password."
         );
+
       } else if (err instanceof Error) {
+
         setError(err.message);
+
       } else {
+
         setError("Invalid email or password.");
+
       }
     } finally {
+
       setLoading(false);
+
     }
   }
 
+
+  
   return (
     <main className="min-h-[calc(100vh-64px)] bg-[#F7F4EE] px-6 py-16">
       <div className="mx-auto flex min-h-[70vh] max-w-md items-center justify-center">

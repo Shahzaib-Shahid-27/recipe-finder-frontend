@@ -1,6 +1,7 @@
 import { authApi } from "../api/authApi";
 import { mapAuthResponse } from "../mappers/authMapper";
 import { setToken, clearToken } from "../utils/tokenStorage";
+
 import type {
   AuthResult,
   LoginForm,
@@ -9,71 +10,44 @@ import type {
 } from "../types/auth";
 
 export const authService = {
-  async register({
-    name,
-    email,
-    password,
-  }: RegisterForm): Promise<AuthResult> {
-    const { data } = await authApi.register({
-      name,
-      email,
-      password,
-    });
+  async register(data: RegisterForm): Promise<AuthResult> {
+    const response = await authApi.register(data);
+    const result = mapAuthResponse(response.data);
 
-    const mapped = mapAuthResponse(data);
-
-    if (mapped.tokens.accessToken) {
-      setToken(mapped.tokens.accessToken);
+    if (result.tokens.accessToken) {
+      setToken(result.tokens.accessToken);
     }
 
-    return mapped;
+    return result;
   },
 
-  async login({
-    email,
-    password,
-  }: LoginForm): Promise<AuthResult> {
-    const { data } = await authApi.login({
-      email,
-      password,
-    });
+  async login(data: LoginForm): Promise<AuthResult> {
+    const response = await authApi.login(data);
+    const result = mapAuthResponse(response.data);
 
-    const mapped = mapAuthResponse(data);
-
-    if (mapped.tokens.accessToken) {
-      setToken(mapped.tokens.accessToken);
+    if (result.tokens.accessToken) {
+      setToken(result.tokens.accessToken);
     }
 
-    return mapped;
+    return result;
   },
 
   async forgotPassword(email: string): Promise<string> {
     const { data } = await authApi.forgotPassword(email);
 
-    return (
-      data.message ??
-      "Email verified. You can now reset your password."
-    );
+    return data.message || "Email verified. You can now reset your password.";
   },
 
-  async resetPassword({
-    email,
-    token,
-    newPassword,
-  }: PasswordResetRequest): Promise<string> {
-    const { data } = await authApi.resetPassword({
-      email,
-      token,
-      newPassword,
-    });
+  async resetPassword(data: PasswordResetRequest): Promise<string> {
+    const response = await authApi.resetPassword(data);
 
     return (
-      data.message ??
+      response.data.message ||
       "Your password has been reset. You can log in now."
     );
   },
 
-  logout(): void {
+  logout() {
     clearToken();
   },
 };

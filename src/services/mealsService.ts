@@ -1,6 +1,5 @@
 import type { Meal } from "../types/meal";
-
-const API_URL = "http://localhost:8080/api/v1";
+const API_URL =  import.meta.env.VITE_API_BASE_URL || "http://localhost:8080/api/v1";
 
 interface MealsResponse {
   success: boolean;
@@ -14,15 +13,12 @@ interface MealsResponse {
 }
 
 export const mealsService = {
+
   async getAllMeals(): Promise<Meal[]> {
+
     const url = `${API_URL}/meals?page=1&limit=10`;
 
-    // console.log("API URL:", API_URL);
-    // console.log("REQUESTING:", url);
-
     const response = await fetch(url);
-
-    // console.log("STATUS:", response.status);
 
     if (!response.ok) {
       const errorText = await response.text();
@@ -33,8 +29,6 @@ export const mealsService = {
     }
 
     const result: MealsResponse = await response.json();
-
-    // console.log("API RESPONSE:", result); 
 
     return result.data;
   },

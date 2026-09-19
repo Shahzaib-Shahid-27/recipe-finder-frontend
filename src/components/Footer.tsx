@@ -54,19 +54,6 @@ export default function Footer() {
               meals, and find something special to cook today.
             </p>
 
-            {/* <div className="mt-6 flex gap-3">
-              {["IG", "FB", "X"].map((social) => (
-                <motion.a
-                  key={social}
-                  href="#"
-                  whileHover={{ y: -4, scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                  className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-sm hover:border-[#E8A33D] hover:bg-[#E8A33D] hover:text-[#1f3d2e]"
-                >
-                  {social}
-                </motion.a>
-              ))}
-            </div> */}
           </motion.div>
 
           {/* Explore */}

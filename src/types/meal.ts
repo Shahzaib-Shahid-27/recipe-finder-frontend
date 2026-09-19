@@ -10,6 +10,9 @@ export interface Meal {
   price?: number;
   imageUrl?: string;
 
+
+  
+
   // TheMealDB fields
   idMeal: string;
   strMeal: string;

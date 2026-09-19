@@ -13,52 +13,33 @@ export default function ForgotPasswordPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  function handleChange(
-    e: ChangeEvent<HTMLInputElement>
-  ): void {
-    setEmail(e.target.value);
+  function handleChange(e: ChangeEvent<HTMLInputElement>) {
+  setEmail(e.target.value);
+}
+
+async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  e.preventDefault();
+
+  setError("");
+  setLoading(true);
+
+  try {
+    const API_URL =
+      import.meta.env.VITE_API_BASE_URL ||
+      "http://localhost:8080/api/v1";
+
+    await axios.post(`${API_URL}/auth/forgot-password`, {
+      email,
+    });
+
+    navigate(`/reset-password?email=${encodeURIComponent(email)}`);
+  } catch (error) {
+    console.log(error);
+    setError("Unable to verify email.");
+  } finally {
+    setLoading(false);
   }
-
-  async function handleSubmit(
-    e: FormEvent<HTMLFormElement>
-  ): Promise<void> {
-    e.preventDefault();
-
-    setError("");
-    setLoading(true);
-
-    try {
-      const API_URL =
-        import.meta.env.VITE_API_BASE_URL ||
-        "http://localhost:8080/api/v1";
-
-      await axios.post(
-        `${API_URL}/auth/forgot-password`,
-        {
-          email,
-        }
-      );
-
-      // Email verified successfully.
-      // Go to reset password page and pass email.
-      navigate(
-        `/reset-password?email=${encodeURIComponent(email)}`
-      );
-    } catch (err: unknown) {
-      if (axios.isAxiosError<{ message?: string }>(err)) {
-        setError(
-          err.response?.data?.message ||
-            "Unable to verify email."
-        );
-      } else if (err instanceof Error) {
-        setError(err.message);
-      } else {
-        setError("Unable to verify email.");
-      }
-    } finally {
-      setLoading(false);
-    }
-  }
+}
 
   return (
     <main className="min-h-[calc(100vh-64px)] bg-[#F7F4EE] px-6 py-16">
@@ -120,7 +101,7 @@ export default function ForgotPasswordPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full rounded-full bg-[#1f3d2e] py-3 text-sm font-semibold text-[#F7F4EE] transition-all hover:bg-[#284D3A] disabled:cursor-not-allowed disabled:opacity-60"
+                className="w-full rounded-full bg-[#e8a33d] py-3 text-sm font-semibold text-[#F7F4EE] transition-all hover:bg-[#8c5e19] disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {loading
                   ? "Verifying..."

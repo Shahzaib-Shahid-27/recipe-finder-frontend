@@ -8,19 +8,7 @@ import {
   Play,
 } from "lucide-react";
 
-interface Meal {
-  idMeal: string;
-  strMeal: string;
-  strMealAlternate: string | null;
-  strCategory: string;
-  strArea: string | null;
-  strCountry: string | null;
-  strInstructions: string;
-  strMealThumb: string;
-  strTags: string | null;
-  strYoutube: string | null;
-  [key: string]: string | null;
-}
+import type { Meal } from "../types/meal";
 
 export default function IngredientsPage() {
   const { id } = useParams<{ id: string }>();
@@ -33,42 +21,30 @@ export default function IngredientsPage() {
   useEffect(() => {
     const fetchMeal = async () => {
       try {
-        setLoading(true);
-        setError("");
-        setMeal(null);
-
-        if (!id) {
-          throw new Error("Meal ID is missing from the URL.");
-        }
+        if (!id) throw new Error("Meal ID is missing.");
 
         const API_URL =
           import.meta.env.VITE_API_BASE_URL ||
           "http://localhost:8080/api/v1";
 
-        const url = `${API_URL}/meals/${id}`;
-
-        const response = await fetch(url);
+        const response = await fetch(`${API_URL}/meals/${id}`);
 
         if (!response.ok) {
           throw new Error(`HTTP Error: ${response.status}`);
         }
 
         const result = await response.json();
+        const data = result.data || result;
 
-        const mealData = result.data || result;
-
-        if (!mealData || !mealData.idMeal) {
-          throw new Error("Meal data was not found.");
+        if (!data?.idMeal) {
+          throw new Error("Meal not found.");
         }
 
-        setMeal(mealData);
+        setMeal(data);
       } catch (error) {
-        console.error("Failed to fetch meal:", error);
-
+        console.error(error);
         setError(
-          error instanceof Error
-            ? error.message
-            : "Unable to load meal."
+          error instanceof Error ? error.message : "Unable to load meal."
         );
       } finally {
         setLoading(false);
@@ -78,324 +54,164 @@ export default function IngredientsPage() {
     fetchMeal();
   }, [id]);
 
-  // =========================
-  // LOADING
-  // =========================
-
   if (loading) {
     return (
-      <main className="flex min-h-screen items-center justify-center bg-[#F7F4EE] px-6">
-        <div className="text-center">
-          <div className="mx-auto mb-5 h-12 w-12 animate-spin rounded-full border-4 border-[#C9CBB8] border-t-[#1f3d2e]" />
-
-          <h1 className="font-serif text-xl font-semibold text-[#e8a33d]">
-            Loading meal...
-          </h1>
-
-          <p className="mt-2 text-sm text-[#6B6656]">
-            Please wait while we fetch the recipe.
-          </p>
-        </div>
+      <main className="flex min-h-screen items-center justify-center bg-[#F7F4EE]">
+        <p className="text-[#E8A33D]">Loading meal...</p>
       </main>
     );
   }
-
-  // =========================
-  // ERROR
-  // =========================
 
   if (error || !meal) {
     return (
-      <main className="min-h-screen bg-[#F7F4EE] px-6 py-20">
-        <div className="mx-auto max-w-2xl text-center">
-          <div className="rounded-3xl border border-[#E4DFD3] bg-white p-10 shadow-sm">
-            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-red-50">
-              <span className="text-2xl font-bold text-red-500">
-                !
-              </span>
-            </div>
+      <main className="flex min-h-screen items-center justify-center bg-[#F7F4EE] px-6">
+        <div className="text-center">
+          <h1 className="text-3xl font-semibold text-[#E8A33D]">
+            Meal not found
+          </h1>
 
-            <h1 className="mt-6 font-serif text-3xl font-semibold text-[#e8a33d]">
-              Meal not found
-            </h1>
+          <p className="mt-3 text-[#6B6656]">
+            {error || "Unable to load this meal."}
+          </p>
 
-            <p className="mt-4 text-[#6B6656]">
-              {error || "Unable to load this meal."}
-            </p>
-
-            <button
-              onClick={() => navigate(-1)}
-              className="text-[white] mt-7 inline-flex items-center gap-2 rounded-full bg-[#e8a33d] px-6 py-3 text-sm font-semibold  transition-all duration-200 hover:bg-[#c9a027] hover:shadow-md cursor-pointer "
-            >
-              <ArrowLeft size={17} className=""/>
-              Go Back
-            </button>
-          </div>
+          <button
+            onClick={() => navigate(-1)}
+            className="mt-6 inline-flex items-center gap-2 rounded-full bg-[#E8A33D] px-6 py-3 font-semibold text-white"
+          >
+            <ArrowLeft size={17} />
+            Go Back
+          </button>
         </div>
       </main>
     );
   }
 
-  // =========================
-  // INGREDIENTS
-  // =========================
+  const mealFields = meal as unknown as Record<string, string | null | undefined>;
 
-  const ingredients = Array.from(
-    { length: 20 },
-    (_, index) => {
-      const ingredient =
-        meal[`strIngredient${index + 1}`];
+  const ingredients = Array.from({ length: 20 }, (_, i) => {
+    const ingredient = mealFields[`strIngredient${i + 1}`];
+    const measure = mealFields[`strMeasure${i + 1}`];
 
-      const measure =
-        meal[`strMeasure${index + 1}`];
+    if (!ingredient?.trim()) return null;
 
-      if (
-        !ingredient ||
-        typeof ingredient !== "string" ||
-        !ingredient.trim()
-      ) {
-        return null;
-      }
-
-      return {
-        ingredient: ingredient.trim(),
-        measure:
-          typeof measure === "string"
-            ? measure.trim()
-            : "",
-      };
-    }
-  ).filter(
-    (
-      item
-    ): item is {
-      ingredient: string;
-      measure: string;
-    } => item !== null
-  );
-
-  // =========================
-  // PAGE
-  // =========================
+    return {
+      ingredient: ingredient.trim(),
+      measure: measure?.trim() || "As required",
+    };
+  }).filter(Boolean) as {
+    ingredient: string;
+    measure: string;
+  }[];
 
   return (
-    <main className="min-h-screen bg-[#F7F4EE] px-6 py-10 text-[#c9a027]">
+    <main className="min-h-screen bg-[#F7F4EE] px-6 py-10">
       <div className="mx-auto max-w-6xl">
 
         {/* Back */}
         <button
           onClick={() => navigate(-1)}
-          className="mb-8 inline-flex items-center gap-2 text-sm font-semibold text-[#c9a027] transition-colors
-           hover:text-[#E8A33D] cursor-pointer"
+          className="mb-8 flex items-center gap-2 font-semibold text-[#E8A33D]"
         >
           <ArrowLeft size={17} />
           Back to Recipes
         </button>
 
-        {/* Hero */}
+        {/* Meal */}
         <div className="grid gap-10 lg:grid-cols-2">
 
-          {/* Image */}
-          <div className="overflow-hidden rounded-3xl border border-[#E4DFD3] bg-white shadow-sm">
-            {meal.strMealThumb ? (
-              <img
-                src={meal.strMealThumb}
-                alt={meal.strMeal}
-                className="aspect-square w-full object-cover transition duration-500 hover:scale-[1.02]"
-              />
-            ) : (
-              <div className="flex aspect-square items-center justify-center bg-[#C9CBB8] text-[#6B6656]">
-                No image available
-              </div>
-            )}
-          </div>
+          <img
+            src={meal.strMealThumb || ""}
+            alt={meal.strMeal}
+            className="w-full rounded-3xl object-cover"
+          />
 
-          {/* Information */}
           <div className="flex flex-col justify-center">
 
-            {/* Category */}
-            {meal.strCategory && (
-              <div className="mb-3 flex items-center gap-3">
-                <div className="h-px w-10 bg-[#E8A33D]" />
+            <p className="text-sm font-bold uppercase text-[#E8A33D]">
+              {meal.strCategory}
+            </p>
 
-                <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#E8A33D]">
-                  {meal.strCategory}
-                </p>
-              </div>
-            )}
-
-            {/* Title */}
-            <h1 className="font-serif text-4xl font-semibold leading-tight text-[#E8A33D] md:text-5xl">
+            <h1 className="mt-2 font-serif text-4xl font-semibold text-[#E8A33D] md:text-5xl">
               {meal.strMeal}
             </h1>
 
-            {/* Description */}
             <p className="mt-5 leading-7 text-[#6B6656]">
-              Discover everything you need to prepare this
-              delicious recipe, from ingredients to step-by-step
-              cooking instructions.
+              Discover everything you need to prepare this delicious recipe.
             </p>
 
-            {/* Country / Area */}
             <div className="mt-6 flex flex-wrap gap-3">
               {meal.strCountry && (
-                <span className="inline-flex items-center gap-2 rounded-full border border-[#E4DFD3] bg-white px-4 py-2 text-sm text-[#6B6656]">
-                  <MapPin
-                    size={15}
-                    className="text-[#E8A33D]"
-                  />
+                <span className="flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm text-[#6B6656]">
+                  <MapPin size={15} className="text-[#E8A33D]" />
                   {meal.strCountry}
                 </span>
               )}
 
               {meal.strArea && (
-                <span className="inline-flex items-center gap-2 rounded-full border border-[#E4DFD3] bg-white px-4 py-2 text-sm text-[#6B6656]">
-                  <ChefHat
-                    size={15}
-                    className="text-[#E8A33D]"
-                  />
+                <span className="flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm text-[#6B6656]">
+                  <ChefHat size={15} className="text-[#E8A33D]" />
                   {meal.strArea}
                 </span>
               )}
             </div>
 
-            {/* Tags */}
-            {meal.strTags && (
-              <div className="mt-6">
-                <p className="mb-2 text-xs font-bold uppercase tracking-wider text-[#8A8577]">
-                  Tags
-                </p>
-
-                <div className="flex flex-wrap gap-2">
-                  {meal.strTags
-                    .split(",")
-                    .map((tag) => tag.trim())
-                    .filter(Boolean)
-                    .map((tag) => (
-                      <span
-                        key={tag}
-                        className="rounded-full bg-[#1f3d2e]/10 px-3 py-1.5 text-xs font-medium text-[#c2801c]"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                </div>
-              </div>
-            )}
-
-            {/* YouTube */}
             {meal.strYoutube && (
               <a
                 href={meal.strYoutube}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-7 inline-flex w-fit items-center gap-2 rounded-full border border-[#1f3d2e]/20
-                 bg-white text-[#6c4e20]
-                 px-5 py-3 text-sm font-semibold  shadow-sm transition-all duration-200
-                  hover:border-[#E8A33D]   hover:text-[#33230c] hover:shadow-md dark:border-[#E8A33D]/40
-                  dark:bg-[#cc851b]
-                 dark:text-[#F4F1E8] dark:hover:bg-[#E8A33D] dark:hover:text-[#d08d28]"
+                className="mt-7 flex w-fit items-center gap-2 rounded-full bg-[#E8A33D] hover:bg-[#c48322] text-[#000000] px-5 py-3
+                 font-semibold transition-all duration-150 ease-in"
               >
-                <Play size={16} />
-                Watch Recipe
-                <ExternalLink size={14} />
+                <Play size={16} className="text-black"/>
+                <span className="text-black">Watch Recipe</span>
+                <ExternalLink size={14} className="text-black"/>
               </a>
             )}
           </div>
         </div>
 
-        {/* =========================
-            INGREDIENTS
-        ========================== */}
-
+        {/* Ingredients */}
         <section className="mt-16">
-          <div className="mb-7">
-            <div className="mb-3 flex items-center gap-3">
-              <div className="h-px w-10 bg-[#E8A33D]" />
+          <h2 className="font-serif text-3xl font-semibold text-[#E8A33D]">
+            Ingredients
+          </h2>
 
-              <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#E8A33D]">
-                What You Need
-              </p>
-            </div>
+          <p className="mt-2 text-[#6B6656]">
+            Ingredients required for this recipe.
+          </p>
 
-            <h2 className="font-serif text-3xl font-semibold text-[#E8A33D]">
-              Ingredients
-            </h2>
+          <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {ingredients.map((item, index) => (
+              <div
+                key={index}
+                className="rounded-2xl bg-white p-5 shadow-sm"
+              >
+                <p className="font-semibold text-[#E8A33D]">
+                  {index + 1}. {item.ingredient}
+                </p>
 
-            <p className="mt-2 text-[#6B6656]">
-              Ingredients required for this recipe.
-            </p>
+                <p className="mt-1 text-sm text-[#6B6656]">
+                  {item.measure}
+                </p>
+              </div>
+            ))}
           </div>
-
-          {ingredients.length > 0 ? (
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {ingredients.map(
-                ({ ingredient, measure }, index) => (
-                  <div
-                    key={`${ingredient}-${index}`}
-                    className="group rounded-2xl border border-[#E4DFD3] bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-[#E8A33D] hover:shadow-md"
-                  >
-                    <div className="flex items-start gap-4">
-                      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#F7F4EE] text-sm font-bold text-[#c48528] transition-colors group-hover:bg-[#E8A33D] group-hover:text-white ">
-                        {index + 1}
-                      </div>
-
-                      <div>
-                        <p className="font-semibold text-[#E8A33D]">
-                          {ingredient}
-                        </p>
-
-                        <p className="mt-1 text-sm text-[#6B6656]">
-                          {measure || "As required"}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                )
-              )}
-            </div>
-          ) : (
-            <div className="rounded-2xl border border-[#E4DFD3] bg-white p-6 text-[#6B6656] shadow-sm">
-              No ingredients available.
-            </div>
-          )}
         </section>
 
-        {/* =========================
-            INSTRUCTIONS
-        ========================== */}
-
+        {/* Instructions */}
         <section className="mt-16 pb-12">
-          <div className="mb-7">
-            <div className="mb-3 flex items-center gap-3">
-              <div className="h-px w-10 bg-[#E8A33D]" />
+          <h2 className="font-serif text-3xl font-semibold text-[#E8A33D]">
+            Instructions
+          </h2>
 
-              <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#E8A33D]">
-                Step by Step
-              </p>
-            </div>
-
-            <h2 className="font-serif text-3xl font-semibold text-[#E8A33D]">
-              Instructions
-            </h2>
-
-            <p className="mt-2 text-[#6B6656]">
-              Follow these instructions to prepare your meal.
+          <div className="mt-7 rounded-3xl bg-white p-7 shadow-sm">
+            <p className="whitespace-pre-line leading-8 text-[#10100f] dark:text-[#E8A33D]">
+              {meal.strInstructions || "No instructions available."}
             </p>
           </div>
-
-          <div className="rounded-3xl border border-[#E4DFD3] bg-white p-7 shadow-sm md:p-9">
-            {meal.strInstructions ? (
-              <p className="whitespace-pre-line leading-8 text-black dark:text-[#E8A33D]">
-                {meal.strInstructions}
-              </p>
-            ) : (
-              <p className="text-[#6B6656]">
-                No instructions available.
-              </p>
-            )}
-          </div>
         </section>
+
       </div>
     </main>
   );

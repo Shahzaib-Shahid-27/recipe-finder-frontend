@@ -1,27 +1,20 @@
-import type {
-  AuthApiResponse,
-  AuthResult,
-  User,
-} from "../types/auth";
+import type { AuthApiResponse, AuthResult, User } from "../types/auth";
 
-export function mapAuthResponse(
-  response: AuthApiResponse
-): AuthResult {
-  const backendUser = response.data?.data;
-  const backendTokens = response.data?.tokens;
+export function mapAuthResponse(response: AuthApiResponse): AuthResult {
+  const data = response.data?.data;
+  const tokens = response.data?.tokens;
 
   const user: User = {
-    id: backendUser?.id ?? backendUser?._id ?? null,
-    name: backendUser?.name ?? "",
-    email: backendUser?.email ?? "",
+    id: data?.id ?? data?._id ?? null,
+    name: data?.name ?? "",
+    email: data?.email ?? "",
   };
 
   return {
     user,
-
     tokens: {
-      accessToken: backendTokens?.accessToken ?? null,
-      refreshToken: backendTokens?.refreshToken ?? null,
+      accessToken: tokens?.accessToken ?? null,
+      refreshToken: tokens?.refreshToken ?? null,
     },
   };
 }

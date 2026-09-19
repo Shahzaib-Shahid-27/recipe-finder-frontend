@@ -1,15 +1,14 @@
-import httpClient from "./httpClient";
-import type { AxiosResponse } from "axios";
 
+
+import httpClient from "./httpClient";
 import type { RawMeal } from "../types/meal";
 
 export const mealsApi = {
-  
-  getAllMeals(): Promise<AxiosResponse<RawMeal[]>> {
-    return httpClient.get("/meals");
-  },
 
-  getMealById(id: string | number): Promise<AxiosResponse<RawMeal>> {
-    return httpClient.get(`/meals/${id}`);
-  },
+  getAllMeals: () =>
+    httpClient.get<RawMeal[]>("/meals"),
+
+  getMealById: (id: string | number) =>
+    httpClient.get<RawMeal>(`/meals/${id}`),
+  
 };

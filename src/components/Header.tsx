@@ -69,14 +69,18 @@ export default function Header() {
 
   // Logout and navigate to Login page
   const handleLogout = async () => {
+
     try {
       await logout();
 
       closeMenu();
 
       navigate("/login");
-    } catch (error) {
+
+    } catch (error) { 
+
       console.error("Logout failed:", error);
+      
     }
   };
 
@@ -153,7 +157,7 @@ export default function Header() {
           </Link>
 
           {/* Desktop Auth */}
-          <div className="hidden items-center gap-2 lg:flex">
+          <div className=" items-center gap-2 lg:flex">
             {!isAuthenticated ? (
               <>
                 {/* Login */}
@@ -216,10 +220,14 @@ export default function Header() {
               setMobileOpen(!mobileOpen);
               windowToTop();
             }}
-            className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-[#1f3d2e] md:hidden dark:bg-[#1C241E] dark:text-[#F4F1E8]"
+            className="flex h-10 w-10 items-center justify-center rounded-full
+             bg-[#E8A33D] text-[#fffffe] md:hidden dark:bg-[#E8A33D]  dark:text-[#21201e]"
             aria-label="Toggle menu"
           >
-            {mobileOpen ? <X size={21} /> : <Menu size={21}  />}
+            {mobileOpen ? 
+              <X size={21} className="" /> 
+                : 
+              <Menu size={21}  />}
           </motion.button>
         </div>
       </div>
@@ -245,8 +253,8 @@ export default function Header() {
                   className={({ isActive }) =>
                     `rounded-xl px-4 py-3 text-sm font-semibold transition ${
                       isActive
-                        ? "bg-[#E8A33D]/10 text-[#E8A33D]"
-                        : "text-[#1f3d2e] hover:bg-[#E8A33D]/10 dark:text-[#F4F1E8]"
+                        ? "bg-[#E8A33D]/25 text-[#E8A33D]"
+                        : "text-[#1f3d2e] hover:bg-[#E8A33D]/25 dark:text-[#F4F1E8]"
                     }`
                   }
                 >

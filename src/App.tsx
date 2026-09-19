@@ -1,22 +1,24 @@
 
+import { lazy, Suspense } from "react";
+
 import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 
 import { AuthProvider } from "./context/AuthContext";
 import ScrollToTop from "./components/ScrollToTop";
 
 // Auth Pages
-import RegisterPage from "./pages/RegisterPage";
-import LoginPage from "./pages/LoginPage";
-import ForgotPasswordPage from "./pages/ForgotPasswordPage";
-import ResetPasswordPage from "./pages/ResetPasswordPage";
+const RegisterPage = lazy(() => import("./pages/RegisterPage"));
+const LoginPage = lazy(() => import("./pages/LoginPage"));
+const ForgotPasswordPage = lazy(() => import("./pages/ForgotPasswordPage"));
+const ResetPasswordPage = lazy(() => import("./pages/ResetPasswordPage"));
 
 // Main Pages
-import MenuPage from "./pages/MenuPage";
-import HomePage from "./pages/HomePage";
+const HomePage = lazy(() => import("./pages/HomePage"));
+const MenuPage = lazy(() => import("./pages/MenuPage"));;
 import CategoryPage from "./pages/CategoryPage";
 import CategoryMealsPage from "./pages/CategoryMealsPage";
 import MealsPage from "./pages/MealsPage";
-import IngredientsPage from "./pages/IngredientsPage";
+const IngredientsPage = lazy(() => import("./pages/IngredientsPage"));
 import SearchPage from "./pages/SearchPage";
 
 // Layout
@@ -27,10 +29,8 @@ import Footer from "./components/Footer";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 
-// ==========================================
 // Main Layout
 // Header + Footer will only appear here
-// ==========================================
 
 function MainLayout() {
   return (
@@ -47,100 +47,56 @@ function MainLayout() {
 }
 
 
-// ==========================================
-// App
-// ==========================================
-
 export default function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
 
-
       {/* Scroll to top whenever route changes */}
           <ScrollToTop />
 
-          
-        <Routes>
+          <Suspense >
+            <Routes>
 
-          {/* =================================
-              AUTHENTICATION PAGES
-              No Header / Footer
-          ================================= */}
-
-          <Route path="/" element={<LoginPage />} />
-
-          <Route path="/login" element={<LoginPage />} />
-
-          <Route path="/register" element={<RegisterPage />} />
-
-          <Route
-            path="/forgot-password"
-            element={<ForgotPasswordPage />}
-          />
-
-          <Route
-            path="/reset-password"
-            element={<ResetPasswordPage />}
-          />
+              {/*  AUTHENTICATION PAGES */}
+              <Route path="/" element={<LoginPage />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/register" element={<RegisterPage />} />
+              <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+              <Route path="/reset-password" element={<ResetPasswordPage />} />
 
 
-          {/* =================================
-              PROTECTED PAGES
-              Login Required
-          ================================= */}
+              {/* PROTECTED PAGES Login Required */}
+                <Route element={<ProtectedRoute />}>
+                  <Route element={<MainLayout />}>
 
-          <Route element={<ProtectedRoute />}>
+                    {/* Home */}
+                    <Route path="/hompage" element={<HomePage />}  />
 
-            <Route element={<MainLayout />}>
+                    {/* Menu */}
+                    <Route path="/MenuPage" element={<MenuPage />} />
 
-              {/* Home */}
-              <Route
-                path="/hompage"
-                element={<HomePage />}
-              />
+                    {/* Categories */}
+                    <Route path="/CategoryPage" element={<CategoryPage />} />
 
-              {/* Menu */}
-              <Route
-                path="/MenuPage"
-                element={<MenuPage />}
-              />
+                    {/* Meals of Category */}
+                    <Route path="/category/:category" element={<CategoryMealsPage />} />
 
-              {/* Categories */}
-              <Route
-                path="/CategoryPage"
-                element={<CategoryPage />}
-              />
+                    {/* All Meals */}
+                    <Route path="/MealsPage" element={<MealsPage />} />
 
-              {/* Meals of Category */}
-              <Route
-                path="/category/:category"
-                element={<CategoryMealsPage />}
-              />
+                    {/* Meal Ingredients / Details */}
+                    <Route  path="/ingredients/:id" element={<IngredientsPage />} />
 
-              {/* All Meals */}
-              <Route
-                path="/MealsPage"
-                element={<MealsPage />}
-              />
+                    {/* Search */}
+                    <Route  path="/SearchPage" element={<SearchPage />} />
 
-              {/* Meal Ingredients / Details */}
-              <Route
-                path="/ingredients/:id"
-                element={<IngredientsPage />}
-              />
+                  </Route>
+                </Route>
 
-              {/* Search */}
-              <Route
-                path="/SearchPage"
-                element={<SearchPage />}
-              />
+            </Routes>
+          </Suspense>
 
-            </Route>
-
-          </Route>
-
-        </Routes>
       </BrowserRouter>
     </AuthProvider>
   );

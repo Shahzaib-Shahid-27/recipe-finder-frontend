@@ -150,9 +150,9 @@ export default function ResetPasswordPage() {
               to="/hompage"
               className="font-serif text-3xl font-semibold text-[#1f3d2e]"
             >
-              Harvest
-              <span className="text-[#E8A33D]">
-                Table
+              Butcher's 
+              <span className="ml-2 text-[#E8A33D]">
+                kicthen
               </span>
             </Link>
 
@@ -262,7 +262,7 @@ export default function ResetPasswordPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full rounded-full bg-[#1f3d2e] py-3 text-sm font-semibold text-[#F7F4EE] transition-all hover:bg-[#284D3A] disabled:cursor-not-allowed disabled:opacity-60"
+                className="w-full rounded-full bg-[#E8A33D] py-3 text-sm font-semibold text-[#F7F4EE] transition-all hover:bg-[#a06a19] disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {loading
                   ? "Resetting..."
