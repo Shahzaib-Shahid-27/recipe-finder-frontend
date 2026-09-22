@@ -7,6 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import type { LoginForm } from "../types/auth";
 import axios from "axios";
+import { Eye, EyeOff } from "lucide-react";
 
 export default function LoginPage() {
   const { login } = useAuth();
@@ -16,8 +17,8 @@ export default function LoginPage() {
     email: "",
     password: "",
   });
- 
 
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -32,47 +33,32 @@ export default function LoginPage() {
     }));
   }
 
-  async function handleSubmit(e: FormEvent<HTMLFormElement>): Promise<void> {
-
+  async function handleSubmit(
+    e: FormEvent<HTMLFormElement>
+  ): Promise<void> {
     e.preventDefault();
-
     setError("");
     setLoading(true);
 
-
     try {
-
       await login(form);
-
       navigate("/hompage");
-
     } catch (err: unknown) {
-
       if (axios.isAxiosError<{ message?: string }>(err)) {
-
         setError(
           err.response?.data?.message ||
             "Invalid email or password."
         );
-
       } else if (err instanceof Error) {
-
         setError(err.message);
-
       } else {
-
         setError("Invalid email or password.");
-
       }
     } finally {
-
       setLoading(false);
-
     }
   }
 
-
-  
   return (
     <main className="min-h-[calc(100vh-64px)] bg-[#F7F4EE] px-6 py-16">
       <div className="mx-auto flex min-h-[70vh] max-w-md items-center justify-center">
@@ -105,7 +91,6 @@ export default function LoginPage() {
               onSubmit={handleSubmit}
               className="space-y-5"
             >
-
               {/* Email */}
               <label className="block">
                 <span className="text-sm font-medium text-[#2B2620]">
@@ -139,16 +124,38 @@ export default function LoginPage() {
                   </Link>
                 </div>
 
-                <input
-                  type="password"
-                  name="password"
-                  value={form.password}
-                  onChange={handleChange}
-                  placeholder="Your password"
-                  autoComplete="current-password"
-                  required
-                  className="mt-2 w-full rounded-lg border border-[#E4DFD3] bg-[#FDFCF9] px-4 py-3 text-sm text-[#2B2620] outline-none transition focus:border-[#1f3d2e] focus:ring-2 focus:ring-[#1f3d2e]/10"
-                />
+                {/* Password input + Show/Hide button */}
+                <div className="relative mt-2">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    name="password"
+                    value={form.password}
+                    onChange={handleChange}
+                    placeholder="Your password"
+                    autoComplete="current-password"
+                    required
+                    className="w-full rounded-lg border border-[#E4DFD3] bg-[#FDFCF9] px-4 py-3 pr-12 text-sm text-[#2B2620] outline-none transition focus:border-[#1f3d2e] focus:ring-2 focus:ring-[#1f3d2e]/10"
+                  />
+
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setShowPassword((current) => !current)
+                    }
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-[#6B6656] transition-colors hover:text-[#1f3d2e]"
+                    aria-label={
+                      showPassword
+                        ? "Hide password"
+                        : "Show password"
+                    }
+                  >
+                    {showPassword ? (
+                      <EyeOff size={20} />
+                    ) : (
+                      <Eye size={20} />
+                    )}
+                  </button>
+                </div>
               </label>
 
               {/* Error */}
@@ -164,17 +171,16 @@ export default function LoginPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full rounded-full bg-[#E8A33D] py-3 text-sm font-semibold text-[#fdfdfd] transition-all duration-100 hover:bg-[#d88d1d] dark:text-black hover:text-white hover:shadow-md disabled:cursor-not-allowed disabled:opacity-60 "
+                className="w-full rounded-full bg-[#E8A33D] py-3 text-sm font-semibold text-[#fdfdfd] transition-all duration-100 hover:bg-[#d88d1d] dark:text-black hover:text-white hover:shadow-md disabled:cursor-not-allowed disabled:opacity-60"
               >
-                {loading
-                  ? "Logging in..."
-                  : "Log in"}
+                {loading ? "Logging in..." : "Log in"}
               </button>
             </form>
 
             {/* Register */}
             <p className="mt-7 text-center text-sm text-[#6B6656]">
               Don't have an account?{" "}
+
               <Link
                 to="/register"
                 className="font-semibold text-[#1f3d2e] transition-colors hover:text-[#E8A33D]"

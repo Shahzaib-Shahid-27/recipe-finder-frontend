@@ -1,14 +1,18 @@
+
 import {
   useState,
   type ChangeEvent,
   type FormEvent,
 } from "react";
+
 import {
   Link,
   useNavigate,
   useSearchParams,
 } from "react-router-dom";
+
 import axios from "axios";
+import { Eye, EyeOff } from "lucide-react";
 
 export default function ResetPasswordPage() {
   const navigate = useNavigate();
@@ -19,12 +23,16 @@ export default function ResetPasswordPage() {
   const emailFromUrl = searchParams.get("email") || "";
 
   const [email, setEmail] = useState(emailFromUrl);
-  const [currentPassword, setCurrentPassword] =
-    useState("");
-  const [newPassword, setNewPassword] =
-    useState("");
+
+  const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] =
     useState("");
+
+  const [showNewPassword, setShowNewPassword] =
+    useState(false);
+
+  const [showConfirmPassword, setShowConfirmPassword] =
+    useState(false);
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -34,12 +42,6 @@ export default function ResetPasswordPage() {
     e: ChangeEvent<HTMLInputElement>
   ): void {
     setEmail(e.target.value);
-  }
-
-  function handleCurrentPasswordChange(
-    e: ChangeEvent<HTMLInputElement>
-  ): void {
-    setCurrentPassword(e.target.value);
   }
 
   function handleNewPasswordChange(
@@ -62,21 +64,19 @@ export default function ResetPasswordPage() {
     setError("");
     setSuccess("");
 
-    if (!email) {
+    // Check email
+    if (!email.trim()) {
       setError("Email is required.");
       return;
     }
 
-    if (!currentPassword) {
-      setError("Current password is required.");
-      return;
-    }
-
+    // Check new password
     if (!newPassword) {
       setError("New password is required.");
       return;
     }
 
+    // Password length
     if (newPassword.length < 6) {
       setError(
         "New password must be at least 6 characters long."
@@ -84,15 +84,15 @@ export default function ResetPasswordPage() {
       return;
     }
 
-    if (newPassword !== confirmPassword) {
-      setError("New passwords do not match.");
+    // Confirm password
+    if (!confirmPassword) {
+      setError("Please confirm your new password.");
       return;
     }
 
-    if (currentPassword === newPassword) {
-      setError(
-        "New password must be different from your current password."
-      );
+    // Check passwords match
+    if (newPassword !== confirmPassword) {
+      setError("New passwords do not match.");
       return;
     }
 
@@ -106,8 +106,7 @@ export default function ResetPasswordPage() {
       await axios.post(
         `${API_URL}/auth/reset-password`,
         {
-          email,
-          currentPassword,
+          email: email.trim().toLowerCase(),
           newPassword,
         }
       );
@@ -116,7 +115,6 @@ export default function ResetPasswordPage() {
         "Your password has been reset successfully. Redirecting to login..."
       );
 
-      setCurrentPassword("");
       setNewPassword("");
       setConfirmPassword("");
 
@@ -124,7 +122,11 @@ export default function ResetPasswordPage() {
         navigate("/login");
       }, 2000);
     } catch (err: unknown) {
-      if (axios.isAxiosError<{ message?: string }>(err)) {
+      console.log(err);
+
+      if (
+        axios.isAxiosError<{ message?: string }>(err)
+      ) {
         setError(
           err.response?.data?.message ||
             "Unable to reset password."
@@ -150,9 +152,9 @@ export default function ResetPasswordPage() {
               to="/hompage"
               className="font-serif text-3xl font-semibold text-[#1f3d2e]"
             >
-              Butcher's 
+              Butcher's
               <span className="ml-2 text-[#E8A33D]">
-                kicthen
+                kitchen
               </span>
             </Link>
 
@@ -161,21 +163,23 @@ export default function ResetPasswordPage() {
             </h1>
 
             <p className="mt-2 text-sm leading-6 text-[#6B6656]">
-              Enter your current password and choose a
-              new password.
+              Your email has been verified. Choose a
+              new password for your account.
             </p>
           </div>
 
           {/* Card */}
           <div className="mt-8 rounded-2xl border border-[#E4DFD3] bg-white p-7 shadow-sm">
+
             <form
               onSubmit={handleSubmit}
               className="space-y-5"
             >
+
               {/* Email */}
               <label className="block">
                 <span className="text-sm font-medium text-[#2B2620]">
-                  Email
+                  Verified Email
                 </span>
 
                 <input
@@ -189,38 +193,52 @@ export default function ResetPasswordPage() {
                 />
               </label>
 
-              {/* Current Password */}
-              <label className="block">
-                <span className="text-sm font-medium text-[#2B2620]">
-                  Current password
-                </span>
-
-                <input
-                  type="password"
-                  value={currentPassword}
-                  onChange={handleCurrentPasswordChange}
-                  placeholder="Enter current password"
-                  autoComplete="current-password"
-                  required
-                  className="mt-2 w-full rounded-lg border border-[#E4DFD3] bg-[#FDFCF9] px-4 py-3 text-sm text-[#2B2620] outline-none transition focus:border-[#1f3d2e] focus:ring-2 focus:ring-[#1f3d2e]/10"
-                />
-              </label>
-
               {/* New Password */}
               <label className="block">
                 <span className="text-sm font-medium text-[#2B2620]">
                   New password
                 </span>
 
-                <input
-                  type="password"
-                  value={newPassword}
-                  onChange={handleNewPasswordChange}
-                  placeholder="Enter new password"
-                  autoComplete="new-password"
-                  required
-                  className="mt-2 w-full rounded-lg border border-[#E4DFD3] bg-[#FDFCF9] px-4 py-3 text-sm text-[#2B2620] outline-none transition focus:border-[#1f3d2e] focus:ring-2 focus:ring-[#1f3d2e]/10"
-                />
+                <div className="relative mt-2">
+                  <input
+                    type={
+                      showNewPassword
+                        ? "text"
+                        : "password"
+                    }
+                    value={newPassword}
+                    onChange={handleNewPasswordChange}
+                    placeholder="Enter new password"
+                    autoComplete="new-password"
+                    required
+                    className="w-full rounded-lg border border-[#E4DFD3] bg-[#FDFCF9] px-4 py-3 pr-12 text-sm text-[#2B2620] outline-none transition focus:border-[#1f3d2e] focus:ring-2 focus:ring-[#1f3d2e]/10"
+                  />
+
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setShowNewPassword(
+                        (current) => !current
+                      )
+                    }
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-[#6B6656] transition-colors hover:text-[#1f3d2e]"
+                    aria-label={
+                      showNewPassword
+                        ? "Hide password"
+                        : "Show password"
+                    }
+                  >
+                    {showNewPassword ? (
+                      <EyeOff size={20} />
+                    ) : (
+                      <Eye size={20} />
+                    )}
+                  </button>
+                </div>
+
+                <p className="mt-1.5 text-xs text-[#8A8577]">
+                  Use at least 6 characters.
+                </p>
               </label>
 
               {/* Confirm Password */}
@@ -229,15 +247,44 @@ export default function ResetPasswordPage() {
                   Confirm new password
                 </span>
 
-                <input
-                  type="password"
-                  value={confirmPassword}
-                  onChange={handleConfirmPasswordChange}
-                  placeholder="Confirm new password"
-                  autoComplete="new-password"
-                  required
-                  className="mt-2 w-full rounded-lg border border-[#E4DFD3] bg-[#FDFCF9] px-4 py-3 text-sm text-[#2B2620] outline-none transition focus:border-[#1f3d2e] focus:ring-2 focus:ring-[#1f3d2e]/10"
-                />
+                <div className="relative mt-2">
+                  <input
+                    type={
+                      showConfirmPassword
+                        ? "text"
+                        : "password"
+                    }
+                    value={confirmPassword}
+                    onChange={
+                      handleConfirmPasswordChange
+                    }
+                    placeholder="Confirm new password"
+                    autoComplete="new-password"
+                    required
+                    className="w-full rounded-lg border border-[#E4DFD3] bg-[#FDFCF9] px-4 py-3 pr-12 text-sm text-[#2B2620] outline-none transition focus:border-[#1f3d2e] focus:ring-2 focus:ring-[#1f3d2e]/10"
+                  />
+
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setShowConfirmPassword(
+                        (current) => !current
+                      )
+                    }
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-[#6B6656] transition-colors hover:text-[#1f3d2e]"
+                    aria-label={
+                      showConfirmPassword
+                        ? "Hide confirm password"
+                        : "Show confirm password"
+                    }
+                  >
+                    {showConfirmPassword ? (
+                      <EyeOff size={20} />
+                    ) : (
+                      <Eye size={20} />
+                    )}
+                  </button>
+                </div>
               </label>
 
               {/* Error */}
@@ -258,7 +305,7 @@ export default function ResetPasswordPage() {
                 </div>
               )}
 
-              {/* Button */}
+              {/* Reset Password Button */}
               <button
                 type="submit"
                 disabled={loading}
@@ -270,6 +317,7 @@ export default function ResetPasswordPage() {
               </button>
             </form>
 
+            {/* Back to Login */}
             <div className="mt-7 text-center">
               <Link
                 to="/login"
@@ -278,6 +326,7 @@ export default function ResetPasswordPage() {
                 ← Back to login
               </Link>
             </div>
+
           </div>
         </div>
       </div>

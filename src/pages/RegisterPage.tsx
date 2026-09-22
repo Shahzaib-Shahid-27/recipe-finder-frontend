@@ -3,10 +3,16 @@ import {
   type ChangeEvent,
   type FormEvent,
 } from "react";
+
 import { Link, useNavigate } from "react-router-dom";
+
 import { useAuth } from "../context/AuthContext";
+
 import type { RegisterForm } from "../types/auth";
+
 import axios from "axios";
+
+import { Eye, EyeOff } from "lucide-react";
 
 interface RegisterPageForm extends RegisterForm {
   confirmPassword: string;
@@ -14,6 +20,7 @@ interface RegisterPageForm extends RegisterForm {
 
 export default function RegisterPage() {
   const navigate = useNavigate();
+
   const { register } = useAuth();
 
   const [form, setForm] = useState<RegisterPageForm>({
@@ -23,7 +30,14 @@ export default function RegisterPage() {
     confirmPassword: "",
   });
 
+  const [showPassword, setShowPassword] =
+    useState(false);
+
+  const [showConfirmPassword, setShowConfirmPassword] =
+    useState(false);
+
   const [error, setError] = useState("");
+
   const [loading, setLoading] = useState(false);
 
   function handleChange(
@@ -104,8 +118,8 @@ export default function RegisterPage() {
             </h1>
 
             <p className="mt-2 text-sm text-[#6B6656]">
-              Join Butcher's Kitchen and discover delicious
-              meals.
+              Join Butcher's Kitchen and discover
+              delicious meals.
             </p>
           </div>
 
@@ -115,6 +129,7 @@ export default function RegisterPage() {
               onSubmit={handleSubmit}
               className="space-y-5"
             >
+
               {/* Name */}
               <label className="block">
                 <span className="text-sm font-medium text-[#2B2620]">
@@ -157,16 +172,43 @@ export default function RegisterPage() {
                   Password
                 </span>
 
-                <input
-                  type="password"
-                  name="password"
-                  value={form.password}
-                  onChange={handleChange}
-                  placeholder="Create a password"
-                  autoComplete="new-password"
-                  required
-                  className="mt-2 w-full rounded-lg border border-[#E4DFD3] bg-[#FDFCF9] px-4 py-3 text-sm text-[#2B2620] outline-none transition focus:border-[#1f3d2e] focus:ring-2 focus:ring-[#1f3d2e]/10"
-                />
+                <div className="relative mt-2">
+                  <input
+                    type={
+                      showPassword
+                        ? "text"
+                        : "password"
+                    }
+                    name="password"
+                    value={form.password}
+                    onChange={handleChange}
+                    placeholder="Create a password"
+                    autoComplete="new-password"
+                    required
+                    className="w-full rounded-lg border border-[#E4DFD3] bg-[#FDFCF9] px-4 py-3 pr-12 text-sm text-[#2B2620] outline-none transition focus:border-[#1f3d2e] focus:ring-2 focus:ring-[#1f3d2e]/10"
+                  />
+
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setShowPassword(
+                        (current) => !current
+                      )
+                    }
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-[#6B6656] hover:text-[#1f3d2e]"
+                    aria-label={
+                      showPassword
+                        ? "Hide password"
+                        : "Show password"
+                    }
+                  >
+                    {showPassword ? (
+                      <EyeOff size={20} />
+                    ) : (
+                      <Eye size={20} />
+                    )}
+                  </button>
+                </div>
 
                 <p className="mt-1.5 text-xs text-[#8A8577]">
                   Use at least 6 characters.
@@ -179,16 +221,43 @@ export default function RegisterPage() {
                   Confirm password
                 </span>
 
-                <input
-                  type="password"
-                  name="confirmPassword"
-                  value={form.confirmPassword}
-                  onChange={handleChange}
-                  placeholder="Confirm your password"
-                  autoComplete="new-password"
-                  required
-                  className="mt-2 w-full rounded-lg border border-[#E4DFD3] bg-[#FDFCF9] px-4 py-3 text-sm text-[#2B2620] outline-none transition focus:border-[#1f3d2e] focus:ring-2 focus:ring-[#1f3d2e]/10"
-                />
+                <div className="relative mt-2">
+                  <input
+                    type={
+                      showConfirmPassword
+                        ? "text"
+                        : "password"
+                    }
+                    name="confirmPassword"
+                    value={form.confirmPassword}
+                    onChange={handleChange}
+                    placeholder="Confirm your password"
+                    autoComplete="new-password"
+                    required
+                    className="w-full rounded-lg border border-[#E4DFD3] bg-[#FDFCF9] px-4 py-3 pr-12 text-sm text-[#2B2620] outline-none transition focus:border-[#1f3d2e] focus:ring-2 focus:ring-[#1f3d2e]/10"
+                  />
+
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setShowConfirmPassword(
+                        (current) => !current
+                      )
+                    }
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-[#6B6656] hover:text-[#1f3d2e]"
+                    aria-label={
+                      showConfirmPassword
+                        ? "Hide confirm password"
+                        : "Show confirm password"
+                    }
+                  >
+                    {showConfirmPassword ? (
+                      <EyeOff size={20} />
+                    ) : (
+                      <Eye size={20} />
+                    )}
+                  </button>
+                </div>
               </label>
 
               {/* Error */}
@@ -204,7 +273,7 @@ export default function RegisterPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full rounded-full bg-[#e8a33d] py-3 text-sm font-semibold text-[#F7F4EE] dark:text-[#131312] transition-all duration-100 hover:bg-[#ad7522]  hover:shadow-md disabled:cursor-not-allowed disabled:opacity-60"
+                className="w-full rounded-full bg-[#e8a33d] py-3 text-sm font-semibold text-[#F7F4EE] dark:text-[#131312] transition-all duration-100 hover:bg-[#ad7522] hover:shadow-md disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {loading
                   ? "Creating account..."
@@ -217,7 +286,7 @@ export default function RegisterPage() {
               Already have an account?{" "}
               <Link
                 to="/login"
-                className="font-semibold text-[#070808]  transition-colors  hover:text-[#E8A33D]"
+                className="font-semibold text-[#070808] transition-colors hover:text-[#E8A33D]"
               >
                 Log in
               </Link>

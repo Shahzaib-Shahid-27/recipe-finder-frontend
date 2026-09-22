@@ -14,32 +14,70 @@ export default function ForgotPasswordPage() {
   const [error, setError] = useState("");
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
-  setEmail(e.target.value);
-}
-
-async function handleSubmit(e: FormEvent<HTMLFormElement>) {
-  e.preventDefault();
-
-  setError("");
-  setLoading(true);
-
-  try {
-    const API_URL =
-      import.meta.env.VITE_API_BASE_URL ||
-      "http://localhost:8080/api/v1";
-
-    await axios.post(`${API_URL}/auth/forgot-password`, {
-      email,
-    });
-
-    navigate(`/reset-password?email=${encodeURIComponent(email)}`);
-  } catch (error) {
-    console.log(error);
-    setError("Unable to verify email.");
-  } finally {
-    setLoading(false);
+    setEmail(e.target.value);
   }
-}
+
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    setError("");
+
+    // Basic email validation
+    if (!email.trim()) {
+      setError("Please enter your email address.");
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(email)) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const API_URL =
+        import.meta.env.VITE_API_BASE_URL ||
+        "http://localhost:8080/api/v1";
+
+      // Verify email with backend
+      const response = await axios.post(
+        `${API_URL}/auth/forgot-password`,
+        {
+          email: email.trim().toLowerCase(),
+        }
+      );
+
+      console.log("Email verification response:", response.data);
+
+      // Only navigate if backend successfully verifies the email
+      navigate(
+        `/reset-password?email=${encodeURIComponent(
+          email.trim().toLowerCase()
+        )}`
+      );
+    } catch (error) {
+      console.log("Email verification error:", error);
+
+      if (axios.isAxiosError(error)) {
+        const message =
+          error.response?.data?.message;
+
+        setError(
+          message ||
+            "This email is not registered. Please check your email address."
+        );
+      } else {
+        setError(
+          "Unable to verify email. Please try again."
+        );
+      }
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
     <main className="min-h-[calc(100vh-64px)] bg-[#F7F4EE] px-6 py-16">
@@ -74,6 +112,8 @@ async function handleSubmit(e: FormEvent<HTMLFormElement>) {
               onSubmit={handleSubmit}
               className="space-y-5"
             >
+
+              {/* Email */}
               <label className="block">
                 <span className="text-sm font-medium text-[#2B2620]">
                   Email
@@ -90,6 +130,7 @@ async function handleSubmit(e: FormEvent<HTMLFormElement>) {
                 />
               </label>
 
+              {/* Error */}
               {error && (
                 <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3">
                   <p className="text-sm text-red-600">
@@ -98,6 +139,7 @@ async function handleSubmit(e: FormEvent<HTMLFormElement>) {
                 </div>
               )}
 
+              {/* Verify Button */}
               <button
                 type="submit"
                 disabled={loading}
@@ -109,6 +151,7 @@ async function handleSubmit(e: FormEvent<HTMLFormElement>) {
               </button>
             </form>
 
+            {/* Back to Login */}
             <div className="mt-7 text-center">
               <Link
                 to="/login"
