@@ -5,9 +5,12 @@ import {
 } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useTheme } from "../context/ThemeContext";
 
 export default function ForgotPasswordPage() {
   const navigate = useNavigate();
+
+  const { darkMode, toggleDarkMode } = useTheme();
 
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
@@ -19,7 +22,6 @@ export default function ForgotPasswordPage() {
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-
     setError("");
 
     // Basic email validation
@@ -40,7 +42,7 @@ export default function ForgotPasswordPage() {
     try {
       const API_URL =
         import.meta.env.VITE_API_BASE_URL ||
-        "http://localhost:8080/api/v1";
+        "http://localhost:4000/api/v1";
 
       // Verify email with backend
       const response = await axios.post(
@@ -50,9 +52,12 @@ export default function ForgotPasswordPage() {
         }
       );
 
-      console.log("Email verification response:", response.data);
+      console.log(
+        "Email verification response:",
+        response.data
+      );
 
-      // Only navigate if backend successfully verifies the email
+      // Navigate only if backend successfully verifies email
       navigate(
         `/reset-password?email=${encodeURIComponent(
           email.trim().toLowerCase()
@@ -62,8 +67,7 @@ export default function ForgotPasswordPage() {
       console.log("Email verification error:", error);
 
       if (axios.isAxiosError(error)) {
-        const message =
-          error.response?.data?.message;
+        const message = error.response?.data?.message;
 
         setError(
           message ||
@@ -80,34 +84,123 @@ export default function ForgotPasswordPage() {
   }
 
   return (
-    <main className="min-h-[calc(100vh-64px)] bg-[#F7F4EE] px-6 py-16">
-      <div className="mx-auto flex min-h-[70vh] max-w-md items-center justify-center">
-        <div className="w-full">
+    <main className="flex min-h-screen flex-col bg-[#F7F4EE] transition-colors duration-300 dark:bg-[#151A17]">
+
+      {/* ================= HEADER ================= */}
+      <header
+        className="
+          border-b
+          border-[#E4DFD3]
+          bg-white
+          px-6
+          py-4
+          transition-colors
+          duration-300
+          dark:border-[#38433D]
+          dark:bg-[#202923]
+        "
+      >
+        <div className="mx-auto flex max-w-6xl items-center justify-between">
 
           {/* Logo */}
-          <div className="text-center">
-            <Link
-              to="/hompage"
-              className="font-serif text-3xl font-semibold text-[#1f3d2e]"
-            >
-              Harvest
-              <span className="text-[#E8A33D]">
-                Table
-              </span>
-            </Link>
+          <Link
+            to="/hompage"
+            className="
+              font-serif
+              text-2xl
+              font-semibold
+              text-[#1f3d2e]
+              dark:text-[#E1E6E2]
+            "
+          >
+            Butcher's Kitchen
+            <span className="text-[#E8A33D]">
+              Table
+            </span>
+          </Link>
 
-            <h1 className="mt-8 font-serif text-3xl font-semibold text-[#2B2620]">
+          {/* Header Buttons */}
+          <div className="flex items-center gap-3">
+
+            {/* Dark Mode Button */}
+            <button
+              type="button"
+              onClick={toggleDarkMode}
+              className="
+                rounded-full
+                border
+                border-[#E4DFD3]
+                bg-[#FDFCF9]
+                px-4
+                py-2
+                text-lg
+                transition
+                hover:bg-[#F7F4EE]
+                dark:border-[#46534B]
+                dark:bg-[#171D19]
+                dark:hover:bg-[#29342E]
+              "
+              aria-label="Toggle dark mode"
+            >
+              {darkMode ? "☀️" : "🌙"}
+            </button>
+
+          </div>
+        </div>
+      </header>
+
+      {/* ================= MAIN CONTENT ================= */}
+      <section className="flex flex-1 items-center justify-center px-6 py-16">
+
+        <div className="w-full max-w-md">
+
+          {/* Heading */}
+          <div className="text-center">
+
+            <h1
+              className="
+                font-serif
+                text-3xl
+                font-semibold
+                text-[#2B2620]
+                dark:text-[#E8A33D]
+              "
+            >
               Forgot password?
             </h1>
 
-            <p className="mt-2 text-sm leading-6 text-[#6B6656]">
+            <p
+              className="
+                mt-2
+                text-sm
+                leading-6
+                text-[#6B6656]
+                dark:text-[#A8B0AA]
+              "
+            >
               Enter your email address to verify your
               account and reset your password.
             </p>
+
           </div>
 
           {/* Card */}
-          <div className="mt-8 rounded-2xl border border-[#E4DFD3] bg-white p-7 shadow-sm">
+          <div
+            className="
+              mt-8
+              rounded-2xl
+              border
+              border-[#E4DFD3]
+              bg-white
+              p-7
+              shadow-sm
+              transition-colors
+              duration-300
+              dark:border-[#38433D]
+              dark:bg-[#202923]
+            "
+          >
+
             <form
               onSubmit={handleSubmit}
               className="space-y-5"
@@ -115,7 +208,15 @@ export default function ForgotPasswordPage() {
 
               {/* Email */}
               <label className="block">
-                <span className="text-sm font-medium text-[#2B2620]">
+
+                <span
+                  className="
+                    text-sm
+                    font-medium
+                    text-[#2B2620]
+                    dark:text-[#E1E6E2]
+                  "
+                >
                   Email
                 </span>
 
@@ -126,14 +227,59 @@ export default function ForgotPasswordPage() {
                   placeholder="you@example.com"
                   autoComplete="email"
                   required
-                  className="mt-2 w-full rounded-lg border border-[#E4DFD3] bg-[#FDFCF9] px-4 py-3 text-sm text-[#2B2620] outline-none transition focus:border-[#1f3d2e] focus:ring-2 focus:ring-[#1f3d2e]/10"
+                  className="
+                    mt-2
+                    w-full
+                    rounded-lg
+                    border
+                    border-[#E4DFD3]
+                    bg-[#FDFCF9]
+                    px-4
+                    py-3
+                    text-sm
+                    text-[#2B2620]
+                    outline-none
+                    transition
+
+                    placeholder:text-[#9B9688]
+
+                    focus:border-[#1f3d2e]
+                    focus:ring-2
+                    focus:ring-[#1f3d2e]/10
+
+                    dark:border-[#46534B]
+                    dark:bg-[#171D19]
+                    dark:text-[#E1E6E2]
+                    dark:placeholder:text-[#777F79]
+
+                    dark:focus:border-[#E8A33D]
+                    dark:focus:ring-[#E8A33D]/10
+                  "
                 />
+
               </label>
 
               {/* Error */}
               {error && (
-                <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3">
-                  <p className="text-sm text-red-600">
+                <div
+                  className="
+                    rounded-lg
+                    border
+                    border-red-200
+                    bg-red-50
+                    px-4
+                    py-3
+                    dark:border-red-900
+                    dark:bg-red-950/40
+                  "
+                >
+                  <p
+                    className="
+                      text-sm
+                      text-red-600
+                      dark:text-red-400
+                    "
+                  >
                     {error}
                   </p>
                 </div>
@@ -143,26 +289,89 @@ export default function ForgotPasswordPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full rounded-full bg-[#e8a33d] py-3 text-sm font-semibold text-[#F7F4EE] transition-all hover:bg-[#8c5e19] disabled:cursor-not-allowed disabled:opacity-60"
+                className="
+                  w-full
+                  rounded-full
+                  bg-[#E8A33D]
+                  py-3
+                  text-sm
+                  font-semibold
+                  text-white
+                  transition-all
+
+                  hover:bg-[#d88d1d]
+                  hover:shadow-md
+
+                  disabled:cursor-not-allowed
+                  disabled:opacity-60
+
+                  dark:text-black
+                  dark:hover:text-white
+                "
               >
                 {loading
                   ? "Verifying..."
                   : "Verify Email"}
               </button>
+
             </form>
 
             {/* Back to Login */}
             <div className="mt-7 text-center">
+
               <Link
                 to="/login"
-                className="text-sm font-semibold text-[#1f3d2e] transition-colors hover:text-[#E8A33D]"
+                className="
+                  text-sm
+                  font-semibold
+                  text-[#1f3d2e]
+                  transition-colors
+                  hover:text-[#E8A33D]
+                  dark:text-[#E8A33D]
+                "
               >
                 ← Back to login
               </Link>
+
             </div>
+
           </div>
         </div>
-      </div>
+      </section>
+
+      {/* ================= FOOTER ================= */}
+      <footer
+        className="
+          border-t
+          border-[#E4DFD3]
+          bg-white
+          px-6
+          py-6
+          transition-colors
+          duration-300
+          dark:border-[#38433D]
+          dark:bg-[#202923]
+        "
+      >
+        <div className="mx-auto max-w-6xl text-center">
+
+          <p
+            className="
+              text-sm
+              text-[#6B6656]
+              dark:text-[#A8B0AA]
+            "
+          >
+            © {new Date().getFullYear()}{" "}
+            <span className="font-semibold text-[#1f3d2e] dark:text-[#E8A33D]">
+              Butcher's Kitchen
+            </span>
+            . All rights reserved.
+          </p>
+
+        </div>
+      </footer>
+
     </main>
   );
 }

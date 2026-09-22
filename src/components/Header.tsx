@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "../context/AuthContext";
 
 function getInitialDarkMode() {
-  const saved = localStorage.getItem("harvesttable-theme");
+  const saved = localStorage.getItem("Butchertable-theme");
 
   const dark =
     saved === "dark" ||
@@ -51,7 +51,7 @@ export default function Header() {
     document.documentElement.classList.toggle("dark", dark);
 
     localStorage.setItem(
-      "harvesttable-theme",
+      "Butchertable-theme",
       dark ? "dark" : "light"
     );
   };
