@@ -1,12 +1,6 @@
 
 import { lazy, Suspense } from "react";
-
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Outlet,
-} from "react-router-dom";
+import {BrowserRouter,Routes,Route,Outlet,} from "react-router-dom";
 
 import { AuthProvider } from "./context/AuthContext";
 import { ThemeProvider } from "./context/ThemeContext";
@@ -16,12 +10,8 @@ import ScrollToTop from "./components/ScrollToTop";
 // Auth Pages
 const RegisterPage = lazy(() => import("./pages/RegisterPage"));
 const LoginPage = lazy(() => import("./pages/LoginPage"));
-const ForgotPasswordPage = lazy(
-  () => import("./pages/ForgotPasswordPage")
-);
-const ResetPasswordPage = lazy(
-  () => import("./pages/ResetPasswordPage")
-);
+const ForgotPasswordPage = lazy(() => import("./pages/ForgotPasswordPage"));
+const ResetPasswordPage = lazy(() => import("./pages/ResetPasswordPage"));
 
 // Main Pages
 const HomePage = lazy(() => import("./pages/HomePage"));
@@ -31,9 +21,7 @@ import CategoryPage from "./pages/CategoryPage";
 import CategoryMealsPage from "./pages/CategoryMealsPage";
 import MealsPage from "./pages/MealsPage";
 
-const IngredientsPage = lazy(
-  () => import("./pages/IngredientsPage")
-);
+const IngredientsPage = lazy(() => import("./pages/IngredientsPage"));
 
 import SearchPage from "./pages/SearchPage";
 
