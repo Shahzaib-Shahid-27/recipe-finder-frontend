@@ -3,13 +3,13 @@ import {
   type ChangeEvent,
   type FormEvent,
 } from "react";
+
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useTheme } from "../context/ThemeContext";
 
 export default function ForgotPasswordPage() {
   const navigate = useNavigate();
-
   const { darkMode, toggleDarkMode } = useTheme();
 
   const [email, setEmail] = useState("");
@@ -45,17 +45,9 @@ export default function ForgotPasswordPage() {
         "http://localhost:4000/api/v1";
 
       // Verify email with backend
-      const response = await axios.post(
-        `${API_URL}/auth/forgot-password`,
-        {
-          email: email.trim().toLowerCase(),
-        }
-      );
-
-      console.log(
-        "Email verification response:",
-        response.data
-      );
+      await axios.post(`${API_URL}/auth/forgot-password`, {
+        email: email.trim().toLowerCase(),
+      });
 
       // Navigate only if backend successfully verifies email
       navigate(
@@ -64,8 +56,6 @@ export default function ForgotPasswordPage() {
         )}`
       );
     } catch (error) {
-      console.log("Email verification error:", error);
-
       if (axios.isAxiosError(error)) {
         const message = error.response?.data?.message;
 
@@ -74,9 +64,7 @@ export default function ForgotPasswordPage() {
             "This email is not registered. Please check your email address."
         );
       } else {
-        setError(
-          "Unable to verify email. Please try again."
-        );
+        setError("Unable to verify email. Please try again.");
       }
     } finally {
       setLoading(false);
@@ -85,7 +73,6 @@ export default function ForgotPasswordPage() {
 
   return (
     <main className="flex min-h-screen flex-col bg-[#F7F4EE] transition-colors duration-300 dark:bg-[#151A17]">
-
       {/* ================= HEADER ================= */}
       <header
         className="
@@ -101,7 +88,6 @@ export default function ForgotPasswordPage() {
         "
       >
         <div className="mx-auto flex max-w-6xl items-center justify-between">
-
           {/* Logo */}
           <Link
             to="/hompage"
@@ -121,7 +107,6 @@ export default function ForgotPasswordPage() {
 
           {/* Header Buttons */}
           <div className="flex items-center gap-3">
-
             {/* Dark Mode Button */}
             <button
               type="button"
@@ -144,19 +129,15 @@ export default function ForgotPasswordPage() {
             >
               {darkMode ? "☀️" : "🌙"}
             </button>
-
           </div>
         </div>
       </header>
 
       {/* ================= MAIN CONTENT ================= */}
       <section className="flex flex-1 items-center justify-center px-6 py-16">
-
         <div className="w-full max-w-md">
-
           {/* Heading */}
           <div className="text-center">
-
             <h1
               className="
                 font-serif
@@ -181,7 +162,6 @@ export default function ForgotPasswordPage() {
               Enter your email address to verify your
               account and reset your password.
             </p>
-
           </div>
 
           {/* Card */}
@@ -200,15 +180,12 @@ export default function ForgotPasswordPage() {
               dark:bg-[#202923]
             "
           >
-
             <form
               onSubmit={handleSubmit}
               className="space-y-5"
             >
-
               {/* Email */}
               <label className="block">
-
                 <span
                   className="
                     text-sm
@@ -240,23 +217,18 @@ export default function ForgotPasswordPage() {
                     text-[#2B2620]
                     outline-none
                     transition
-
                     placeholder:text-[#9B9688]
-
                     focus:border-[#1f3d2e]
                     focus:ring-2
                     focus:ring-[#1f3d2e]/10
-
                     dark:border-[#46534B]
                     dark:bg-[#171D19]
                     dark:text-[#E1E6E2]
                     dark:placeholder:text-[#777F79]
-
                     dark:focus:border-[#E8A33D]
                     dark:focus:ring-[#E8A33D]/10
                   "
                 />
-
               </label>
 
               {/* Error */}
@@ -298,13 +270,10 @@ export default function ForgotPasswordPage() {
                   font-semibold
                   text-white
                   transition-all
-
                   hover:bg-[#d88d1d]
                   hover:shadow-md
-
                   disabled:cursor-not-allowed
                   disabled:opacity-60
-
                   dark:text-black
                   dark:hover:text-white
                 "
@@ -313,12 +282,10 @@ export default function ForgotPasswordPage() {
                   ? "Verifying..."
                   : "Verify Email"}
               </button>
-
             </form>
 
             {/* Back to Login */}
             <div className="mt-7 text-center">
-
               <Link
                 to="/login"
                 className="
@@ -332,9 +299,7 @@ export default function ForgotPasswordPage() {
               >
                 ← Back to login
               </Link>
-
             </div>
-
           </div>
         </div>
       </section>
@@ -354,7 +319,6 @@ export default function ForgotPasswordPage() {
         "
       >
         <div className="mx-auto max-w-6xl text-center">
-
           <p
             className="
               text-sm
@@ -368,10 +332,8 @@ export default function ForgotPasswordPage() {
             </span>
             . All rights reserved.
           </p>
-
         </div>
       </footer>
-
     </main>
   );
 }
