@@ -20,6 +20,13 @@ export interface AuthTokens {
   refreshToken: string | null;
 }
 
+export interface AuthUser {
+  id: string;
+  name: string;
+  email: string;
+}
+
+
 export interface AuthResult {
   user: User;
   tokens: AuthTokens;

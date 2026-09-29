@@ -5,12 +5,7 @@ import {
   clearToken,
 } from "../utils/tokenStorage";
 
-import type {
-  AuthResult,
-  LoginForm,
-  PasswordResetRequest,
-  RegisterForm,
-} from "../types/auth";
+import type {AuthResult,LoginForm,PasswordResetRequest,RegisterForm,} from "../types/auth";
 
 export const authService = {
   async register(
