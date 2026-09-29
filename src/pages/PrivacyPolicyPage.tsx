@@ -1,229 +1,261 @@
-import { Link } from "react-router-dom";
+import { useNavigate  } from "react-router-dom";
 import { ArrowLeft, ShieldCheck } from "lucide-react";
 
 export default function PrivacyPolicyPage() {
+
+  const navigate = useNavigate();
+
   return (
-    <div className="min-h-screen bg-[#FBF8F2] text-[#1F3D2E]">
-      <div className="mx-auto max-w-4xl px-6 py-10">
-        {/* Back */}
-        <Link
-          to="/"
-          className="mb-8 inline-flex items-center gap-2 text-sm font-medium text-[#1F3D2E] hover:underline"
+    <div className="min-h-screen bg-[#F7F1E5] text-[#29271E] transition-colors duration-300 dark:bg-[#0D1510] dark:text-[#F4EBDD]">
+      <div className="mx-auto max-w-5xl px-5 py-8 sm:px-6 md:py-12">
+
+        {/* Back Button */}
+        <button
+          // to="/"
+           onClick={() => navigate(-1)}
+          className="
+            mb-8 inline-flex items-center gap-2 rounded-full
+            border border-[#D8C9AD]
+            px-4 py-2 text-sm font-medium
+            text-[#29271E]
+            transition-all duration-200
+            hover:border-[#F2A52B]
+            hover:text-[#D88B16]
+            dark:border-[#3A4038]
+            dark:text-[#F4EBDD]
+            dark:hover:border-[#F2A52B]
+            dark:hover:text-[#F2A52B]
+          "
         >
-          <ArrowLeft size={18} />
-          Back to Recipe Finder
-        </Link>
+          <ArrowLeft size={17} />
+          Back to Butcher's Kitchen
+        </button>
 
         {/* Header */}
-        <div className="mb-10">
-          <div className="mb-4 flex items-center gap-3">
-            <div className="rounded-full bg-[#1F3D2E] p-3 text-white">
-              <ShieldCheck size={24} />
+        <div className="mb-8">
+
+          <div className="mb-4 flex items-center gap-4">
+
+            <div
+              className="
+                flex h-14 w-14 items-center justify-center
+                rounded-2xl
+                bg-[#F2A52B]
+                text-[#171811]
+                shadow-md
+              "
+            >
+              <ShieldCheck size={27} strokeWidth={2.2} />
             </div>
 
-            <h1 className="text-3xl font-bold md:text-4xl">
-              Privacy Policy
-            </h1>
+            <div>
+              <h1
+                className="
+                  font-serif text-3xl font-bold
+                  text-[#29271E]
+                  sm:text-4xl
+                  dark:text-[#F7EEDF]
+                "
+              >
+                Privacy Policy
+              </h1>
+
+              <p className="mt-1 text-sm text-[#766E60] dark:text-[#A9A496]">
+                Butcher's Kitchen
+              </p>
+            </div>
+
           </div>
 
-          <p className="text-sm text-gray-600">
+          <div
+            className="
+              inline-block rounded-full
+              border border-[#D8C9AD]
+              bg-[#EFE6D6]
+              px-4 py-2
+              text-xs font-medium
+              text-[#766E60]
+              dark:border-[#383E36]
+              dark:bg-[#171D18]
+              dark:text-[#A9A496]
+            "
+          >
             Last updated: September 29, 2026
-          </p>
+          </div>
         </div>
 
-        <div className="space-y-8 rounded-2xl bg-white p-6 shadow-sm md:p-10">
-          {/* Introduction */}
-          <section>
-            <h2 className="mb-3 text-2xl font-semibold">
-              1. Introduction
-            </h2>
+        {/* Content */}
+        <div
+          className="
+            overflow-hidden rounded-3xl
+            border border-[#DED3C0]
+            bg-[#FFFDF8]
+            shadow-[0_12px_40px_rgba(60,45,20,0.08)]
+            dark:border-[#303830]
+            dark:bg-[#151D17]
+            dark:shadow-[0_12px_40px_rgba(0,0,0,0.25)]
+          "
+        >
+          <div className="space-y-10 p-6 sm:p-8 md:p-10 lg:p-12">
 
-            <p className="leading-7 text-gray-700">
-              Welcome to Recipe Finder. This Privacy Policy explains how
-              Recipe Finder collects, uses, and protects information when you
-              use our website and services.
-            </p>
+            {/* Introduction */}
+            <section>
+              <h2 className="policy-heading">1. Introduction</h2>
 
-            <p className="mt-3 leading-7 text-gray-700">
-              By using Recipe Finder, you agree to the practices described in
-              this Privacy Policy.
-            </p>
-          </section>
+              <p className="policy-text">
+                Welcome to Butcher's Kitchen. This Privacy Policy explains
+                how Butcher's Kitchen collects, uses, and protects information
+                when you use our website and services.
+              </p>
 
-          {/* Information */}
-          <section>
-            <h2 className="mb-3 text-2xl font-semibold">
-              2. Information We Collect
-            </h2>
+              <p className="policy-text mt-3">
+                By using Butcher's Kitchen, you agree to the practices
+                described in this Privacy Policy.
+              </p>
+            </section>
 
-            <p className="mb-3 leading-7 text-gray-700">
-              Depending on how you use Recipe Finder, we may collect the
-              following information:
-            </p>
+            {/* Information */}
+            <section>
+              <h2 className="policy-heading">2. Information We Collect</h2>
 
-            <ul className="list-disc space-y-2 pl-6 text-gray-700">
-              <li>Name</li>
-              <li>Email address</li>
-              <li>Account authentication information</li>
-              <li>Recipe searches and interactions</li>
-              <li>Information you voluntarily provide to us</li>
-            </ul>
-          </section>
+              <p className="policy-text mb-4">
+                Depending on how you use Butcher's Kitchen, we may collect
+                the following information:
+              </p>
 
-          {/* Google Login */}
-          <section>
-            <h2 className="mb-3 text-2xl font-semibold">
-              3. Google Sign-In
-            </h2>
+              <ul className="policy-list">
+                <li>Name</li>
+                <li>Email address</li>
+                <li>Account authentication information</li>
+                <li>Recipe searches and interactions</li>
+                <li>Information you voluntarily provide to us</li>
+              </ul>
+            </section>
 
-            <p className="leading-7 text-gray-700">
-              Recipe Finder may allow you to sign in using your Google
-              account. When you choose Google Sign-In, Google may provide
-              basic profile information such as your name, email address, and
-              profile information according to the permissions you authorize.
-            </p>
+            {/* Google Login */}
+            <section>
+              <h2 className="policy-heading">3. Google Sign-In</h2>
 
-            <p className="mt-3 leading-7 text-gray-700">
-              We use this information to create or authenticate your Recipe
-              Finder account and provide account-related functionality.
-            </p>
+              <p className="policy-text">
+                Butcher's Kitchen may allow you to sign in using your Google
+                account. When you choose Google Sign-In, Google may provide
+                basic profile information such as your name, email address,
+                and profile information according to the permissions you
+                authorize.
+              </p>
 
-            <p className="mt-3 leading-7 text-gray-700">
-              Recipe Finder does not sell your Google account information to
-              third parties.
-            </p>
-          </section>
+              <p className="policy-text mt-3">
+                We use this information to create or authenticate your
+                Butcher's Kitchen account and provide account-related
+                functionality.
+              </p>
 
-          {/* How information is used */}
-          <section>
-            <h2 className="mb-3 text-2xl font-semibold">
-              4. How We Use Information
-            </h2>
+              <p className="policy-text mt-3">
+                Butcher's Kitchen does not sell your Google account
+                information to third parties.
+              </p>
+            </section>
 
-            <p className="mb-3 leading-7 text-gray-700">
-              We may use collected information to:
-            </p>
+            {/* How information is used */}
+            <section>
+              <h2 className="policy-heading">4. How We Use Information</h2>
 
-            <ul className="list-disc space-y-2 pl-6 text-gray-700">
-              <li>Create and manage your account</li>
-              <li>Authenticate users</li>
-              <li>Provide recipe search functionality</li>
-              <li>Improve the Recipe Finder website</li>
-              <li>Respond to support requests</li>
-              <li>Protect the security of our service</li>
-            </ul>
-          </section>
+              <p className="policy-text mb-4">
+                We may use collected information to:
+              </p>
 
-          {/* Third party */}
-          <section>
-            <h2 className="mb-3 text-2xl font-semibold">
-              5. Third-Party Services
-            </h2>
+              <ul className="policy-list">
+                <li>Create and manage your account</li>
+                <li>Authenticate users</li>
+                <li>Provide recipe search functionality</li>
+                <li>Improve the Butcher's Kitchen website</li>
+                <li>Respond to support requests</li>
+                <li>Protect the security of our service</li>
+              </ul>
+            </section>
 
-            <p className="leading-7 text-gray-700">
-              Recipe Finder may use third-party services to provide
-              functionality such as authentication, hosting, databases, and
-              recipe information.
-            </p>
+            {/* Third Party */}
+            <section>
+              <h2 className="policy-heading">5. Third-Party Services</h2>
 
-            <p className="mt-3 leading-7 text-gray-700">
-              These services may process information according to their own
-              privacy policies and terms.
-            </p>
-          </section>
+              <p className="policy-text">
+                Butcher's Kitchen may use third-party services to provide
+                functionality such as authentication, hosting, databases,
+                analytics, and recipe information.
+              </p>
 
-          {/* Data security */}
-          <section>
-            <h2 className="mb-3 text-2xl font-semibold">
-              6. Data Security
-            </h2>
+              <p className="policy-text mt-3">
+                These services may process information according to their
+                own privacy policies and terms.
+              </p>
+            </section>
 
-            <p className="leading-7 text-gray-700">
-              We take reasonable measures to protect information associated
-              with your account. However, no method of transmission or
-              electronic storage is completely secure.
-            </p>
-          </section>
+            {/* Security */}
+            <section>
+              <h2 className="policy-heading">6. Data Security</h2>
 
-          {/* Data retention */}
-          <section>
-            <h2 className="mb-3 text-2xl font-semibold">
-              7. Data Retention
-            </h2>
+              <p className="policy-text">
+                We take reasonable measures to protect information associated
+                with your account. However, no method of transmission or
+                electronic storage is completely secure.
+              </p>
+            </section>
 
-            <p className="leading-7 text-gray-700">
-              We retain account information for as long as reasonably
-              necessary to provide our services, maintain security, comply
-              with applicable requirements, or resolve disputes.
-            </p>
-          </section>
+            {/* Retention */}
+            <section>
+              <h2 className="policy-heading">7. Data Retention</h2>
 
-          {/* User rights */}
-          <section>
-            <h2 className="mb-3 text-2xl font-semibold">
-              8. Your Information
-            </h2>
+              <p className="policy-text">
+                We retain account information for as long as reasonably
+                necessary to provide our services, maintain security, comply
+                with applicable requirements, or resolve disputes.
+              </p>
+            </section>
 
-            <p className="leading-7 text-gray-700">
-              You may request information about the personal data associated
-              with your account. Where applicable, you may also request
-              correction or deletion of your information.
-            </p>
-          </section>
+            {/* User Rights */}
+            <section>
+              <h2 className="policy-heading">8. Your Information</h2>
 
-          {/* Children */}
-          <section>
-            <h2 className="mb-3 text-2xl font-semibold">
-              9. Children's Privacy
-            </h2>
+              <p className="policy-text">
+                You may request information about the personal data associated
+                with your account. Where applicable, you may also request
+                correction or deletion of your information.
+              </p>
+            </section>
 
-            <p className="leading-7 text-gray-700">
-              Recipe Finder is not intended to knowingly collect personal
-              information from children without appropriate authorization.
-            </p>
-          </section>
+            {/* Children */}
+            <section>
+              <h2 className="policy-heading">9. Children's Privacy</h2>
 
-          {/* Changes */}
-          <section>
-            <h2 className="mb-3 text-2xl font-semibold">
-              10. Changes to This Policy
-            </h2>
+              <p className="policy-text">
+                Butcher's Kitchen is not intended to knowingly collect
+                personal information from children without appropriate
+                authorization.
+              </p>
+            </section>
 
-            <p className="leading-7 text-gray-700">
-              We may update this Privacy Policy from time to time. Any
-              changes will be posted on this page with an updated revision
-              date.
-            </p>
-          </section>
+            {/* Changes */}
+            <section>
+              <h2 className="policy-heading">10. Changes to This Policy</h2>
 
-          {/* Contact */}
-          <section>
-            <h2 className="mb-3 text-2xl font-semibold">
-              11. Contact
-            </h2>
+              <p className="policy-text">
+                We may update this Privacy Policy from time to time. Any
+                changes will be posted on this page with an updated revision
+                date.
+              </p>
+            </section>
 
-            <p className="leading-7 text-gray-700">
-              If you have questions about this Privacy Policy, please contact
-              us through the Recipe Finder website.
-            </p>
-          </section>
-        </div>
+            {/* Contact */}
+            <section>
+              <h2 className="policy-heading">11. Contact</h2>
 
-        {/* Footer */}
-        <div className="mt-8 flex gap-6 text-sm">
-          <Link
-            to="/terms"
-            className="text-[#1F3D2E] hover:underline"
-          >
-            Terms of Service
-          </Link>
+              <p className="policy-text">
+                If you have questions about this Privacy Policy, please
+                contact us through the Butcher's Kitchen website.
+              </p>
+            </section>
 
-          <Link
-            to="/"
-            className="text-[#1F3D2E] hover:underline"
-          >
-            Home
-          </Link>
+          </div>
         </div>
       </div>
     </div>

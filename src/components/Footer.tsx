@@ -120,12 +120,29 @@ export default function Footer() {
       <div className="border-t border-white/10">
         <motion.div
           variants={fadeUp}
-          className="mx-auto flex max-w-7xl justify-center px-6 py-5 text-xs text-[#C9CBB8]/60"
+          className="mx-auto flex max-w-7xl justify-between px-6 py-5 text-xs text-[#C9CBB8]/60"
         >
-          © {new Date().getFullYear()} Butcher&apos;s Kitchen. All rights
-          reserved.
+          <Link
+            to={"/privacy-policy"}
+            onClick={windowToTop}
+            className="group flex w-fit items-center gap-2 transition-colors hover:text-[#E8A33D]">
+                  <span className="h-px w-0 bg-[#E8A33D] transition-all duration-300 group-hover:w-4" />
+                  Privacy-Policy
+            </Link>
+
+            © {new Date().getFullYear()} Butcher's Kitchen. All rights reserved.
+
+          <Link
+            to={"/terms"}
+            onClick={windowToTop}
+            className="group flex w-fit items-center gap-2 transition-colors hover:text-[#E8A33D]">
+                <span className="h-px w-0 bg-[#E8A33D] transition-all duration-300 group-hover:w-4" />
+                    Terms
+              </Link>
         </motion.div>
+        
+
       </div>
-    </motion.footer>
+  </motion.footer>
   );
 }
