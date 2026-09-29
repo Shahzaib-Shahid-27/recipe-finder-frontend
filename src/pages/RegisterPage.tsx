@@ -3,12 +3,14 @@ import {
   type ChangeEvent,
   type FormEvent,
 } from "react";
+
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import type { RegisterForm } from "../types/auth";
 import axios from "axios";
 import { Eye, EyeOff } from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
+import { GoogleLogin as GoogleLoginButton } from "@react-oauth/google";
 
 interface RegisterPageForm extends RegisterForm {
   confirmPassword: string;
@@ -16,7 +18,10 @@ interface RegisterPageForm extends RegisterForm {
 
 export default function RegisterPage() {
   const navigate = useNavigate();
-  const { register } = useAuth();
+
+  // Get both normal register and Google login from AuthContext
+  const { register, googleLogin } = useAuth();
+
   const { darkMode, toggleDarkMode } = useTheme();
 
   const [form, setForm] = useState<RegisterPageForm>({
@@ -29,6 +34,7 @@ export default function RegisterPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] =
     useState(false);
+
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -47,6 +53,7 @@ export default function RegisterPage() {
     e: FormEvent<HTMLFormElement>
   ): Promise<void> {
     e.preventDefault();
+
     setError("");
 
     if (form.password !== form.confirmPassword) {
@@ -87,13 +94,39 @@ export default function RegisterPage() {
     }
   }
 
+  async function handleGoogleLogin(
+    credential: string
+  ): Promise<void> {
+    setError("");
+    setLoading(true);
+
+    try {
+      await googleLogin(credential);
+
+      navigate("/hompage");
+    } catch (err: unknown) {
+      if (axios.isAxiosError<{ message?: string }>(err)) {
+        setError(
+          err.response?.data?.message ||
+            "Google login failed."
+        );
+      } else if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("Google login failed.");
+      }
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <main className="flex min-h-screen flex-col bg-[#F7F4EE] transition-colors duration-300 dark:bg-[#151A17]">
 
       {/* Header */}
       <header className="border-b border-[#E4DFD3] bg-white px-6 py-4 transition-colors duration-300 dark:border-[#38433D] dark:bg-[#202923]">
         <div className="mx-auto flex max-w-6xl items-center justify-between">
-          
+
           {/* Logo */}
           <Link
             to="/hompage"
@@ -115,8 +148,6 @@ export default function RegisterPage() {
             >
               {darkMode ? "☀️" : "🌙"}
             </button>
-
-
           </div>
         </div>
       </header>
@@ -139,6 +170,7 @@ export default function RegisterPage() {
 
           {/* Register Card */}
           <div className="mt-8 rounded-2xl border border-[#E4DFD3] bg-white p-7 shadow-sm transition-colors duration-300 dark:border-[#38433D] dark:bg-[#202923]">
+
             <form
               onSubmit={handleSubmit}
               className="space-y-5"
@@ -283,6 +315,47 @@ export default function RegisterPage() {
                 </div>
               )}
 
+              {/* Google Login */}
+              <div className="mt-6">
+
+                <div className="relative">
+                  <div className="absolute inset-0 flex items-center">
+                    <div className="w-full border-t border-[#E4DFD3] dark:border-[#38433D]" />
+                  </div>
+
+                  <div className="relative flex justify-center">
+                    <span className="bg-white px-3 text-sm text-[#6B6656] dark:bg-[#202923] dark:text-[#A8B0AA]">
+                      OR
+                    </span>
+                  </div>
+                </div>
+
+                <div className="mt-6 flex justify-center rounded-4xl">
+                  <GoogleLoginButton onSuccess = { async (credentialResponse) => {
+                    
+                    if (
+                      !credentialResponse.credential
+                    ) {
+                      setError(
+                        "Google login failed."
+                      );
+                        return;
+                      }
+
+                      await handleGoogleLogin(
+                        credentialResponse.credential
+                      );
+                    }}
+                    onError={() => {
+                      setError(
+                        "Google login failed."
+                      );
+                    }}
+                    
+                    />
+                    </div>
+              </div>
+
               {/* Register Button */}
               <button
                 type="submit"
@@ -298,6 +371,7 @@ export default function RegisterPage() {
             {/* Login */}
             <p className="mt-7 text-center text-sm text-[#6B6656] dark:text-[#A8B0AA]">
               Already have an account?{" "}
+
               <Link
                 to="/login"
                 className="font-semibold text-[#1f3d2e] transition-colors hover:text-[#E8A33D] dark:text-[#E8A33D]"

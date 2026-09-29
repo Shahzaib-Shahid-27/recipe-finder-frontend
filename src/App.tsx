@@ -32,6 +32,9 @@ import Footer from "./components/Footer";
 // Protected Route
 import ProtectedRoute from "./components/ProtectedRoute";
 
+import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
+import TermsOfServicePage from "./pages/TermsOfServicePage";
+
 // Main Layout
 // Header + Footer will only appear on protected pages
 function MainLayout() {
@@ -135,6 +138,10 @@ export default function App() {
                     path="/SearchPage"
                     element={<SearchPage />}
                   />
+
+
+                <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+                <Route path="/terms" element={<TermsOfServicePage />} />
 
                 </Route>
 

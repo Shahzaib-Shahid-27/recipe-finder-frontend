@@ -11,8 +11,10 @@ import axios from "axios";
 import { Eye, EyeOff } from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
 
+import { GoogleLogin as GoogleLoginButton } from "@react-oauth/google";
+
 export default function LoginPage() {
-  const { login } = useAuth();
+  const { login, googleLogin } = useAuth();
   const navigate = useNavigate();
 
   const [form, setForm] = useState<LoginForm>({
@@ -372,6 +374,45 @@ export default function LoginPage() {
                   </p>
                 </div>
               )}
+
+              
+              {/* Login wih google */}
+              <div className="mt-6">
+                <div className="relative">
+                  <div className="absolute inset-0 flex items-center">
+                    <div className="w-full border-t border-[#E4DFD3] dark:border-[#38433D]" />
+                  </div>
+
+                  <div className="relative flex justify-center">
+                    <span className="bg-white px-3 text-sm text-[#6B6656] dark:bg-[#202923] dark:text-[#A8B0AA]">
+                      OR
+                    </span>
+                  </div>
+                </div>
+
+                <div className="mt-6 flex justify-center">
+                  <GoogleLoginButton
+                    onSuccess={async (credentialResponse) => {
+                      try {
+                        if (!credentialResponse.credential) {
+                          setError("Google authentication failed.");
+                          return;
+                        }
+
+                        await googleLogin(credentialResponse.credential);
+
+                        navigate("/hompage");
+                      } catch {
+                        setError("Unable to login with Google.");
+                      }
+                    }}
+                    onError={() => {
+                      setError("Google login failed.");
+                    }}
+                  />
+                </div>
+              </div>
+
 
               {/* Login Button */}
               <button

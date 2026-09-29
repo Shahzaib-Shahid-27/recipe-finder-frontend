@@ -8,42 +8,78 @@ import {
 import { authService } from "../services/authService";
 import { getToken } from "../utils/tokenStorage";
 
-import type { AuthResult, LoginForm, RegisterForm, User } from "../types/auth";
+import type {
+  AuthResult,
+  LoginForm,
+  RegisterForm,
+  User,
+} from "../types/auth";
 
 interface AuthContextValue {
   user: User | null;
   isAuthenticated: boolean;
   register: (data: RegisterForm) => Promise<void>;
   login: (data: LoginForm) => Promise<void>;
+  googleLogin: (credential: string) => Promise<void>;
   logout: () => void;
 }
 
-const AuthContext = createContext<AuthContextValue | undefined>(undefined);
+const AuthContext = createContext<AuthContextValue | undefined>(
+  undefined
+);
 
-export function AuthProvider({ children }: { children: ReactNode }) {
+export function AuthProvider({
+  children,
+}: {
+  children: ReactNode;
+}) {
   const [user, setUser] = useState<User | null>(null);
-  const [isAuthenticated, setIsAuthenticated] = useState(!!getToken());
+
+  const [isAuthenticated, setIsAuthenticated] =
+    useState(!!getToken());
 
   const register = async (data: RegisterForm) => {
-    const result: AuthResult = await authService.register(data);
+    const result: AuthResult =
+      await authService.register(data);
+
     setUser(result.user);
     setIsAuthenticated(true);
   };
 
   const login = async (data: LoginForm) => {
-    const result: AuthResult = await authService.login(data);
+    const result: AuthResult =
+      await authService.login(data);
+
+    setUser(result.user);
+    setIsAuthenticated(true);
+  };
+
+  const googleLogin = async (credential: string) => {
+    const result: AuthResult =
+      await authService.loginWithGoogle(credential);
+
     setUser(result.user);
     setIsAuthenticated(true);
   };
 
   const logout = () => {
     authService.logout();
+
     setUser(null);
     setIsAuthenticated(false);
   };
 
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated, register, login, logout }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        isAuthenticated,
+        register,
+        login,
+        googleLogin,
+        logout,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
@@ -54,7 +90,9 @@ export function useAuth() {
   const context = useContext(AuthContext);
 
   if (!context) {
-    throw new Error("useAuth must be used inside AuthProvider");
+    throw new Error(
+      "useAuth must be used inside AuthProvider"
+    );
   }
 
   return context;
