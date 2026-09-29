@@ -56,7 +56,7 @@ export function AuthProvider({
 
   const googleLogin = async (credential: string) => {
     const result: AuthResult =
-      await authService.loginWithGoogle(credential);
+      await authService.googleLogin(credential);
 
     setUser(result.user);
     setIsAuthenticated(true);
