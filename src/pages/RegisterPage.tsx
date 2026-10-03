@@ -10,7 +10,7 @@ import type { RegisterForm } from "../types/auth";
 import axios from "axios";
 import { Eye, EyeOff } from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
-import { GoogleLogin as GoogleLoginButton } from "@react-oauth/google";
+import GoogleButton from "../components/GoogleButton";
 
 interface RegisterPageForm extends RegisterForm {
   confirmPassword: string;
@@ -19,8 +19,7 @@ interface RegisterPageForm extends RegisterForm {
 export default function RegisterPage() {
   const navigate = useNavigate();
 
-  // Get both normal register and Google login from AuthContext
-  const { register, googleLogin } = useAuth();
+  const { register } = useAuth();
 
   const { darkMode, toggleDarkMode } = useTheme();
 
@@ -88,32 +87,6 @@ export default function RegisterPage() {
         setError(err.message);
       } else {
         setError("Unable to create your account.");
-      }
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  async function handleGoogleLogin(
-    credential: string
-  ): Promise<void> {
-    setError("");
-    setLoading(true);
-
-    try {
-      await googleLogin(credential);
-
-      navigate("/hompage");
-    } catch (err: unknown) {
-      if (axios.isAxiosError<{ message?: string }>(err)) {
-        setError(
-          err.response?.data?.message ||
-            "Google login failed."
-        );
-      } else if (err instanceof Error) {
-        setError(err.message);
-      } else {
-        setError("Google login failed.");
       }
     } finally {
       setLoading(false);
@@ -330,30 +303,11 @@ export default function RegisterPage() {
                   </div>
                 </div>
 
-                <div className="mt-6 flex justify-center rounded-4xl">
-                  <GoogleLoginButton onSuccess = { async (credentialResponse) => {
-                    
-                    if (
-                      !credentialResponse.credential
-                    ) {
-                      setError(
-                        "Google login failed."
-                      );
-                        return;
-                      }
 
-                      await handleGoogleLogin(
-                        credentialResponse.credential
-                      );
-                    }}
-                    onError={() => {
-                      setError(
-                        "Google login failed."
-                      );
-                    }}
-                    
-                    />
-                    </div>
+                  <div className="w-full max-w-sm rounded-2xl bg-white p-8 shadow-lg">
+                    <h1 className="mb-6 text-center text-2xl font-semibold">Create your account</h1>
+                    <GoogleButton label="Sign in with Google" /> 
+                  </div>
               </div>
 
               {/* Register Button */}

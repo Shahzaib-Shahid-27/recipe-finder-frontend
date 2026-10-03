@@ -1,12 +1,13 @@
 import {
   createContext,
   useContext,
+  useEffect,
   useState,
   type ReactNode,
 } from "react";
 
 import { authService } from "../services/authService";
-import { getToken } from "../utils/tokenStorage";
+import { getToken, setToken, removeToken } from "../utils/tokenStorage";
 
 import type {
   AuthResult,
@@ -15,70 +16,94 @@ import type {
   User,
 } from "../types/auth";
 
+const API = import.meta.env.VITE_API_BASE_URL;
+
 interface AuthContextValue {
   user: User | null;
   isAuthenticated: boolean;
   register: (data: RegisterForm) => Promise<void>;
   login: (data: LoginForm) => Promise<void>;
-  googleLogin: (credential: string) => Promise<void>;
+  loginWithToken: (token: string) => Promise<void>;
   logout: () => void;
 }
 
-const AuthContext = createContext<AuthContextValue | undefined>(
-  undefined
-);
+const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 
-export function AuthProvider({
-  children,
-}: {
-  children: ReactNode;
-}) {
+async function fetchMe(token: string): Promise<User | null> {
+  try {
+    const res = await fetch(`${API}/auth/get-profile`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!res.ok) {
+      return null;
+    }
+
+    const result = await res.json();
+
+    return result.data;
+  } catch {
+    return null;
+  }
+}
+
+export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(!!getToken());
 
-  const [isAuthenticated, setIsAuthenticated] =
-    useState(!!getToken());
+  // Restore the user after a page refresh
+  useEffect(() => {
+    const token = getToken();
+    if (!token) return;
+
+    fetchMe(token).then((me) => {
+      if (me) {
+        setUser(me);
+      } else {
+        // token invalid or expired
+        removeToken();
+        setIsAuthenticated(false);
+      }
+    });
+  }, []);
 
   const register = async (data: RegisterForm) => {
-    const result: AuthResult =
-      await authService.register(data);
-
+    const result: AuthResult = await authService.register(data);
     setUser(result.user);
     setIsAuthenticated(true);
   };
 
   const login = async (data: LoginForm) => {
-    const result: AuthResult =
-      await authService.login(data);
-
+    const result: AuthResult = await authService.login(data);
     setUser(result.user);
     setIsAuthenticated(true);
   };
 
-  const googleLogin = async (credential: string) => {
-    const result: AuthResult =
-      await authService.googleLogin(credential);
+  // Used after Google redirects back with a token
+  const loginWithToken = async (token: string) => {
+    setToken(token);
+    const me = await fetchMe(token);
 
-    setUser(result.user);
+    if (!me) {
+      removeToken();
+      throw new Error("Invalid token");
+    }
+
+    setUser(me);
     setIsAuthenticated(true);
   };
 
   const logout = () => {
     authService.logout();
-
     setUser(null);
     setIsAuthenticated(false);
   };
 
   return (
     <AuthContext.Provider
-      value={{
-        user,
-        isAuthenticated,
-        register,
-        login,
-        googleLogin,
-        logout,
-      }}
+      value={{ user, isAuthenticated, register, login, loginWithToken, logout }}
     >
       {children}
     </AuthContext.Provider>
@@ -88,12 +113,8 @@ export function AuthProvider({
 // eslint-disable-next-line react-refresh/only-export-components
 export function useAuth() {
   const context = useContext(AuthContext);
-
   if (!context) {
-    throw new Error(
-      "useAuth must be used inside AuthProvider"
-    );
+    throw new Error("useAuth must be used inside AuthProvider");
   }
-
   return context;
 }

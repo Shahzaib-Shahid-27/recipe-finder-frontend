@@ -4,17 +4,20 @@ import {
   type ChangeEvent,
   type FormEvent,
 } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
+import { Link, useNavigate,Navigate } from "react-router-dom";
+
+import GoogleButton from "../components/GoogleButton";
+
 import type { LoginForm } from "../types/auth";
 import axios from "axios";
 import { Eye, EyeOff } from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
 
-import { GoogleLogin as GoogleLoginButton } from "@react-oauth/google";
+import { useAuth } from "../context/AuthContext";
 
 export default function LoginPage() {
-  const { login, googleLogin } = useAuth();
+  const { user } = useAuth();
+  
   const navigate = useNavigate();
 
   const [form, setForm] = useState<LoginForm>({
@@ -48,7 +51,7 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      await login(form);
+
       navigate("/hompage");
     } catch (err: unknown) {
       if (axios.isAxiosError<{ message?: string }>(err)) {
@@ -65,6 +68,9 @@ export default function LoginPage() {
       setLoading(false);
     }
   }
+
+  if (loading) return <p className="p-8 text-center">Loading...</p>;
+  if (user) return <Navigate to="/" replace />;
 
   return (
     <main className="flex min-h-screen flex-col bg-[#F7F4EE] transition-colors duration-300 dark:bg-[#151A17]">
@@ -390,27 +396,12 @@ export default function LoginPage() {
                   </div>
                 </div>
 
-                <div className="mt-6 flex justify-center">
-                  <GoogleLoginButton
-                    onSuccess={async (credentialResponse) => {
-                      try {
-                        if (!credentialResponse.credential) {
-                          setError("Google authentication failed.");
-                          return;
-                        }
-
-                        await googleLogin(credentialResponse.credential);
-
-                        navigate("/hompage");
-                      } catch {
-                        setError("Unable to login with Google.");
-                      }
-                    }}
-                    onError={() => {
-                      setError("Google login failed.");
-                    }}
-                  />
-                </div>
+                
+                  <div className="w-full max-w-sm rounded-2xl bg-white p-2 shadow-lg">
+                    <h1 className="mb-6 text-center text-2xl font-semibold">Create your account</h1>
+                    <GoogleButton label="Sign in with Google" /> 
+                  </div>
+                
               </div>
 
 

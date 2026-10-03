@@ -1,19 +1,17 @@
 const ACCESS_TOKEN_KEY = "meal_app_access_token";
 const REFRESH_TOKEN_KEY = "meal_app_refresh_token";
 
-export function getToken(): string | null {
-  return localStorage.getItem(ACCESS_TOKEN_KEY);
-}
+const KEY = "token";
+
+export const getToken = () => localStorage.getItem(KEY);
 
 export function getRefreshToken(): string | null {
   return localStorage.getItem(REFRESH_TOKEN_KEY);
 }
 
-export function setToken(token: string | null): void {
-  if (token) {
-    localStorage.setItem(ACCESS_TOKEN_KEY, token);
-  }
-}
+export const setToken = (token: string) => localStorage.setItem(KEY, token);
+
+export const removeToken = () => localStorage.removeItem(KEY);
 
 export function setRefreshToken(token: string | null): void {
   if (token) {

@@ -1,6 +1,5 @@
-
 import { lazy, Suspense } from "react";
-import {BrowserRouter,Routes,Route,Outlet,} from "react-router-dom";
+import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 
 import { AuthProvider } from "./context/AuthContext";
 import { ThemeProvider } from "./context/ThemeContext";
@@ -12,6 +11,7 @@ const RegisterPage = lazy(() => import("./pages/RegisterPage"));
 const LoginPage = lazy(() => import("./pages/LoginPage"));
 const ForgotPasswordPage = lazy(() => import("./pages/ForgotPasswordPage"));
 const ResetPasswordPage = lazy(() => import("./pages/ResetPasswordPage"));
+const GoogleCallbackPage = lazy(() => import("./pages/GoogleCallbackPage"));
 
 // Main Pages
 const HomePage = lazy(() => import("./pages/HomePage"));
@@ -34,18 +34,15 @@ import ProtectedRoute from "./components/ProtectedRoute";
 
 import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
 import TermsOfServicePage from "./pages/TermsOfServicePage";
-
-// Main Layout
-// Header + Footer will only appear on protected pages
+import GoogleSuccessPage from "./pages/GoogleSuccessPage";
+// Header + Footer only appear on protected pages
 function MainLayout() {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-
       <main className="flex-1">
         <Outlet />
       </main>
-
       <Footer />
     </div>
   );
@@ -56,100 +53,37 @@ export default function App() {
     <ThemeProvider>
       <AuthProvider>
         <BrowserRouter>
-
-          {/* Scroll to top whenever route changes */}
           <ScrollToTop />
 
           <Suspense fallback={<div>Loading...</div>}>
             <Routes>
-
               {/* AUTHENTICATION PAGES */}
+              <Route path="/" element={<LoginPage />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/register" element={<RegisterPage />} />
+              <Route path="/google-success"element={<GoogleSuccessPage />}/>
+              <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+              <Route path="/reset-password" element={<ResetPasswordPage />} />
 
-              <Route
-                path="/"
-                element={<LoginPage />}
-              />
-
-              <Route
-                path="/login"
-                element={<LoginPage />}
-              />
-
-              <Route
-                path="/register"
-                element={<RegisterPage />}
-              />
-
-              <Route
-                path="/forgot-password"
-                element={<ForgotPasswordPage />}
-              />
-
-              <Route
-                path="/reset-password"
-                element={<ResetPasswordPage />}
-              />
-
+              {/* Google OAuth callback (must be public) */}
+              <Route path="/auth/google/callback" element={<GoogleCallbackPage />} />
 
               {/* PROTECTED PAGES - Login Required */}
-
               <Route element={<ProtectedRoute />}>
-
                 <Route element={<MainLayout />}>
-
-                  {/* Home */}
-                  <Route
-                    path="/hompage"
-                    element={<HomePage />}
-                  />
-
-                  {/* Menu */}
-                  <Route
-                    path="/MenuPage"
-                    element={<MenuPage />}
-                  />
-
-                  {/* Categories */}
-                  <Route
-                    path="/CategoryPage"
-                    element={<CategoryPage />}
-                  />
-
-                  {/* Meals of Category */}
-                  <Route
-                    path="/category/:category"
-                    element={<CategoryMealsPage />}
-                  />
-
-                  {/* All Meals */}
-                  <Route
-                    path="/MealsPage"
-                    element={<MealsPage />}
-                  />
-
-                  {/* Meal Ingredients / Details */}
-                  <Route
-                    path="/ingredients/:id"
-                    element={<IngredientsPage />}
-                  />
-
-                  {/* Search */}
-                  <Route
-                    path="/SearchPage"
-                    element={<SearchPage />}
-                  />
-
-
-                <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
-                <Route path="/terms" element={<TermsOfServicePage />} />
-
+                  <Route path="/hompage" element={<HomePage />} />
+                  <Route path="/MenuPage" element={<MenuPage />} />
+                  <Route path="/CategoryPage" element={<CategoryPage />} />
+                  <Route path="/category/:category" element={<CategoryMealsPage />} />
+                  <Route path="/MealsPage" element={<MealsPage />} />
+                  <Route path="/ingredients/:id" element={<IngredientsPage />} />
+                  <Route path="/SearchPage" element={<SearchPage />} />
+                  <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+                  <Route path="/terms" element={<TermsOfServicePage />} />
                 </Route>
-
               </Route>
-
             </Routes>
           </Suspense>
-
         </BrowserRouter>
       </AuthProvider>
     </ThemeProvider>
