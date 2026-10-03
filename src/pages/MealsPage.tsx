@@ -1,12 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import {
-  ArrowRight,
-  ChevronLeft,
-  ChevronRight,
-  ChefHat,
-  Loader2,
-} from "lucide-react";
+import { ArrowRight,ChevronLeft,ChevronRight,ChefHat,Loader2,} from "lucide-react";
 
 import type { Meal, RawMeal } from "../types/meal";
 

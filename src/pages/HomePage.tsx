@@ -1,10 +1,5 @@
 import { Link } from "react-router-dom";
-import {
-  ArrowRight,
-  ChefHat,
-  Search,
-  UtensilsCrossed,
-} from "lucide-react";
+import { ArrowRight,ChefHat,Search,UtensilsCrossed } from "lucide-react";
 
 export default function HomePage() {
   return (

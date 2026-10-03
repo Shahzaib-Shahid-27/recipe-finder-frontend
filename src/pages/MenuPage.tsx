@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { mealsService } from "../services/mealsService";
 import { motion, type Variants } from "framer-motion";
 import MealCard from "../components/MealCard";
-import { mealsService } from "../services/mealsService";
+import { useEffect, useState } from "react";
 import type { Meal } from "../types/meal";
 
 const cardVariants: Variants = {

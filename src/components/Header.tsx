@@ -8,9 +8,7 @@ import { useAuth } from "../context/AuthContext";
 function getInitialDarkMode() {
   const saved = localStorage.getItem("Butchertable-theme");
 
-  const dark =
-    saved === "dark" ||
-    (!saved && window.matchMedia("(prefers-color-scheme: dark)").matches);
+  const dark = saved === "dark" || (!saved && window.matchMedia("(prefers-color-scheme: dark)").matches);
 
   document.documentElement.classList.toggle("dark", dark);
 
@@ -60,7 +58,7 @@ export default function Header() {
   const handleLogout = async () => {
 
     try {
-      await logout();
+      logout();
 
       closeMenu();
 

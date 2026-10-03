@@ -70,17 +70,17 @@ export default function App() {
 
               {/* PROTECTED PAGES - Login Required */}
               <Route element={<ProtectedRoute />}>
-                <Route element={<MainLayout />}>
-                  <Route path="/hompage" element={<HomePage />} />
-                  <Route path="/MenuPage" element={<MenuPage />} />
-                  <Route path="/CategoryPage" element={<CategoryPage />} />
-                  <Route path="/category/:category" element={<CategoryMealsPage />} />
-                  <Route path="/MealsPage" element={<MealsPage />} />
-                  <Route path="/ingredients/:id" element={<IngredientsPage />} />
-                  <Route path="/SearchPage" element={<SearchPage />} />
-                  <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
-                  <Route path="/terms" element={<TermsOfServicePage />} />
-                </Route>
+                  <Route element={<MainLayout />}>
+                    <Route path="/hompage" element={<HomePage />} />
+                    <Route path="/MenuPage" element={<MenuPage />} />
+                    <Route path="/CategoryPage" element={<CategoryPage />} />
+                    <Route path="/category/:category" element={<CategoryMealsPage />} />
+                    <Route path="/MealsPage" element={<MealsPage />} />
+                    <Route path="/ingredients/:id" element={<IngredientsPage />} />
+                    <Route path="/SearchPage" element={<SearchPage />} />
+                    <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+                    <Route path="/terms" element={<TermsOfServicePage />} />
+                  </Route>
               </Route>
             </Routes>
           </Suspense>

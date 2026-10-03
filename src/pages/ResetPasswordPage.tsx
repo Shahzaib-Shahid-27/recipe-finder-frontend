@@ -1,16 +1,8 @@
-import {
-  useState,
-  type ChangeEvent,
-  type FormEvent,
-} from "react";
-import {
-  Link,
-  useNavigate,
-  useSearchParams,
-} from "react-router-dom";
-import axios from "axios";
-import { Eye, EyeOff } from "lucide-react";
+import { Link,useNavigate,useSearchParams  } from "react-router-dom";
+import {useState,type ChangeEvent,type FormEvent } from "react";
 import { useTheme } from "../context/ThemeContext";
+import { Eye, EyeOff } from "lucide-react";
+import axios from "axios";
 
 export default function ResetPasswordPage() {
   const navigate = useNavigate();
@@ -37,27 +29,19 @@ export default function ResetPasswordPage() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
-  function handleEmailChange(
-    e: ChangeEvent<HTMLInputElement>
-  ): void {
+  function handleEmailChange(e: ChangeEvent<HTMLInputElement>): void {
     setEmail(e.target.value);
   }
 
-  function handleNewPasswordChange(
-    e: ChangeEvent<HTMLInputElement>
-  ): void {
+  function handleNewPasswordChange(e: ChangeEvent<HTMLInputElement>): void {
     setNewPassword(e.target.value);
   }
 
-  function handleConfirmPasswordChange(
-    e: ChangeEvent<HTMLInputElement>
-  ): void {
+  function handleConfirmPasswordChange(e: ChangeEvent<HTMLInputElement>): void {
     setConfirmPassword(e.target.value);
   }
 
-  async function handleSubmit(
-    e: FormEvent<HTMLFormElement>
-  ): Promise<void> {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>): Promise<void> {
     e.preventDefault();
 
     setError("");

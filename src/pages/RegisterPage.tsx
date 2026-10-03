@@ -1,16 +1,11 @@
-import {
-  useState,
-  type ChangeEvent,
-  type FormEvent,
-} from "react";
-
-import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
-import type { RegisterForm } from "../types/auth";
-import axios from "axios";
-import { Eye, EyeOff } from "lucide-react";
-import { useTheme } from "../context/ThemeContext";
+import {useState,type ChangeEvent,type FormEvent,} from "react";
 import GoogleButton from "../components/GoogleButton";
+import { Link, useNavigate } from "react-router-dom";
+import { useTheme } from "../context/ThemeContext";
+import type { RegisterForm } from "../types/auth";
+import { useAuth } from "../context/AuthContext";
+import { Eye, EyeOff } from "lucide-react";
+import axios from "axios";
 
 interface RegisterPageForm extends RegisterForm {
   confirmPassword: string;
@@ -48,9 +43,7 @@ export default function RegisterPage() {
     }));
   }
 
-  async function handleSubmit(
-    e: FormEvent<HTMLFormElement>
-  ): Promise<void> {
+  async function handleSubmit( e: FormEvent<HTMLFormElement>): Promise<void> {
     e.preventDefault();
 
     setError("");

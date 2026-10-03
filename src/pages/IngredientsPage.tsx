@@ -1,12 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import {
-  ArrowLeft,
-  ChefHat,
-  ExternalLink,
-  MapPin,
-  Play,
-} from "lucide-react";
+import { ArrowLeft,ChefHat,ExternalLink,  MapPin,Play,} from "lucide-react";
 
 import type { Meal } from "../types/meal";
 

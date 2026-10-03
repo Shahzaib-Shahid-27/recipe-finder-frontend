@@ -1,7 +1,7 @@
-// import { useNavigate } from "react-router-dom";
+
 import { Link } from "react-router-dom";
 import type { Meal } from "../types/meal";
-// import IngredientsPage from "../pages/IngredientsPage"
+
 
 interface MealCardProps {
   meal: Meal;
@@ -9,12 +9,6 @@ interface MealCardProps {
 
 export default function MealCard({ meal }: MealCardProps) {
 
-  // const navigate = useNavigate();
-
-  // const handleViewIngredients = () => {
-  //   // navigate(`/meals/${meal.idMeal}/ingredients`);
-  //     navigate(`/ingredients/${meal.idMeal}`);
-  // };
 
   return (
     <article className="group flex gap-5 border-b border-[#E4DFD3] py-6 last:border-0">

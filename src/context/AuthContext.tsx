@@ -1,20 +1,9 @@
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-  type ReactNode,
-} from "react";
+import { createContext,useContext,useEffect,useState,type ReactNode } from "react"
 
 import { authService } from "../services/authService";
-import { getToken, setToken, removeToken } from "../utils/tokenStorage";
+import { getToken,setToken,removeToken} from "../utils/tokenStorage";
 
-import type {
-  AuthResult,
-  LoginForm,
-  RegisterForm,
-  User,
-} from "../types/auth";
+import type { AuthResult, LoginForm, RegisterForm, User } from "../types/auth";
 
 const API = import.meta.env.VITE_API_BASE_URL;
 
@@ -27,14 +16,15 @@ interface AuthContextValue {
   logout: () => void;
 }
 
-const AuthContext = createContext<AuthContextValue | undefined>(undefined);
+const AuthContext = createContext<AuthContextValue | undefined>(  undefined);
 
 async function fetchMe(token: string): Promise<User | null> {
+
   try {
-    const res = await fetch(`${API}/auth/get-profile`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+      const res = await fetch(`${API}/auth/get-profile`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
     });
 
     if (!res.ok) {
@@ -49,45 +39,81 @@ async function fetchMe(token: string): Promise<User | null> {
   }
 }
 
-export function AuthProvider({ children }: { children: ReactNode }) {
+export function AuthProvider({children,} : {
+  children: ReactNode;
+}) {
   const [user, setUser] = useState<User | null>(null);
-  const [isAuthenticated, setIsAuthenticated] = useState(!!getToken());
 
-  // Restore the user after a page refresh
+  const [isAuthenticated, setIsAuthenticated] =
+    useState(!!getToken());
+
+  // Restore user after page refresh
   useEffect(() => {
     const token = getToken();
-    if (!token) return;
+
+    if (!token) {
+      return;
+    }
 
     fetchMe(token).then((me) => {
       if (me) {
         setUser(me);
+        setIsAuthenticated(true);
       } else {
-        // token invalid or expired
         removeToken();
+        setUser(null);
         setIsAuthenticated(false);
       }
     });
   }, []);
 
-  const register = async (data: RegisterForm) => {
-    const result: AuthResult = await authService.register(data);
+  // Register
+  const register = async (
+    data: RegisterForm
+  ): Promise<void> => {
+    const result: AuthResult =
+      await authService.register(data);
+
+    // Save token if backend returns one
+    if (result.tokens?.accessToken) {
+      setToken(result.tokens.accessToken);
+    }
+
     setUser(result.user);
     setIsAuthenticated(true);
   };
 
-  const login = async (data: LoginForm) => {
-    const result: AuthResult = await authService.login(data);
+  // Login
+  const login = async (
+    data: LoginForm
+  ): Promise<void> => {
+    // If login fails, this line throws an error.
+    // Therefore the code below will NOT execute.
+    const result: AuthResult =
+      await authService.login(data);
+
+    // Only runs when login is successful
+    if (result.tokens?.accessToken) {
+      setToken(result.tokens.accessToken);
+    }
+
     setUser(result.user);
     setIsAuthenticated(true);
   };
 
   // Used after Google redirects back with a token
-  const loginWithToken = async (token: string) => {
+  const loginWithToken = async (
+    token: string
+  ): Promise<void> => {
     setToken(token);
+
     const me = await fetchMe(token);
 
     if (!me) {
       removeToken();
+      setUser(null);
+      setIsAuthenticated(false);
+
       throw new Error("Invalid token");
     }
 
@@ -95,15 +121,25 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setIsAuthenticated(true);
   };
 
-  const logout = () => {
+  // Logout
+  const logout = (): void => {
     authService.logout();
+
+    removeToken();
     setUser(null);
     setIsAuthenticated(false);
   };
 
   return (
     <AuthContext.Provider
-      value={{ user, isAuthenticated, register, login, loginWithToken, logout }}
+      value={{
+        user,
+        isAuthenticated,
+        register,
+        login,
+        loginWithToken,
+        logout,
+      }}
     >
       {children}
     </AuthContext.Provider>
@@ -113,8 +149,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 // eslint-disable-next-line react-refresh/only-export-components
 export function useAuth() {
   const context = useContext(AuthContext);
+
   if (!context) {
-    throw new Error("useAuth must be used inside AuthProvider");
+    throw new Error(
+      "useAuth must be used inside AuthProvider"
+    );
   }
+
   return context;
 }

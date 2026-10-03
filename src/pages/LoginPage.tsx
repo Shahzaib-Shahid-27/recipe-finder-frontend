@@ -1,23 +1,22 @@
-
 import {
   useState,
   type ChangeEvent,
   type FormEvent,
 } from "react";
-import { Link, useNavigate,Navigate } from "react-router-dom";
-
+import {
+  Link,
+  Navigate,
+  useNavigate,
+} from "react-router-dom";
 import GoogleButton from "../components/GoogleButton";
-
 import type { LoginForm } from "../types/auth";
 import axios from "axios";
 import { Eye, EyeOff } from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
-
 import { useAuth } from "../context/AuthContext";
 
 export default function LoginPage() {
-  const { user } = useAuth();
-  
+  const { user, login } = useAuth();
   const navigate = useNavigate();
 
   const [form, setForm] = useState<LoginForm>({
@@ -42,40 +41,53 @@ export default function LoginPage() {
     }));
   }
 
-  async function handleSubmit(
-    e: FormEvent<HTMLFormElement>
-  ): Promise<void> {
-    e.preventDefault();
+async function handleSubmit(
+  e: FormEvent<HTMLFormElement>
+): Promise<void> {
+  e.preventDefault();
 
-    setError("");
-    setLoading(true);
+  setError("");
+  setLoading(true);
 
-    try {
+  try {
+    // Login request
+    await login({
+      email: form.email,
+      password: form.password,
+    });
 
-      navigate("/hompage");
-    } catch (err: unknown) {
-      if (axios.isAxiosError<{ message?: string }>(err)) {
-        setError(
-          err.response?.data?.message ||
-            "Invalid email or password."
-        );
-      } else if (err instanceof Error) {
-        setError(err.message);
-      } else {
-        setError("Invalid email or password.");
-      }
-    } finally {
-      setLoading(false);
+    // Only runs if login was successful
+    navigate("/homepage");
+  } catch (err: unknown) {
+    // Login failed — stay on login page
+    if (axios.isAxiosError<{ message?: string }>(err)) {
+      setError(
+        err.response?.data?.message ||
+          "Invalid email or password."
+      );
+    } else if (err instanceof Error) {
+      setError(err.message);
+    } else {
+      setError("Invalid email or password.");
     }
+  } finally {
+    setLoading(false);
   }
+}
 
-  if (loading) return <p className="p-8 text-center">Loading...</p>;
-  if (user) return <Navigate to="/" replace />;
+
+
+  // If the user is already logged in,
+  // don't show the login page.
+  if (user) {
+    return <Navigate to="/hompage" replace />;
+  }
 
   return (
     <main className="flex min-h-screen flex-col bg-[#F7F4EE] transition-colors duration-300 dark:bg-[#151A17]">
 
       {/* ================= HEADER ================= */}
+
       <header
         className="
           border-b
@@ -92,6 +104,7 @@ export default function LoginPage() {
         <div className="mx-auto flex max-w-6xl items-center justify-between">
 
           {/* Logo */}
+
           <Link
             to="/hompage"
             className="
@@ -108,10 +121,9 @@ export default function LoginPage() {
             </span>
           </Link>
 
-          {/* Header Buttons */}
-          <div className="flex items-center gap-3">
+          {/* Dark Mode */}
 
-            {/* Dark Mode Button */}
+          <div className="flex items-center gap-3">
             <button
               type="button"
               onClick={toggleDarkMode}
@@ -133,17 +145,18 @@ export default function LoginPage() {
             >
               {darkMode ? "☀️" : "🌙"}
             </button>
-
           </div>
         </div>
       </header>
 
       {/* ================= LOGIN SECTION ================= */}
+
       <section className="flex flex-1 items-center justify-center px-6 py-16">
 
         <div className="w-full max-w-md">
 
           {/* Welcome */}
+
           <div className="text-center">
 
             <h1
@@ -172,6 +185,7 @@ export default function LoginPage() {
           </div>
 
           {/* Login Card */}
+
           <div
             className="
               mt-8
@@ -194,6 +208,7 @@ export default function LoginPage() {
             >
 
               {/* Email */}
+
               <label className="block">
 
                 <span
@@ -215,6 +230,7 @@ export default function LoginPage() {
                   placeholder="you@example.com"
                   autoComplete="email"
                   required
+                  disabled={loading}
                   className="
                     mt-2
                     w-full
@@ -229,16 +245,15 @@ export default function LoginPage() {
                     outline-none
                     transition
                     placeholder:text-[#9B9688]
-
                     focus:border-[#1f3d2e]
                     focus:ring-2
                     focus:ring-[#1f3d2e]/10
-
+                    disabled:cursor-not-allowed
+                    disabled:opacity-60
                     dark:border-[#46534B]
                     dark:bg-[#171D19]
                     dark:text-[#E1E6E2]
                     dark:placeholder:text-[#777F79]
-
                     dark:focus:border-[#E8A33D]
                     dark:focus:ring-[#E8A33D]/10
                   "
@@ -247,6 +262,7 @@ export default function LoginPage() {
               </label>
 
               {/* Password */}
+
               <label className="block">
 
                 <div className="flex items-center justify-between">
@@ -277,7 +293,6 @@ export default function LoginPage() {
 
                 </div>
 
-                {/* Password Input */}
                 <div className="relative mt-2">
 
                   <input
@@ -292,6 +307,7 @@ export default function LoginPage() {
                     placeholder="Your password"
                     autoComplete="current-password"
                     required
+                    disabled={loading}
                     className="
                       w-full
                       rounded-lg
@@ -305,16 +321,15 @@ export default function LoginPage() {
                       text-[#2B2620]
                       outline-none
                       transition
-
                       focus:border-[#1f3d2e]
                       focus:ring-2
                       focus:ring-[#1f3d2e]/10
-
+                      disabled:cursor-not-allowed
+                      disabled:opacity-60
                       dark:border-[#46534B]
                       dark:bg-[#171D19]
                       dark:text-[#E1E6E2]
                       dark:placeholder:text-[#777F79]
-
                       dark:focus:border-[#E8A33D]
                       dark:focus:ring-[#E8A33D]/10
                     "
@@ -322,6 +337,7 @@ export default function LoginPage() {
 
                   <button
                     type="button"
+                    disabled={loading}
                     onClick={() =>
                       setShowPassword(
                         (current) => !current
@@ -335,6 +351,8 @@ export default function LoginPage() {
                       text-[#6B6656]
                       transition-colors
                       hover:text-[#1f3d2e]
+                      disabled:cursor-not-allowed
+                      disabled:opacity-50
                       dark:text-[#A8B0AA]
                       dark:hover:text-[#E8A33D]
                     "
@@ -356,6 +374,7 @@ export default function LoginPage() {
               </label>
 
               {/* Error */}
+
               {error && (
                 <div
                   className="
@@ -381,31 +400,68 @@ export default function LoginPage() {
                 </div>
               )}
 
-              
-              {/* Login wih google */}
+              {/* Google Login */}
+
               <div className="mt-6">
+
                 <div className="relative">
+
                   <div className="absolute inset-0 flex items-center">
                     <div className="w-full border-t border-[#E4DFD3] dark:border-[#38433D]" />
                   </div>
 
                   <div className="relative flex justify-center">
-                    <span className="bg-white px-3 text-sm text-[#6B6656] dark:bg-[#202923] dark:text-[#A8B0AA]">
+
+                    <span
+                      className="
+                        bg-white
+                        px-3
+                        text-sm
+                        text-[#6B6656]
+                        dark:bg-[#202923]
+                        dark:text-[#A8B0AA]
+                      "
+                    >
                       OR
                     </span>
+
                   </div>
+
                 </div>
 
-                
-                  <div className="w-full max-w-sm rounded-2xl bg-white p-2 shadow-lg">
-                    <h1 className="mb-6 text-center text-2xl font-semibold">Create your account</h1>
-                    <GoogleButton label="Sign in with Google" /> 
-                  </div>
-                
+                <div
+                  className="
+                    mt-5
+                    w-full
+                    rounded-2xl
+                    bg-white
+                    p-2
+                    shadow-lg
+                    dark:bg-[#202923]
+                  "
+                >
+
+                  <h2
+                    className="
+                      mb-6
+                      text-center
+                      text-2xl
+                      font-semibold
+                      text-[#2B2620]
+                      dark:text-[#E1E6E2]
+                    "
+                  >
+                    Sign in with Google
+                  </h2>
+
+                  <GoogleButton label="Sign in with Google" />
+
+                </div>
+
               </div>
 
-
               {/* Login Button */}
+
               <button
                 type="submit"
                 disabled={loading}
@@ -434,6 +490,7 @@ export default function LoginPage() {
             </form>
 
             {/* Register */}
+
             <p
               className="
                 mt-7
@@ -456,13 +513,17 @@ export default function LoginPage() {
               >
                 Sign up
               </Link>
+
             </p>
 
           </div>
+
         </div>
+
       </section>
 
       {/* ================= FOOTER ================= */}
+
       <footer
         className="
           border-t
@@ -476,6 +537,7 @@ export default function LoginPage() {
           dark:bg-[#202923]
         "
       >
+
         <div className="mx-auto max-w-6xl text-center">
 
           <p
@@ -501,6 +563,7 @@ export default function LoginPage() {
           </p>
 
         </div>
+
       </footer>
 
     </main>

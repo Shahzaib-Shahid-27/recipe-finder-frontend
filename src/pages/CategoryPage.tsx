@@ -77,7 +77,6 @@ export default function CategoryPage() {
 
   // =========================
   // LOADING
-  // =========================
 
   if (loading) {
     return (
@@ -98,7 +97,6 @@ export default function CategoryPage() {
 
   // =========================
   // ERROR
-  // =========================
 
   if (error) {
     return (
@@ -131,7 +129,6 @@ export default function CategoryPage() {
 
   // =========================
   // PAGE
-  // =========================
 
   return (
     <main className="min-h-screen bg-[#F7F4EE] px-6 py-10">

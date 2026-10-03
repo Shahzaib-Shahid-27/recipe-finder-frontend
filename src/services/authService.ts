@@ -1,16 +1,11 @@
 import { authApi } from "../api/authApi";
 import { mapAuthResponse } from "../mappers/authMapper";
-import {
-  setToken,
-  clearToken,
-} from "../utils/tokenStorage";
+import { setToken,clearToken,} from "../utils/tokenStorage";
 
 import type {AuthResult,LoginForm,PasswordResetRequest,RegisterForm,} from "../types/auth";
 
 export const authService = {
-  async register(
-    data: RegisterForm
-  ): Promise<AuthResult> {
+  async register( data: RegisterForm): Promise<AuthResult> {
     const response = await authApi.register(data);
 
     const result = mapAuthResponse(response.data);
@@ -22,9 +17,7 @@ export const authService = {
     return result;
   },
 
-  async login(
-    data: LoginForm
-  ): Promise<AuthResult> {
+  async login(data: LoginForm): Promise<AuthResult> {
     const response = await authApi.login(data);
 
     const result = mapAuthResponse(response.data);
@@ -36,9 +29,7 @@ export const authService = {
     return result;
   },
 
-  async googleLogin(
-    credential: string
-  ): Promise<AuthResult> {
+  async googleLogin( credential: string): Promise<AuthResult> {
     const response =
       await authApi.googleLogin(credential);
 
@@ -51,9 +42,7 @@ export const authService = {
     return result;
   },
 
-  async forgotPassword(
-    email: string
-  ): Promise<string> {
+  async forgotPassword( email: string): Promise<string> {
     const { data } =
       await authApi.forgotPassword(email);
 
@@ -63,9 +52,7 @@ export const authService = {
     );
   },
 
-  async resetPassword(
-    data: PasswordResetRequest
-  ): Promise<string> {
+  async resetPassword(data: PasswordResetRequest): Promise<string> {
     const response =
       await authApi.resetPassword(data);
 

@@ -1,11 +1,6 @@
 import { FormEvent, useState } from "react";
 import { Link } from "react-router-dom";
-import {
-  ArrowRight,
-  Loader2,
-  Search,
-  ChefHat,
-} from "lucide-react";
+import {ArrowRight,Loader2,Search,ChefHat} from "lucide-react";
 
 interface Meal {
   idMeal: string;
