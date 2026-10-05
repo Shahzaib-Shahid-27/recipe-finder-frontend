@@ -31,11 +31,11 @@ import Footer from "./components/Footer";
 
 // Protected Route
 import ProtectedRoute from "./components/ProtectedRoute";
-
 import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
 import TermsOfServicePage from "./pages/TermsOfServicePage";
 import GoogleSuccessPage from "./pages/GoogleSuccessPage";
-// Header + Footer only appear on protected pages
+
+
 function MainLayout() {
   return (
     <div className="min-h-screen flex flex-col">
@@ -55,6 +55,7 @@ export default function App() {
         <BrowserRouter>
           <ScrollToTop />
 
+
           <Suspense fallback={<div>Loading...</div>}>
             <Routes>
               {/* AUTHENTICATION PAGES */}
@@ -65,8 +66,10 @@ export default function App() {
               <Route path="/forgot-password" element={<ForgotPasswordPage />} />
               <Route path="/reset-password" element={<ResetPasswordPage />} />
 
+
               {/* Google OAuth callback (must be public) */}
               <Route path="/auth/google/callback" element={<GoogleCallbackPage />} />
+
 
               {/* PROTECTED PAGES - Login Required */}
               <Route element={<ProtectedRoute />}>
